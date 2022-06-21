@@ -25,3 +25,6 @@ replay_pid*
 
 #MacOS finder
 *.DS_Store
+
+#DataGrip files
+.idea/*
