@@ -19,8 +19,6 @@ INSERT INTO SCUDERIA(Nome)
         ('Williams'),
         ('Aston Martin');
 
-delete from PILOTA where true;
-
 INSERT INTO GRAN_PREMIO(Stato, Nome, NumeroGiri, LunghezzaCircuito)
     VALUES
         ('Italia', 'Monza', 70, 3000),
@@ -237,17 +235,6 @@ VALUES
     (2022, '2022-05-22', 'Ferrari',         9000000),
     (2022, '2022-05-22', 'Renault',        8000000),
     (2022, '2022-05-22', 'Red Bull',        7000000);
-
-
-
-delete from SQUADRA where true;
-delete from SCELTA_PILOTA where true;
-
-SELECT * FROM SQUADRA;
-SELECT * FROM SCELTA_PILOTA;
-
-
-
 
 # O4 - Visualizzazione della Squadra per un certo Gran Premio
 SELECT *
