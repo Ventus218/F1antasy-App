@@ -31,7 +31,3 @@ WHERE AnnoCampionato = 2021
 AND DataGranPremio = '2021-05-29';
 
 delete from RISULTATO_PILOTA where true;
-
-
-
-
