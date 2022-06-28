@@ -1,7 +1,15 @@
 # O3 - Visualizzazione della Squadra per un certo Gran Premio
-SELECT *
-FROM UTENTE U JOIN GRAN_PREMIO_PROGRAMMATO GPP JOIN SCELTA_PILOTA SP
-ON (SP.UsernameUtente = U.Username AND SP.AnnoCampionato = GPP.AnnoCampionato AND SP.DataGranPremio = GPP.DATA)
+SELECT P.*
+FROM UTENTE U JOIN SQUADRA S JOIN SCELTA_PILOTA SP JOIN PILOTA P
+    ON U.Username = S.UsernameUtente
+    AND SP.UsernameUtente = U.Username AND SP.AnnoCampionato = S.AnnoCampionato AND SP.DataGranPremio = S.DataGranPremio
+    AND P.Codice = SP.CodicePilota
 WHERE U.Username = 'CiccioCarluz'
-AND GPP.AnnoCampionato = 2021
-AND GPP.Data = '2021-05-22';
+AND S.AnnoCampionato = 2021
+AND S.DataGranPremio = '2021-05-22';
+
+SELECT S.NomeMotorizzazione
+FROM SQUADRA S
+WHERE S.UsernameUtente = 'CiccioCarluz'
+AND S.AnnoCampionato = 2021
+AND S.DataGranPremio = '2021-05-22';
