@@ -9,7 +9,7 @@ INSERT INTO PREZZO_PILOTA(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo)
         AND RP.Posizione = P.Posizione
     WHERE PP.AnnoCampionato = 2021
     AND PP.DataGranPremio = '2021-05-22'
-    UNION
+    UNION ALL
     SELECT 2021, '2021-05-29', PP.CodicePilota, (PP.Prezzo -1500000) AS NuovoPrezzo
     FROM PREZZO_PILOTA PP JOIN RISULTATO_PILOTA RP
         ON PP.AnnoCampionato = RP.AnnoCampionato

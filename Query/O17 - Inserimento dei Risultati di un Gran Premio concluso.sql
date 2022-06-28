@@ -33,7 +33,7 @@ INSERT INTO RISULTATO_MOTORIZZAZIONE(AnnoCampionato, DataGranPremio, NomeMotoriz
                 AND RP.Posizione = PP.Posizione
             WHERE RP.AnnoCampionato = 2021
             AND RP.DataGranPremio = '2021-05-22'
-            UNION
+            UNION ALL
             SELECT SP.NomeMotorizzazione, 0  AS PunteggioMotorizzazione
             FROM SCUDERIA_PARTECIPANTE SP JOIN INGAGGIO_PILOTA IP JOIN RISULTATO_PILOTA RP
                 ON SP.AnnoCampionato = IP.AnnoCampionato AND SP.NomeScuderia = IP.NomeScuderia

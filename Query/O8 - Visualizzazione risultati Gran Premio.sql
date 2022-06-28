@@ -7,7 +7,7 @@ FROM Pilota P JOIN POSIZIONE_PUNTEGGIO PP JOIN risultato_pilota RP
 WHERE RP.AnnoCampionato='2021'
 AND RP.DataGranPremio='2021-05-22'
 #ORDER BY PP.Punteggio DESC
-UNION
+UNION ALL
 SELECT P.Nome, P.Cognome, 0 AS Punteggio
 FROM Pilota P JOIN risultato_pilota RP
     ON P.Codice = RP.CodicePilota
