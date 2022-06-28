@@ -14,10 +14,10 @@ VALUE
 
 INSERT INTO SCELTA_PILOTA(CodicePilota, AnnoCampionato, DataGranPremio, UsernameUtente)
 VALUES
-    (1, 2021, '2021-05-22', 'CiccioCarluz'),
-    (2, 2021, '2021-05-22', 'CiccioCarluz'),
-    (3, 2021, '2021-05-22', 'CiccioCarluz'),
-    (4, 2021, '2021-05-22', 'CiccioCarluz');
+    (9, 2021, '2021-05-22', 'CiccioCarluz'),
+    (13, 2021, '2021-05-22', 'CiccioCarluz'),
+    (18, 2021, '2021-05-22', 'CiccioCarluz'),
+    (16, 2021, '2021-05-22', 'CiccioCarluz');
 
 UPDATE SQUADRA
 set  BudgetRimanente = BudgetRimanente - (select sum(Prezzo) as PrezzoTotale from PREZZO_PILOTA
@@ -34,9 +34,10 @@ ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK (SQUADRA.BudgetRimanente >= 0)
 
 # Usefull for changing scelta_pilota
 /*
-DELETE FROM scelta_pilota
-    WHERE UsernameUtente = 'CiccioCarluz'
-    AND AnnoCampionato = 2021
-    AND DataGranPremio = '2021-05-22';
+DELETE FROM squadra
+WHERE UsernameUtente = 'CiccioCarluz'
+AND AnnoCampionato = 2021
+AND DataGranPremio = '2021-05-22';
 */
+
 
