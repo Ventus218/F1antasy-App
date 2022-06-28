@@ -23,7 +23,7 @@ UPDATE SQUADRA
 set  BudgetRimanente = BudgetRimanente - (select sum(Prezzo) as PrezzoTotale from PREZZO_PILOTA
                                                                     where AnnoCampionato = 2021
                                                                     and DataGranPremio = '2021-05-22'
-                                                                    and (CodicePilota = 1 or CodicePilota = 2 or CodicePilota = 3 or CodicePilota = 4))
+                                                                    and (CodicePilota = 9 or CodicePilota = 13 or CodicePilota = 18 or CodicePilota = 16))
 where AnnoCampionato = 2021
 and DataGranPremio = '2021-05-22'
 and UsernameUtente = 'CiccioCarluz';
@@ -31,3 +31,12 @@ COMMIT;
 
 ALTER TABLE SQUADRA
 ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK (SQUADRA.BudgetRimanente >= 0);
+
+# Usefull for changing scelta_pilota
+/*
+DELETE FROM scelta_pilota
+    WHERE UsernameUtente = 'CiccioCarluz'
+    AND AnnoCampionato = 2021
+    AND DataGranPremio = '2021-05-22';
+*/
+

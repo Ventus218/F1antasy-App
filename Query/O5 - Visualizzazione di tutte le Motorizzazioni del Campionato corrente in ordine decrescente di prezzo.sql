@@ -1,3 +1,4 @@
+# O5 - Visualizzazione di tutte le Motorizzazioni del Campionato corrente in ordine decrescente di prezzo
 SELECT pm.NomeMotorizzazione, pm.Prezzo
 FROM prezzo_motorizzazione pm
 WHERE pm.AnnoCampionato = (SELECT gpp.AnnoCampionato
