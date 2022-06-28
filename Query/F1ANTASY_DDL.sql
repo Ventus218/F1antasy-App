@@ -169,95 +169,163 @@ create table UTENTE (
 
 alter table GRAN_PREMIO_PROGRAMMATO add constraint FKSVOLGIMENTO
      foreign key (Stato, Nome)
-     references GRAN_PREMIO (Stato, Nome);
+     references GRAN_PREMIO (Stato, Nome)
+     on delete cascade
+     on update cascade;
 
 alter table GRAN_PREMIO_PROGRAMMATO add constraint FKCOMPOSIZIONE
      foreign key (AnnoCampionato)
-     references CAMPIONATO (Anno);
+     references CAMPIONATO (Anno)
+     on delete cascade
+     on update cascade;
+
 
 alter table INGAGGIO_PILOTA add constraint FKING_PIL
      foreign key (CodicePilota)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 alter table INGAGGIO_PILOTA add constraint FKING_SCU
      foreign key (AnnoCampionato, NomeScuderia)
-     references SCUDERIA_PARTECIPANTE (AnnoCampionato, NomeScuderia);
+     references SCUDERIA_PARTECIPANTE (AnnoCampionato, NomeScuderia)
+     on delete cascade
+     on update cascade;
+
 
 alter table PREZZO_MOTORIZZAZIONE add constraint FKPRE_MOT
      foreign key (NomeMotorizzazione)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table PREZZO_MOTORIZZAZIONE add constraint FKGRA_PRE_MOT
      foreign key (AnnoCampionato, DataGranPremio)
-     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data);
+     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data)
+     on delete cascade
+     on update cascade;
+
 
 alter table PREZZO_PILOTA add constraint FKPRE_PIL
      foreign key (CodicePilota)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 alter table PREZZO_PILOTA add constraint FKGRA_PRE_PIL
      foreign key (AnnoCampionato, DataGranPremio)
-     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data);
+     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data)
+     on delete cascade
+     on update cascade;
+
 
 alter table REGISTRAZIONE add constraint FKREG_CLA
      foreign key (NomeClassificaPrivata)
-     references CLASSIFICA_PRIVATA (Nome);
+     references CLASSIFICA_PRIVATA (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table REGISTRAZIONE add constraint FKREG_UTE
      foreign key (UsernameUtente)
-     references UTENTE (Username);
+     references UTENTE (Username)
+     on delete cascade
+     on update cascade;
+
 
 alter table RISULTATO_MOTORIZZAZIONE add constraint FKRIS_MOT
      foreign key (NomeMotorizzazione)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table RISULTATO_MOTORIZZAZIONE add constraint FKRIS_GRA_MOT
      foreign key (AnnoCampionato, DataGranPremio)
-     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data);
+     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data)
+     on delete cascade
+     on update cascade;
+
 
 alter table RISULTATO_PILOTA add constraint FKRIS_PIL
      foreign key (CodicePilota)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 alter table RISULTATO_PILOTA add constraint FKPOSIZIONAMENTO
      foreign key (Posizione)
-     references POSIZIONE_PUNTEGGIO (Posizione);
+     references POSIZIONE_PUNTEGGIO (Posizione)
+     on delete cascade
+     on update cascade;
+
 
 alter table RISULTATO_PILOTA add constraint FKRISULTATO
      foreign key (AnnoCampionato, DataGranPremio)
-     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data);
+     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_MOTORIZZAZIONE add constraint FKCESSIONE_MOTORIZZAZIONE
      foreign key (MotorizzazioneCeduta)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_MOTORIZZAZIONE add constraint FKACQUISTO_MOTORIZZAZIONE
      foreign key (MotorizzazioneAcquisita)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_MOTORIZZAZIONE add constraint FKSCAMBI_MOTORIZZAZIONE
      foreign key (AnnoCampionato, DataGranPremio, UsernameUtente)
-     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente);
+     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_PILOTA add constraint FKACQUISTO_PILOTA
      foreign key (PilotaCeduto)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_PILOTA add constraint FKCESSIONE_PILOTA
      foreign key (PilotaAcquisito)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCAMBIO_PILOTA add constraint FKSCAMBI_PILOTA
      foreign key (AnnoCampionato, DataGranPremio, UsernameUtente)
-     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente);
+     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCELTA_PILOTA add constraint FKSCE_SQU
      foreign key (AnnoCampionato, DataGranPremio, UsernameUtente)
-     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente);
+     references SQUADRA (AnnoCampionato, DataGranPremio, UsernameUtente)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCELTA_PILOTA add constraint FKSCE_PIL
      foreign key (CodicePilota)
-     references PILOTA (Codice);
+     references PILOTA (Codice)
+     on delete cascade
+     on update cascade;
+
 
 -- Not implemented
 -- alter table SCUDERIA_PARTECIPANTE add constraint IDSCUDERIA_IN_CAMPIONATO_CHK
@@ -266,15 +334,24 @@ alter table SCELTA_PILOTA add constraint FKSCE_PIL
 
 alter table SCUDERIA_PARTECIPANTE add constraint FKPARTECIPAZIONE
      foreign key (NomeScuderia)
-     references SCUDERIA (Nome);
+     references SCUDERIA (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCUDERIA_PARTECIPANTE add constraint FKUTILIZZO_MOTORIZZAZIONE
      foreign key (NomeMotorizzazione)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 alter table SCUDERIA_PARTECIPANTE add constraint FKISCRIZIONE_FK
      foreign key (AnnoCampionato)
-     references CAMPIONATO (Anno);
+     references CAMPIONATO (Anno)
+     on delete cascade
+     on update cascade;
+
 
 -- Not implemented
 -- alter table SQUADRA add constraint IDSQUADRA_CHK
@@ -283,15 +360,24 @@ alter table SCUDERIA_PARTECIPANTE add constraint FKISCRIZIONE_FK
 
 alter table SQUADRA add constraint FKCOSTRUZIONE
      foreign key (UsernameUtente)
-     references UTENTE (Username);
+     references UTENTE (Username)
+     on delete cascade
+     on update cascade;
+
 
 alter table SQUADRA add constraint FKCOMPETIZIONE
      foreign key (AnnoCampionato, DataGranPremio)
-     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data);
+     references GRAN_PREMIO_PROGRAMMATO (AnnoCampionato, Data)
+     on delete cascade
+     on update cascade;
+
 
 alter table SQUADRA add constraint FKSCELTA_MOTORIZZAZIONE
      foreign key (NomeMotorizzazione)
-     references MOTORIZZAZIONE (Nome);
+     references MOTORIZZAZIONE (Nome)
+     on delete cascade
+     on update cascade;
+
 
 
 -- Index Section
