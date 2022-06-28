@@ -1,4 +1,4 @@
-Insert INTO risultato_pilota(CodicePilota, Posizione, AnnoCampionato, DataGranPremio)
+INSERT INTO RISULTATO_PILOTA(CodicePilota, Posizione, AnnoCampionato, DataGranPremio)
     VALUES
         (1, 1, 2021, '2021-05-22'),
         (3, 2, 2021, '2021-05-22'),
@@ -21,7 +21,31 @@ Insert INTO risultato_pilota(CodicePilota, Posizione, AnnoCampionato, DataGranPr
         (18, NULL, 2021, '2021-05-22'),
         (20, NULL, 2021, '2021-05-22');
 
-UPDATE gran_premio_programmato
+INSERT INTO RISULTATO_MOTORIZZAZIONE(AnnoCampionato, DataGranPremio, NomeMotorizzazione, PunteggioOttenuto)
+    SELECT 2021 AS AnnoCampionato, '2021-05-22' AS DataGranPremio, T.NomeMotorizzazione, CAST(AVG(T.Punteggio) AS DECIMAL(0)) AS PunteggioMotorizzazione
+    FROM (
+            SELECT SP.NomeMotorizzazione, PP.Punteggio
+            FROM SCUDERIA_PARTECIPANTE SP JOIN INGAGGIO_PILOTA IP JOIN RISULTATO_PILOTA RP JOIN POSIZIONE_PUNTEGGIO PP
+                ON SP.AnnoCampionato = IP.AnnoCampionato AND SP.NomeScuderia = IP.NomeScuderia
+                AND RP.AnnoCampionato = SP.AnnoCampionato
+                AND IP.CodicePilota = RP.CodicePilota
+                AND RP.Posizione = PP.Posizione
+            WHERE RP.AnnoCampionato = 2021
+            AND RP.DataGranPremio = '2021-05-22'
+            UNION
+            SELECT SP.NomeMotorizzazione, 0  AS PunteggioMotorizzazione
+            FROM SCUDERIA_PARTECIPANTE SP JOIN INGAGGIO_PILOTA IP JOIN RISULTATO_PILOTA RP
+                ON SP.AnnoCampionato = IP.AnnoCampionato AND SP.NomeScuderia = IP.NomeScuderia
+                AND RP.AnnoCampionato = SP.AnnoCampionato
+                AND IP.CodicePilota = RP.CodicePilota
+            WHERE RP.AnnoCampionato = 2021
+            AND RP.DataGranPremio = '2021-05-22'
+            AND RP.Posizione IS NULL
+             ) AS T
+    GROUP BY T.NomeMotorizzazione;
+
+
+UPDATE GRAN_PREMIO_PROGRAMMATO
 SET Concluso = TRUE
 WHERE AnnoCampionato = 2021
 AND Data = '2021-05-22';
