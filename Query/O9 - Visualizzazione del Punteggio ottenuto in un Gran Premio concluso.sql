@@ -1,5 +1,6 @@
 # O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
-SELECT SUM(t.Punteggio) as puntrggio_tot
+
+SELECT SUM(t.Punteggio) as punteggio_tot
 FROM (SELECT pp.Punteggio
       FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s
           JOIN scelta_pilota sp JOIN risultato_pilota rp JOIN posizione_punteggio pp
