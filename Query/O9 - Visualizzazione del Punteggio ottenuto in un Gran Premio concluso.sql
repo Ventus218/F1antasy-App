@@ -14,7 +14,7 @@ FROM (SELECT pp.Punteggio
                     AND rp.CodicePilota = sp.CodicePilota
                     AND rp.Posizione = pp.Posizione)
       WHERE gpp.AnnoCampionato = '2021'
-        AND gpp.Data = '2021-05-29'
+        AND gpp.Data = '2021-05-22'
         AND u.Username = 'CiccioCarluz'
       UNION ALL
       SELECT rm.PunteggioOttenuto
@@ -26,7 +26,7 @@ FROM (SELECT pp.Punteggio
                 AND rm.DataGranPremio = s.DataGranPremio
                 AND rm.NomeMotorizzazione = s.NomeMotorizzazione)
       WHERE gpp.AnnoCampionato = '2021'
-        AND gpp.Data = '2021-05-29'
+        AND gpp.Data = '2021-05-22'
         AND u.Username = 'CiccioCarluz') AS t;
 
 # assuming that the drivers who do not finish do not score points
