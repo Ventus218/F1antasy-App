@@ -1,4 +1,5 @@
 # O17 - Inserimento dei Risultati di un Gran Premio concluso
+
 INSERT INTO RISULTATO_PILOTA(CodicePilota, Posizione, AnnoCampionato, DataGranPremio)
     VALUES
         (1, 1, 2021, '2021-05-22'),
