@@ -29,8 +29,11 @@ and DataGranPremio = '2021-05-22'
 and UsernameUtente = 'CiccioCarluz';
 COMMIT;
 
+# Useful to add in DDL
+/*
 ALTER TABLE SQUADRA
 ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK (SQUADRA.BudgetRimanente >= 0);
+*/
 
 # Usefull for changing scelta_pilota
 /*
