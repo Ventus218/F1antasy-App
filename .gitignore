@@ -28,3 +28,9 @@ replay_pid*
 
 #DataGrip files
 .idea/*
+
+#Intellij
+F1antasy_app/out
+F1antasy_app/.idea/workspace.xml
+F1antasy_app/.idea/*.iws
+F1antasy_app/.idea/tasks.xml
