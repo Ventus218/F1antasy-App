@@ -1,0 +1,9 @@
+.homeBG {
+    -fx-background-color: linear-gradient(to bottom, rgb(28, 2, 2) 18%, rgba(143, 11, 11, 1) 100%);
+}
+
+.navButton {
+    -fx-background-color: rgb(169, 12, 12);
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
