@@ -1,9 +1,49 @@
-.homeBG {
+.root {
+    -title-background-color: rgb(169, 12, 12);
+    -blue-buttons-color: #0048ff;
+    -tile-gray: #a2a2a2;
+}
+
+.tab-anchor-pane {
     -fx-background-color: linear-gradient(to bottom, rgb(28, 2, 2) 18%, rgba(143, 11, 11, 1) 100%);
 }
 
-.navButton {
-    -fx-background-color: rgb(169, 12, 12);
-    -fx-background-radius: 10;
-    -fx-padding: 10;
+.tab-anchor-pane * {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.title, .navButton {
+    -fx-background-color: -title-background-color;
+    -fx-background-radius: 10px;
+    -fx-padding: 7px;
+}
+
+.navButton .outputLabel {
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 5;
+}
+
+.homeTileVBox {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.homeTileVBox .imageNameVBox {
+    -fx-background-color: -tile-gray;
+    -fx-background-radius: 10px 10px 0px 0px;
+}
+
+.homeTileVBox .valueLabel {
+    -fx-text-fill: default;
+}
+
+.homeTileVBox .exchangeButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: -blue-buttons-color;
+}
+
+.title .class-priv-combo-box {
+    -fx-background-color: -title-background-color;
+    -fx-border-color: white;
 }

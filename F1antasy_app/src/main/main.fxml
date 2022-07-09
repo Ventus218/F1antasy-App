@@ -1,50 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<TabPane fx:id="paneHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="835.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="paneHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="835.0" prefWidth="1080.0" stylesheets="@../../style/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab fx:id="tabSquadra" text="Squadra">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="719.0" prefWidth="1001.0" styleClass="homeBG" stylesheets="@../../style/style.css">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="719.0" prefWidth="1001.0" styleClass="tab-anchor-pane">
                <children>
-                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="920.0" spacing="50.0" styleClass="navBar" stylesheets="@../../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="920.0" spacing="50.0" styleClass="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Label styleClass="navButton" text="Squadra: WinTeam" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label styleClass="navButton" text="Budget: 15.000.000$ " textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="308.0" layoutY="28.0" styleClass="navButton" text="Valore: 75.000.000$ " textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="661.0" layoutY="28.0" styleClass="navButton" text="Scambi: 2/2" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="894.0" layoutY="28.0" styleClass="navButton" text="Punteggio: 0pt" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
+                           <children>
+                              <Label text="Squadra:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="labelNomeSquadra" layoutX="10.0" layoutY="10.0" styleClass="outputLabel" stylesheets="@../../style/style.css" text="WinTeam" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
+                           <children>
+                              <Label text="Punteggio:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="labelPunteggioCorrente" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="0pt" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
+                           <children>
+                              <Label text="Budget:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="labelBudgetRimanente" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="15.000.000$ " textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
+                           <children>
+                              <Label text="Valore:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="labelValoreSquadra" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="75.000.000$ " textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
+                           <children>
+                              <Label text="Scambi:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="labelScambi" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="2/2" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" layoutX="195.0" layoutY="176.0" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
@@ -53,11 +72,34 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                                  <children>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-radius: 10; -fx-background-color: white;">
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
                                        <children>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: gray; -fx-background-radius: 10;">
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="imageNameVBox" stylesheets="@../../style/style.css">
                                              <children>
-                                                <Label text="Nome Pilota">
+                                                <Label styleClass="nameLabel" text="Nome Pilota" />
+                                                <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../asset/racing-helmet.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                          <Label layoutX="23.0" layoutY="15.0" styleClass="valueLabel" text="100.000$">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" styleClass="exchangeButton" text="Scambia" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="imageNameVBox">
+                                             <children>
+                                                <Label styleClass="driverNameLabel" text="Nome Pilota">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -72,148 +114,102 @@
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
                                           </VBox>
-                                          <Label layoutX="23.0" layoutY="15.0" text="100.000$">
+                                          <Label layoutX="23.0" layoutY="15.0" styleClass="valueLabel" text="100.000$">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Scambia" textFill="#005fff">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets bottom="2.0" top="-1.0" />
-                                             </padding>
-                                          </Button>
+                                          <Button mnemonicParsing="false" styleClass="exchangeButton" text="Scambia" />
                                        </children>
-                                    </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: gray; -fx-background-radius: 10;">
-                                       <children>
-                                          <Label text="Nome Pilota">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../asset/racing-helmet.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label layoutX="23.0" layoutY="15.0" text="100.000$">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Scambia" textFill="#005fff">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
-                                             </padding>
-                                          </Button>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
                                     </VBox>
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                                  <children>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: gray; -fx-background-radius: 10;">
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
                                        <children>
-                                          <Label text="Nome Pilota">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../asset/racing-helmet.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label layoutX="23.0" layoutY="15.0" text="100.000$">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Scambia" textFill="#005fff">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="imageNameVBox" stylesheets="@../../style/style.css">
+                                             <children>
+                                                <Label styleClass="driverNameLabel" text="Nome Pilota">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../asset/racing-helmet.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
                                              <padding>
-                                                <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
-                                          </Button>
+                                          </VBox>
+                                          <Label layoutX="23.0" layoutY="15.0" styleClass="valueLabel" text="100.000$">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" styleClass="exchangeButton" text="Scambia" />
                                        </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
                                     </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: gray; -fx-background-radius: 10;">
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
                                        <children>
-                                          <Label text="Nome Pilota">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../asset/racing-helmet.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label layoutX="23.0" layoutY="15.0" text="100.000$">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Scambia" textFill="#005fff">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="imageNameVBox" stylesheets="@../../style/style.css">
+                                             <children>
+                                                <Label styleClass="driverNameLabel" text="Nome Pilota">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../asset/racing-helmet.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
                                              <padding>
-                                                <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
-                                          </Button>
+                                          </VBox>
+                                          <Label layoutX="23.0" layoutY="15.0" styleClass="valueLabel" text="100.000$">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" styleClass="exchangeButton" text="Scambia" />
                                        </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
                                     </VBox>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: gray; -fx-background-radius: 10;">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" spacing="5.0" styleClass="homeTileVBox">
                            <children>
-                              <Label text="Nome Pilota">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../asset/car-engine.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="23.0" layoutY="15.0" text="100.000$">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Scambia" textFill="#005fff">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="imageNameVBox">
+                                 <children>
+                                    <Label styleClass="driverNameLabel" text="Nome Motorizzazione">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../asset/car-engine.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
                                  <padding>
-                                    <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
-                              </Button>
+                              </VBox>
+                              <Label layoutX="23.0" layoutY="15.0" styleClass="valueLabel" text="100.000$">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button mnemonicParsing="false" styleClass="exchangeButton" text="Scambia" />
                            </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
                         </VBox>
                      </children>
                   </HBox>
@@ -222,15 +218,49 @@
     </Tab>
     <Tab fx:id="tabClassifiche" text="Classifiche">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-anchor-pane">
                <children>
-                  <Button layoutX="221.0" layoutY="152.0" mnemonicParsing="false" text="Button" />
+                  <HBox layoutX="14.0" layoutY="14.0" spacing="40.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0">
+                           <children>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0" styleClass="title">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../asset/white-podium.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Classifica Globale" />
+                                 </children>
+                              </HBox>
+                              <ListView prefHeight="731.0" prefWidth="527.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0">
+                           <children>
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" styleClass="title">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../asset/white-podium.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Classifica Privata:" />
+                                    <ComboBox prefWidth="150.0" styleClass="class-priv-combo-box" />
+                                 </children>
+                              </HBox>
+                              <ListView prefHeight="731.0" prefWidth="527.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children></AnchorPane>
       </content>
     </Tab>
     <Tab fx:id="tabGranPremi" text="Gran Premi">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-anchor-pane" stylesheets="@../../style/style.css" />
       </content>
     </Tab>
   </tabs>
