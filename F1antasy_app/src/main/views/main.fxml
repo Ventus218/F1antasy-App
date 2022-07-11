@@ -8,7 +8,7 @@
   <tabs>
     <Tab fx:id="tabSquadra" text="Squadra">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="719.0" prefWidth="1001.0" styleClass="tab-anchor-pane">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="1251.0" styleClass="tab-anchor-pane">
                <children>
                   <fx:include fx:id="paneSquadra" source="PaneSquadra.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
