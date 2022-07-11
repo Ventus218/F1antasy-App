@@ -14,8 +14,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("views/main.fxml"));
         primaryStage.setTitle("F1antasy");
         primaryStage.getIcons().add(new Image("main/asset/app_icon.png"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, 1080, 720));
+        primaryStage.setMinWidth(1080);
+        primaryStage.setMinHeight(720);
         primaryStage.show();
     }
 
