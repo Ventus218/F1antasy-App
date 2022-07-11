@@ -1,6 +1,6 @@
 .root {
     -title-background-color: rgb(169, 12, 12);
-    -blue-buttons-color: #0048ff;
+    -blue-buttons-color: #0e55ff;
     -tile-gray: #a2a2a2;
     -fx-font-family: 'Arial';
 }
@@ -12,6 +12,10 @@
 .tab-anchor-pane * {
     -fx-text-fill: white;
     -fx-font-size: 18px;
+}
+
+.text-field {
+    -fx-text-fill: black;
 }
 
 .title, .navButton {
@@ -42,6 +46,7 @@
 .blueButton {
     -fx-background-color: transparent;
     -fx-text-fill: -blue-buttons-color;
+    -fx-font-weight: bold;
 }
 
 .title .class-priv-combo-box {

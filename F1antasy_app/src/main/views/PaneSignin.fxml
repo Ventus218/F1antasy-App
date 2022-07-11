@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PaneSigninController">
    <children>
       <StackPane layoutX="120.0" layoutY="77.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,17 +19,17 @@
                   <HBox alignment="CENTER">
                      <children>
                         <Label text="Se sei già registrato:" />
-                        <Button fx:id="buttonSwitchToLogin" mnemonicParsing="false" styleClass="blueButton" text="Accedi" />
+                        <Button fx:id="buttonSwitchToLogin" mnemonicParsing="false" onAction="#switchToLoginButtonWasPressed" styleClass="blueButton" text="Accedi" />
                      </children>
                   </HBox>
-                  <TextField fx:id="textFieldUsername" promptText="Username" />
+                  <TextField fx:id="textFieldUsername" onKeyTyped="#onTextFieldUpdated" promptText="Username" />
                   <VBox spacing="5.0">
                      <children>
-                        <TextField fx:id="textFieldPassword" promptText="Password" />
-                        <TextField fx:id="textFieldConfirmPassword" promptText="Conferma password" />
+                        <PasswordField fx:id="textFieldPassword" onKeyTyped="#onTextFieldUpdated" promptText="Password" />
+                        <PasswordField fx:id="textFieldConfirmPassword" layoutX="10.0" layoutY="86.0" onKeyTyped="#onTextFieldUpdated" promptText="Conferma password" />
                      </children>
                   </VBox>
-                  <Button fx:id="buttonSignin" mnemonicParsing="false" styleClass="blueButton" text="Registrati" />
+                  <Button fx:id="buttonSignin" mnemonicParsing="false" onAction="#signinButtonWasPressed" styleClass="blueButton" text="Registrati" />
                </children>
             </VBox>
          </children>
