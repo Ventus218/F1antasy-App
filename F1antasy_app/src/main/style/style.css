@@ -2,6 +2,7 @@
     -title-background-color: rgb(169, 12, 12);
     -blue-buttons-color: #0048ff;
     -tile-gray: #a2a2a2;
+    -fx-font-family: 'Arial';
 }
 
 .tab-anchor-pane {
@@ -35,10 +36,10 @@
 }
 
 .homeTileVBox .valueLabel {
-    -fx-text-fill: default;
+    -fx-text-fill: black;
 }
 
-.homeTileVBox .exchangeButton {
+.blueButton {
     -fx-background-color: transparent;
     -fx-text-fill: -blue-buttons-color;
 }
