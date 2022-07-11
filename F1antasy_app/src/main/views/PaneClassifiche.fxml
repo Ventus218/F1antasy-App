@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="719.0" prefWidth="1001.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PaneClassificheController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="712.0" prefWidth="1116.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PaneClassificheController">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" spacing="40.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0" styleClass="title">
                      <children>
@@ -28,7 +28,7 @@
                   <ListView prefHeight="731.0" prefWidth="527.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" styleClass="title">
                      <children>
