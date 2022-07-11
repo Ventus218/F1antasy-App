@@ -99,7 +99,7 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Button mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
+                                                <Button fx:id="buttonScambiaPilota1" mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
@@ -126,7 +126,7 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Button mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
+                                                <Button fx:id="buttonScambiaPilota2" mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -157,7 +157,7 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Button mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
+                                                <Button fx:id="buttonScambiaPilota3" mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="homeTileVBox">
@@ -184,7 +184,7 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Button mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
+                                                <Button fx:id="buttonScambiaPilota4" mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -215,7 +215,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Button mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
+                                    <Button fx:id="buttonScambiaMotorizzazione" mnemonicParsing="false" styleClass="blueButton" text="Scambia" />
                                  </children>
                               </VBox>
                            </children>
