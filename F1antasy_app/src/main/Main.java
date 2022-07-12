@@ -51,7 +51,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate {
     }
 
     private void showApp() {
-        FXMLResource resource = loadResource("views/main.fxml");
+        FXMLResource resource = loadResource("views/TabPane.fxml");
         Parent root = resource.getParent();
         TabPaneController tabPaneController = (TabPaneController) resource.getController();
 
