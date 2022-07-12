@@ -25,7 +25,7 @@
                         <Label text="Classifica Globale" />
                      </children>
                   </HBox>
-                  <ListView prefHeight="731.0" prefWidth="527.0" />
+                  <ListView fx:id="listViewClassificaGlobale" prefHeight="731.0" prefWidth="527.0" styleClass="classifiche-list-view" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0" HBox.hgrow="ALWAYS">
@@ -38,10 +38,10 @@
                            </image>
                         </ImageView>
                         <Label text="Classifica Privata:" />
-                        <ComboBox prefWidth="150.0" styleClass="class-priv-combo-box" />
+                        <ComboBox fx:id="comboBoxClassificaPrivataSelezionata" minWidth="200.0" onAction="#comboBoxValueWasChanged" styleClass="class-priv-combo-box" />
                      </children>
                   </HBox>
-                  <ListView prefHeight="731.0" prefWidth="527.0" />
+                  <ListView fx:id="listViewClassificaPrivata" prefHeight="731.0" prefWidth="527.0" styleClass="classifiche-list-view" />
                </children>
             </VBox>
          </children>
