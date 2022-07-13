@@ -25,7 +25,7 @@
                         <Label text="Classifica Globale" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewClassificaGlobale" prefHeight="731.0" prefWidth="527.0" styleClass="classifiche-list-view" />
+                  <ListView fx:id="listViewClassificaGlobale" prefHeight="731.0" prefWidth="527.0" styleClass="semi-transparent-list-view" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0" HBox.hgrow="ALWAYS">
@@ -41,7 +41,7 @@
                         <ComboBox fx:id="comboBoxClassificaPrivataSelezionata" minWidth="200.0" onAction="#comboBoxValueWasChanged" styleClass="class-priv-combo-box" />
                      </children>
                   </HBox>
-                  <ListView fx:id="listViewClassificaPrivata" prefHeight="731.0" prefWidth="527.0" styleClass="classifiche-list-view" />
+                  <ListView fx:id="listViewClassificaPrivata" prefHeight="731.0" prefWidth="527.0" styleClass="semi-transparent-list-view" />
                </children>
             </VBox>
          </children>

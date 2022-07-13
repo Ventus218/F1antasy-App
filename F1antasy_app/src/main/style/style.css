@@ -59,10 +59,14 @@
     -fx-text-fill: black;
 }
 
-.classifiche-list-view {
+.semi-transparent-list-view {
     -fx-background-color: rgba(162, 162, 162, 0.2);
 }
 
-.classifiche-list-view .list-cell {
+.semi-transparent-list-view .list-cell {
     -fx-background-color: transparent;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: rgba(200, 200, 200, 0.15);
 }

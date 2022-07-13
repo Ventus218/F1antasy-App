@@ -8,9 +8,9 @@ public class PaneClassificheModel {
 
     private List<String> availableClassifichePrivate;
 
-    private Optional<String> selectedClassificaPrivata;
+    private Optional<String> selectedClassificaPrivata = Optional.empty();
 
-    private Optional<List<UtenteInClassifica>> classificaPrivata;
+    private Optional<List<UtenteInClassifica>> classificaPrivata = Optional.empty();
 
     private List<UtenteInClassifica> classificaGlobale;
 
