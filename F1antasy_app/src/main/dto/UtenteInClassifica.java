@@ -1,5 +1,7 @@
 package main.dto;
 
+import java.util.Objects;
+
 public class UtenteInClassifica {
     private String username;
     private Integer posizionamento;
@@ -33,5 +35,18 @@ public class UtenteInClassifica {
 
     public void setPunteggio(Integer punteggio) {
         this.punteggio = punteggio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UtenteInClassifica that = (UtenteInClassifica) o;
+        return Objects.equals(username, that.username) && Objects.equals(posizionamento, that.posizionamento) && Objects.equals(punteggio, that.punteggio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, posizionamento, punteggio);
     }
 }

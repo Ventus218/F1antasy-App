@@ -2,6 +2,8 @@ package main.dto;
 
 import main.components.Acquistabile;
 
+import java.util.Objects;
+
 public class MotorizzazioneConPrezzo implements Acquistabile {
 
     private Motorizzazione motorizzazione;
@@ -28,5 +30,18 @@ public class MotorizzazioneConPrezzo implements Acquistabile {
     @Override
     public Integer getPrezzoAcquisto() {
         return getPrezzo();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MotorizzazioneConPrezzo that = (MotorizzazioneConPrezzo) o;
+        return Objects.equals(motorizzazione, that.motorizzazione) && Objects.equals(prezzo, that.prezzo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(motorizzazione, prezzo);
     }
 }
