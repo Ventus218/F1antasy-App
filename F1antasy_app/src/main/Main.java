@@ -7,13 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import main.controllers.PaneInizializzazioneSquadraController;
 import main.controllers.PaneSigninController;
 import main.controllers.TabPaneController;
+import main.controllers.delegates.InizializzazioneSquadraDelegate;
 import main.controllers.delegates.LoginDelegate;
 import main.controllers.PaneLoginController;
 import main.controllers.delegates.SigninDelegate;
 
-public class Main extends Application implements LoginDelegate, SigninDelegate {
+public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate {
 
     private Stage primaryStage;
 
@@ -63,9 +65,35 @@ public class Main extends Application implements LoginDelegate, SigninDelegate {
         primaryStage.show();
     }
 
+    private void showSquadraInitializer(String username) {
+        FXMLResource resource = loadResource("views/PaneInizializzazioneSquadra.fxml");
+        Parent root = resource.getParent();
+        PaneInizializzazioneSquadraController controller = (PaneInizializzazioneSquadraController) resource.getController();
+        controller.setDelegate(this);
+        controller.initializeForUser(username);
+
+        primaryStage.setTitle("F1antasy - Inizializzazione Squadra");
+        primaryStage.setScene(new Scene(root, 1080, 720));
+        primaryStage.setResizable(true);
+        primaryStage.setMinWidth(1080);
+        primaryStage.setMinHeight(720);
+        primaryStage.show();
+    }
+
+    private boolean userHasAlreadyInitializedSquadra() {
+        // TODO CHECK IN DB IF USER HAS A SQUADRA FOR THE CURRENT CAMPIONATO
+
+        // MOCKUP
+        return false;
+    }
+
     @Override
-    public void loginEndedSuccessfully() {
-        showApp();
+    public void loginEndedSuccessfully(String username) {
+        if (userHasAlreadyInitializedSquadra()) {
+            showApp();
+        } else {
+            showSquadraInitializer(username);
+        }
     }
 
     @Override
@@ -83,6 +111,10 @@ public class Main extends Application implements LoginDelegate, SigninDelegate {
         showLogin();
     }
 
+    @Override
+    public void squadraWasSuccessfullyInitialized() {
+        showApp();
+    }
 
     private FXMLResource loadResource(String name) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(name));

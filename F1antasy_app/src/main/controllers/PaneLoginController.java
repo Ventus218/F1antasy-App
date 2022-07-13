@@ -43,7 +43,7 @@ public class PaneLoginController implements Initializable {
     @FXML
     private void loginButtonWasPressed(ActionEvent actionEvent) {
         if (validateLogin()) {
-            loginDelegate.loginEndedSuccessfully();
+            loginDelegate.loginEndedSuccessfully(textFieldUsername.getText());
         } else {
             Utils.showError("I dati non sono corretti");
         }
