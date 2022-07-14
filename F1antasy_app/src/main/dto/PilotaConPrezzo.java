@@ -55,21 +55,22 @@ public class PilotaConPrezzo implements Acquistabile {
         list.add(new PilotaConPrezzo(new Pilota(3, "Max", "Verstappen"), 33000000));
         list.add(new PilotaConPrezzo(new Pilota(4, "Sergio", "Perez"), 32000000));
         list.add(new PilotaConPrezzo(new Pilota(5, "Daniel", "Ricciardo"), 30000000));
-        list.add(new PilotaConPrezzo(new Pilota(6, "Carlos", "Sainz"), 25000000));
-        list.add(new PilotaConPrezzo(new Pilota(7, "Charles", "Leclerc"), 23000000));
-        list.add(new PilotaConPrezzo(new Pilota(8, "Lando", "Norris"), 21000000));
-        list.add(new PilotaConPrezzo(new Pilota(9, "Fernando", "Alonso"), 20000000));
-        list.add(new PilotaConPrezzo(new Pilota(10, "Pierre", "Gasly"), 19000000));
-        list.add(new PilotaConPrezzo(new Pilota(11, "Lance", "Stroll"), 17000000));
-        list.add(new PilotaConPrezzo(new Pilota(12, "Esteban", "Ocon"), 15000000));
-        list.add(new PilotaConPrezzo(new Pilota(13, "Sebastian", "Vettel"), 14000000));
-        list.add(new PilotaConPrezzo(new Pilota(14, "Antonio", "Giovinazzi"), 13000000));
+        list.add(new PilotaConPrezzo(new Pilota(12, "Carlos", "Sainz"), 25000000));
+        list.add(new PilotaConPrezzo(new Pilota(11, "Charles", "Leclerc"), 23000000));
+        list.add(new PilotaConPrezzo(new Pilota(6, "Lando", "Norris"), 21000000));
+        list.add(new PilotaConPrezzo(new Pilota(10, "Fernando", "Alonso"), 20000000));
+        list.add(new PilotaConPrezzo(new Pilota(13, "Pierre", "Gasly"), 19000000));
+        list.add(new PilotaConPrezzo(new Pilota(8, "Lance", "Stroll"), 17000000));
+        list.add(new PilotaConPrezzo(new Pilota(9, "Esteban", "Ocon"), 15000000));
+        list.add(new PilotaConPrezzo(new Pilota(7, "Sebastian", "Vettel"), 14000000));
+        list.add(new PilotaConPrezzo(new Pilota(16, "Antonio", "Giovinazzi"), 13000000));
         list.add(new PilotaConPrezzo(new Pilota(15, "Kimi", "Raikkonen"), 12000000));
-        list.add(new PilotaConPrezzo(new Pilota(16, "George", "Russel"), 11000000));
-        list.add(new PilotaConPrezzo(new Pilota(17, "Nickolas", "Latifi"), 11000000));
-        list.add(new PilotaConPrezzo(new Pilota(18, "Yuki", "Tsunoda"), 10000000));
-        list.add(new PilotaConPrezzo(new Pilota(19, "Mick", "Shumacher"), 10000000));
-        list.add(new PilotaConPrezzo(new Pilota(20, "Nikita", "Mazepin"), 10000000));
+        list.add(new PilotaConPrezzo(new Pilota(19, "George", "Russel"), 11000000));
+        list.add(new PilotaConPrezzo(new Pilota(20, "Nicholas", "Latifi"), 11000000));
+        list.add(new PilotaConPrezzo(new Pilota(14, "Yuki", "Tsunoda"), 10000000));
+        list.add(new PilotaConPrezzo(new Pilota(17, "Mick", "Shumacher"), 10000000));
+        list.add(new PilotaConPrezzo(new Pilota(18, "Nikita", "Mazepin"), 10000000));
+
         return list;
     }
 }
