@@ -15,6 +15,8 @@ import main.controllers.delegates.LoginDelegate;
 import main.controllers.PaneLoginController;
 import main.controllers.delegates.SigninDelegate;
 
+import java.util.Optional;
+
 public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate {
 
     private Stage primaryStage;
@@ -56,6 +58,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         FXMLResource resource = Utils.loadResource("views/TabPane.fxml");
         Parent root = resource.getParent();
         TabPaneController tabPaneController = (TabPaneController) resource.getController();
+        tabPaneController.initialize();
 
         primaryStage.setTitle("F1antasy");
         primaryStage.setScene(new Scene(root, 1080, 720));
@@ -65,12 +68,12 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         primaryStage.show();
     }
 
-    private void showSquadraInitializer(String username) {
+    private void showSquadraInitializer() {
         FXMLResource resource = Utils.loadResource("views/PaneInizializzazioneSquadra.fxml");
         Parent root = resource.getParent();
         PaneInizializzazioneSquadraController controller = (PaneInizializzazioneSquadraController) resource.getController();
         controller.setDelegate(this);
-        controller.initializeForUser(username);
+        controller.initialize();
 
         primaryStage.setTitle("F1antasy - Inizializzazione Squadra");
         primaryStage.setScene(new Scene(root, 1080, 720));
@@ -89,10 +92,12 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
 
     @Override
     public void loginEndedSuccessfully(String username) {
+        User.loggedInUser.hasLoggedIn(username);
+
         if (userHasAlreadyInitializedSquadra()) {
             showApp();
         } else {
-            showSquadraInitializer(username);
+            showSquadraInitializer();
         }
     }
 

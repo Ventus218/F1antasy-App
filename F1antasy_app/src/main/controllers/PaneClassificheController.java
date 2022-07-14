@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import main.User;
 import main.components.DisabledSelectionModel;
 import main.components.ListCellUtenteInClassifica;
 import main.dto.UtenteInClassifica;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class PaneClassificheController implements Initializable {
 
-    private PaneClassificheModel model = new PaneClassificheModel();
+    private PaneClassificheModel model = new PaneClassificheModel(User.loggedInUser.getUsername());
 
     @FXML
     public ListView listViewClassificaGlobale;

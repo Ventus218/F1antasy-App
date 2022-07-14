@@ -2,12 +2,9 @@ package main.controllers;
 
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import main.Utils;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class TabPaneController implements Initializable {
+public class TabPaneController {
 
     @FXML
     private PaneSquadraController paneSquadraController;
@@ -15,8 +12,7 @@ public class TabPaneController implements Initializable {
     @FXML
     private PaneClassificheController paneClassificheController;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize() {
+        paneSquadraController.initialize();
     }
 }

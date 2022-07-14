@@ -1,10 +1,13 @@
 package main.model;
 
+import main.F1antasyDB;
 import main.dto.UtenteInClassifica;
 
 import java.util.*;
 
 public class PaneClassificheModel {
+
+    private String username;
 
     private List<String> availableClassifichePrivate;
 
@@ -15,7 +18,8 @@ public class PaneClassificheModel {
     private List<UtenteInClassifica> classificaGlobale;
 
 
-    public PaneClassificheModel() {
+    public PaneClassificheModel(String username) {
+        this.username = username;
         setupConnection();
         this.setClassificaGlobale(this.getClassificaGlobaleFromDB());
         this.setAvailableClassifichePrivate(this.getAvailableClassifichePrivateFromDB());
@@ -135,4 +139,6 @@ public class PaneClassificheModel {
     private void setClassificaGlobale(List<UtenteInClassifica> classificaGlobale) {
         this.classificaGlobale = new ArrayList(classificaGlobale);
     }
+
+    private String getUsername() { return this.username; }
 }

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import main.User;
 import main.Utils;
 import main.components.LimitedSelectionModel;
 import main.components.ListCellAcquisto;
@@ -16,7 +17,6 @@ import main.model.PaneInizializzazioneSquadraModel;
 
 public class PaneInizializzazioneSquadraController {
 
-    private String username;
     private PaneInizializzazioneSquadraModel model;
     private InizializzazioneSquadraDelegate delegate;
 
@@ -35,14 +35,8 @@ public class PaneInizializzazioneSquadraController {
         this.delegate = d;
     }
 
-    public void initializeForUser(String username) {
-        if (this.username != null) {
-            Utils.crashWithMessage("Controller was already initialized.");
-        }
-
-        this.username = username;
-
-        model = new PaneInizializzazioneSquadraModel(this.username);
+    public void initialize() {
+        model = new PaneInizializzazioneSquadraModel(User.loggedInUser.getUsername());
 
         listViewPiloti.setSelectionModel(new LimitedSelectionModel(listViewPiloti.getSelectionModel(), 4));
         listViewPiloti.getItems().addAll(model.getAvailablePiloti());
