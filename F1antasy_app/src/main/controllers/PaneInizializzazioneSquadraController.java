@@ -35,7 +35,7 @@ public class PaneInizializzazioneSquadraController {
         this.delegate = d;
     }
 
-    public void initialize() {
+    public void setup() {
         model = new PaneInizializzazioneSquadraModel(User.loggedInUser.getUsername());
 
         listViewPiloti.setSelectionModel(new LimitedSelectionModel(listViewPiloti.getSelectionModel(), 4));

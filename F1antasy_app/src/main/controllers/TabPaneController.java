@@ -12,7 +12,7 @@ public class TabPaneController {
     @FXML
     private PaneClassificheController paneClassificheController;
 
-    public void initialize() {
-        paneSquadraController.initialize();
+    public void setup() {
+        paneSquadraController.setup();
     }
 }

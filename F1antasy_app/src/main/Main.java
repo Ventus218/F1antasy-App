@@ -58,7 +58,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         FXMLResource resource = Utils.loadResource("views/TabPane.fxml");
         Parent root = resource.getParent();
         TabPaneController tabPaneController = (TabPaneController) resource.getController();
-        tabPaneController.initialize();
+        tabPaneController.setup();
 
         primaryStage.setTitle("F1antasy");
         primaryStage.setScene(new Scene(root, 1080, 720));
@@ -73,7 +73,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         Parent root = resource.getParent();
         PaneInizializzazioneSquadraController controller = (PaneInizializzazioneSquadraController) resource.getController();
         controller.setDelegate(this);
-        controller.initialize();
+        controller.setup();
 
         primaryStage.setTitle("F1antasy - Inizializzazione Squadra");
         primaryStage.setScene(new Scene(root, 1080, 720));
