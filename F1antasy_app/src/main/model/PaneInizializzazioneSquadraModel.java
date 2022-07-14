@@ -1,5 +1,6 @@
 package main.model;
 
+import main.F1antasyDB;
 import main.dto.Motorizzazione;
 import main.dto.MotorizzazioneConPrezzo;
 import main.dto.Pilota;
@@ -14,7 +15,7 @@ public class PaneInizializzazioneSquadraModel {
 
     private final Integer BUDGET = 100000000;
 
-    private String usernameUtente;
+    private String username;
 
     private List<PilotaConPrezzo> selectedPiloti = new ArrayList();
     private Optional<MotorizzazioneConPrezzo> selectedMotorizzazione = Optional.empty();
@@ -23,17 +24,11 @@ public class PaneInizializzazioneSquadraModel {
     private List<PilotaConPrezzo> availablePiloti;
     private List<MotorizzazioneConPrezzo> availableMotorizzazioni;
 
-    public PaneInizializzazioneSquadraModel(String usernameUtente) {
-        this.usernameUtente = usernameUtente;
-
-        setupConnection();
+    public PaneInizializzazioneSquadraModel(String username) {
+        this.username = username;
 
         availablePiloti = getPilotiConPrezzoFromDB();
         availableMotorizzazioni = getMotorizzazioniConPrezzoFromDB();
-    }
-
-    private void setupConnection() {
-        // TODO
     }
 
     public Boolean createSquadra() {
@@ -42,7 +37,7 @@ public class PaneInizializzazioneSquadraModel {
         if (getBudgetRimanente() < 0) { return false; }
         if (getNomeSquadra().isEmpty()) { return false; }
 
-        createSquadraInDB(usernameUtente,
+        createSquadraInDB(getUsername(),
                 getNomeSquadra(),
                 getSelectedPiloti().stream().map(PilotaConPrezzo::getPilota).collect(Collectors.toList()),
                 getSelectedMotorizzazione().get().getMotorizzazione()
@@ -79,24 +74,16 @@ public class PaneInizializzazioneSquadraModel {
         setBudgetRimanente(result);
     }
 
-    private void createSquadraInDB(String usernameUtente, String nome, List<Pilota> piloti, Motorizzazione motorizzazione ) {
-        // TODO GET MOST RECENT NON-COMPLETED GRAND PRIX
-
-        // TODO O2
+    private void createSquadraInDB(String username, String nome, List<Pilota> piloti, Motorizzazione motorizzazione ) {
+        F1antasyDB.createSquadra(username, nome, piloti, motorizzazione);
     }
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
-        // TODO O4
-
-        // MOCKUP
-        return PilotaConPrezzo.getSample();
+        return F1antasyDB.getPilotiConPrezzo();
     }
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
-        // TODO O5
-
-        // MOCKUP
-        return MotorizzazioneConPrezzo.getSample();
+        return F1antasyDB.getMotorizzazioniConPrezzo();
     }
 
     public List<PilotaConPrezzo> getSelectedPiloti() {
@@ -138,5 +125,7 @@ public class PaneInizializzazioneSquadraModel {
     public List<MotorizzazioneConPrezzo> getAvailableMotorizzazioni() {
         return new ArrayList(availableMotorizzazioni);
     }
+
+    public String getUsername() { return this.username; }
 }
 

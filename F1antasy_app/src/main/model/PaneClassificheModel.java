@@ -20,24 +20,12 @@ public class PaneClassificheModel {
 
     public PaneClassificheModel(String username) {
         this.username = username;
-        setupConnection();
         this.setClassificaGlobale(this.getClassificaGlobaleFromDB());
         this.setAvailableClassifichePrivate(this.getAvailableClassifichePrivateFromDB());
     }
 
-    private void setupConnection() {
-        // TODO
-    }
-
     private List<String> getAvailableClassifichePrivateFromDB() {
-        // TODO
-
-        // MOCKUP
-        List<String> list = new ArrayList();
-        list.add("Winners");
-        list.add("Losers");
-        list.add("HappyPeople");
-        return list;
+        return F1antasyDB.getNomiClassifichePrivateUtente(getUsername());
     }
 
     private Optional<List<UtenteInClassifica>> getClassificaPrivataFromDB() {
