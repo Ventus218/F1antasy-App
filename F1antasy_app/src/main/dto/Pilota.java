@@ -1,6 +1,8 @@
 package main.dto;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Pilota {
 
@@ -37,5 +39,9 @@ public class Pilota {
     @Override
     public int hashCode() {
         return Objects.hash(codice, nome, cognome);
+    }
+
+    public static List<Pilota> getSample() {
+        return PilotaConPrezzo.getSample().stream().map(PilotaConPrezzo::getPilota).collect(Collectors.toList());
     }
 }

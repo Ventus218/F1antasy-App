@@ -2,6 +2,8 @@ package main.dto;
 
 import main.components.Acquistabile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MotorizzazioneConPrezzo implements Acquistabile {
@@ -43,5 +45,14 @@ public class MotorizzazioneConPrezzo implements Acquistabile {
     @Override
     public int hashCode() {
         return Objects.hash(motorizzazione, prezzo);
+    }
+
+    public static List<MotorizzazioneConPrezzo> getSample() {
+        List<MotorizzazioneConPrezzo> list = new ArrayList();
+        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Mercedes"), 15000000));
+        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Honda"), 10000000));
+        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Renault"), 9000000));
+        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Ferrari"), 8000000));
+        return list;
     }
 }
