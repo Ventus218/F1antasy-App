@@ -43,11 +43,15 @@
     -fx-text-fill: black;
 }
 
-.blueButton {
+.blueButton, .red-button {
     -fx-background-color: transparent;
     -fx-text-fill: -blue-buttons-color;
     -fx-font-weight: bold;
     -fx-cursor: hand;
+}
+
+.red-button {
+    -fx-text-fill: red;
 }
 
 .title .class-priv-combo-box {
