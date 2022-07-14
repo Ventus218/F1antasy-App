@@ -89,40 +89,14 @@ public class PaneInizializzazioneSquadraModel {
         // TODO O4
 
         // MOCKUP
-        List<PilotaConPrezzo> list = new ArrayList();
-        list.add(new PilotaConPrezzo(new Pilota(1, "Lewis", "Hamilton"), 40000000));
-        list.add(new PilotaConPrezzo(new Pilota(2, "Bottas", "Valtteri"), 40000000));
-        list.add(new PilotaConPrezzo(new Pilota(3, "Max", "Verstappen"), 33000000));
-        list.add(new PilotaConPrezzo(new Pilota(4, "Sergio", "Perez"), 32000000));
-        list.add(new PilotaConPrezzo(new Pilota(5, "Daniel", "Ricciardo"), 30000000));
-        list.add(new PilotaConPrezzo(new Pilota(6, "Carlos", "Sainz"), 25000000));
-        list.add(new PilotaConPrezzo(new Pilota(7, "Charles", "Leclerc"), 23000000));
-        list.add(new PilotaConPrezzo(new Pilota(8, "Lando", "Norris"), 21000000));
-        list.add(new PilotaConPrezzo(new Pilota(9, "Fernando", "Alonso"), 20000000));
-        list.add(new PilotaConPrezzo(new Pilota(10, "Pierre", "Gasly"), 19000000));
-        list.add(new PilotaConPrezzo(new Pilota(11, "Lance", "Stroll"), 17000000));
-        list.add(new PilotaConPrezzo(new Pilota(12, "Esteban", "Ocon"), 15000000));
-        list.add(new PilotaConPrezzo(new Pilota(13, "Sebastian", "Vettel"), 14000000));
-        list.add(new PilotaConPrezzo(new Pilota(14, "Antonio", "Giovinazzi"), 13000000));
-        list.add(new PilotaConPrezzo(new Pilota(15, "Kimi", "Raikkonen"), 12000000));
-        list.add(new PilotaConPrezzo(new Pilota(16, "George", "Russel"), 11000000));
-        list.add(new PilotaConPrezzo(new Pilota(17, "Nickolas", "Latifi"), 11000000));
-        list.add(new PilotaConPrezzo(new Pilota(18, "Yuki", "Tsunoda"), 10000000));
-        list.add(new PilotaConPrezzo(new Pilota(19, "Mick", "Shumacher"), 10000000));
-        list.add(new PilotaConPrezzo(new Pilota(20, "Nikita", "Mazepin"), 10000000));
-        return list;
+        return PilotaConPrezzo.getSample();
     }
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
         // TODO O5
 
         // MOCKUP
-        List<MotorizzazioneConPrezzo> list = new ArrayList();
-        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Mercedes"), 15000000));
-        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Honda"), 10000000));
-        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Renault"), 9000000));
-        list.add(new MotorizzazioneConPrezzo(new Motorizzazione("Ferrari"), 8000000));
-        return list;
+        return MotorizzazioneConPrezzo.getSample();
     }
 
     public List<PilotaConPrezzo> getSelectedPiloti() {
