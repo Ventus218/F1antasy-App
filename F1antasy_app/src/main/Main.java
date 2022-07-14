@@ -31,7 +31,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     }
 
     private void showLogin() {
-        FXMLResource resource = loadResource("views/PaneLogin.fxml");
+        FXMLResource resource = Utils.loadResource("views/PaneLogin.fxml");
         Parent root = resource.getParent();
         PaneLoginController loginController = (PaneLoginController) resource.getController();
         loginController.setLoginDelegate(this);
@@ -42,7 +42,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     }
 
     private void showSignin() {
-        FXMLResource resource = loadResource("views/PaneSignin.fxml");
+        FXMLResource resource = Utils.loadResource("views/PaneSignin.fxml");
         Parent root = resource.getParent();
         PaneSigninController signinController = (PaneSigninController) resource.getController();
         signinController.setSigninDelegate(this);
@@ -53,7 +53,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     }
 
     private void showApp() {
-        FXMLResource resource = loadResource("views/TabPane.fxml");
+        FXMLResource resource = Utils.loadResource("views/TabPane.fxml");
         Parent root = resource.getParent();
         TabPaneController tabPaneController = (TabPaneController) resource.getController();
 
@@ -66,7 +66,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     }
 
     private void showSquadraInitializer(String username) {
-        FXMLResource resource = loadResource("views/PaneInizializzazioneSquadra.fxml");
+        FXMLResource resource = Utils.loadResource("views/PaneInizializzazioneSquadra.fxml");
         Parent root = resource.getParent();
         PaneInizializzazioneSquadraController controller = (PaneInizializzazioneSquadraController) resource.getController();
         controller.setDelegate(this);
@@ -114,18 +114,5 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     @Override
     public void squadraWasSuccessfullyInitialized() {
         showApp();
-    }
-
-    private FXMLResource loadResource(String name) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-        try {
-            Parent parent = (Parent) loader.load();
-            Object controller = loader.getController();
-            return new FXMLResource(parent, controller);
-        } catch (Exception e) {
-            System.err.println("Si è verificato un errore caricando il file " + name);
-            Platform.exit();
-        }
-        return null; // should never run.
     }
 }

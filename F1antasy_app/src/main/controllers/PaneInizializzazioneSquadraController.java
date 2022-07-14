@@ -37,8 +37,7 @@ public class PaneInizializzazioneSquadraController {
 
     public void initializeForUser(String username) {
         if (this.username != null) {
-            System.err.println("Controller was already initialized.");
-            System.exit(1);
+            Utils.crashWithMessage("Controller was already initialized.");
         }
 
         this.username = username;
