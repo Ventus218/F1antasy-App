@@ -7,6 +7,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Utils {
 
     private Utils() { };
@@ -45,5 +49,14 @@ public class Utils {
         Platform.exit();
         System.err.println(message);
         System.exit(1);
+    }
+
+    public static Date dateFromStringDDMMYYYY(String dateString) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        } catch (ParseException e) {
+            Utils.crashWithMessage("ParseException trying to parse: " + dateString);
+            return null; // will never run
+        }
     }
 }

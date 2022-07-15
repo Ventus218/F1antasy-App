@@ -1,5 +1,7 @@
 package main.dto;
 
+import main.Utils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,12 +53,12 @@ public class GranPremioProgrammato {
     public static List<GranPremioProgrammato> getSample() {
         List<GranPremioProgrammato> list = new ArrayList();
 
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), new Date(), GranPremio.getSample().get(0), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), new Date(), GranPremio.getSample().get(1), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), new Date(), GranPremio.getSample().get(2), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), new Date(), GranPremio.getSample().get(0), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), new Date(), GranPremio.getSample().get(1), false));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), new Date(), GranPremio.getSample().get(2), false));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("21/08/2021"), GranPremio.getSample().get(0), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("28/08/2021"), GranPremio.getSample().get(1), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("03/09/2021"), GranPremio.getSample().get(2), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("21/08/2022"), GranPremio.getSample().get(0), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("28/08/2022"), GranPremio.getSample().get(1), false));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("03/09/2022"), GranPremio.getSample().get(2), false));
 
         return list;
     }
