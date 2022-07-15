@@ -8,11 +8,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import main.F1antasyDB;
 import main.User;
-import main.components.ListCellAcquisto;
 import main.components.ListCellGranPremio;
 import main.dto.*;
 import main.model.PaneGranPremiModel;
-import main.model.PaneSquadraModel;
 
 import java.util.ArrayList;
 import java.util.List;
