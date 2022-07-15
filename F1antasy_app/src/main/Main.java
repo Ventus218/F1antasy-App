@@ -84,10 +84,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
     }
 
     private boolean userHasAlreadyInitializedSquadra() {
-        // TODO CHECK IN DB IF USER HAS A SQUADRA FOR THE CURRENT CAMPIONATO
-
-        // MOCKUP
-        return false;
+        return F1antasyDB.utenteHasInitializedSquadra(User.loggedInUser.getUsername());
     }
 
     @Override

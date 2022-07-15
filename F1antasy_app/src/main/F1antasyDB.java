@@ -31,6 +31,9 @@ public class F1antasyDB {
      * O3 - Visualizzazione della Squadra per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
      */
     public static Squadra getSquadraUtente(String username, Integer annoCampionato, Date dataGranPremio) {
+        // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
+        //     Utils.crashWithMessage("Trying to get Squadra of " + username + " while it was not even initialized.");
+        // }
         // MOCKUP
         return new Squadra("Winners", annoCampionato, dataGranPremio, username, 1, 15000000, new Motorizzazione("Ferrari"));
     }
@@ -46,6 +49,10 @@ public class F1antasyDB {
      * O3 - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
      */
     public static List<Pilota> getSquadraPilotiUtente(String username, Integer annoCampionato, Date dataGranPremio) {
+        // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
+        //     Utils.crashWithMessage("Trying to get SquadraPiloti of " + username + " while it was not even initialized.");
+        // }
+
         // MOCKUP
         List<Integer> codici = new ArrayList();
         codici.add(9);
@@ -85,6 +92,10 @@ public class F1antasyDB {
      * O12a - Scambio Pilota
      */
     public static Boolean exchangePiloti(String username, Integer annoCampionato, Date dataGranPremio, Pilota oldPilota, Pilota newPilota) {
+        // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
+        //     Utils.crashWithMessage("Trying to exchange Piloti of " + username + " while it's Squadra was not even initialized.");
+        // }
+
         // MOCKUP
         return true;
     }
@@ -100,6 +111,10 @@ public class F1antasyDB {
      * O12b - Scambio Motorizzazione
      */
     public static Boolean exchangeMotorizzazione(String username, Integer annoCampionato, Date dataGranPremio, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) {
+        // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
+        //     Utils.crashWithMessage("Trying to exchange Motorizzazione of " + username + " while it's Squadra was not even initialized.");
+        // }
+
         // MOCKUP
         return true;
     }
@@ -115,6 +130,10 @@ public class F1antasyDB {
      * O22 - Visualizzazione del Valore di una Squadra
      */
     public static Integer getValoreSquadra(String username, Integer annoCampionato, Date dataGranPremio) {
+        // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
+        //     Utils.crashWithMessage("Trying to get ValoreSquadra of " + username + " while it's Squadra was not even initialized.");
+        // }
+
         // MOCKUP
         return (Integer) getPilotiConPrezzo().stream()
                 .filter(p -> getSquadraPilotiUtente(username).contains(p.getPilota()))
@@ -170,6 +189,16 @@ public class F1antasyDB {
     public static Boolean checkIfUtenteExists(String username) {
         // MOCKUP
         return false;
+    }
+
+    public static Boolean utenteHasInitializedSquadra(String username, Integer annoCampionato, Date dataGranPremio) {
+        // REMEMBER TO UNCOMMENT USAGE IN O3 O12 O22
+        // MOCKUP
+        return false;
+    }
+    public static Boolean utenteHasInitializedSquadra(String username) {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return utenteHasInitializedSquadra(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
     public static Integer getPunteggioAttualeUtente(String username) {
