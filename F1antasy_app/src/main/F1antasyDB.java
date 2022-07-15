@@ -75,17 +75,31 @@ public class F1antasyDB {
     /**
      * O4 - Visualizzazione di tutti i Piloti del Campionato corrente in ordine decrescente di prezzo
      */
-    public static List<PilotaConPrezzo> getPilotiConPrezzo() {
+    public static List<PilotaConPrezzo> getPilotiConPrezzo(Integer annoCampionato, Date dataGranPremio) {
         // MOCKUP
         return PilotaConPrezzo.getSample();
+    }
+    /**
+     * O4 - Visualizzazione di tutti i Piloti del Campionato corrente in ordine decrescente di prezzo
+     */
+    public static List<PilotaConPrezzo> getPilotiConPrezzo() {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getPilotiConPrezzo(gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
     /**
      * O5 - Visualizzazione di tutte le Motorizzazioni del Campionato corrente in ordine decrescente di prezzo
      */
-    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo() {
+    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo(Integer annoCampionato, Date dataGranPremio) {
         // MOCKUP
         return MotorizzazioneConPrezzo.getSample();
+    }
+    /**
+     * O5 - Visualizzazione di tutte le Motorizzazioni del Campionato corrente in ordine decrescente di prezzo
+     */
+    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo() {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getMotorizzazioniConPrezzo(gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
     /**
@@ -113,6 +127,21 @@ public class F1antasyDB {
             Utils.crashWithMessage("No ClassificaPrivata " + nome + " was found for user: " + username);
             return null; // will never run
         }
+    }
+
+    /**
+     * O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
+     */
+    public static Integer getPunteggioOttenutoGranPremioConcluso(String username, Integer annoCampionato, Date dataGranPremio) {
+        Optional<GranPremioProgrammato> gp = getGranPremiProgrammati(annoCampionato).stream().filter(g -> g.getDataGranPremio().equals(dataGranPremio)).findFirst();
+        if (gp.isEmpty()) {
+            Utils.crashWithMessage("Gran Premio for annoCampionato: " + annoCampionato.toString() + " and dataGranPremio: " + dataGranPremio.toString() + " not found.");
+        } else if (!gp.get().getConcluso()) {
+            Utils.crashWithMessage("Trying to get PunteggioOttenuto for gp: " + gp.get().toString() + " which is not Concluso");
+        }
+
+        // MOCKUP
+        return 50;
     }
 
     /**
@@ -185,24 +214,32 @@ public class F1antasyDB {
     }
 
 
-    public static Integer getPrezzoPilota(Pilota pilota) {
-        Optional<PilotaConPrezzo> first = getPilotiConPrezzo().stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
+    public static Integer getPrezzoPilota(Integer annoCampionato, Date dataGranPremio, Pilota pilota) {
+        Optional<PilotaConPrezzo> first = getPilotiConPrezzo(annoCampionato, dataGranPremio).stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
         } else {
-            Utils.crashWithMessage("PrezzoPilota was not found as no Pilota like " + pilota.toString() + " was found in " + getPilotiConPrezzo().toString());
+            Utils.crashWithMessage("PrezzoPilota was not found as no Pilota like " + pilota.toString() + " was found in " + getPilotiConPrezzo(annoCampionato, dataGranPremio).toString());
             return null; // will never run
         }
     }
+    public static Integer getPrezzoPilota(Pilota pilota) {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), pilota);
+    }
 
-    public static Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) {
-        Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo().stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
+    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, Date dataGranPremio, Motorizzazione motorizzazione) {
+        Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio).stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
         } else {
             Utils.crashWithMessage("PrezzoMotorizzazione was not found as no Motorizzazione like " + motorizzazione.toString() + " was found in " + getMotorizzazioniConPrezzo().toString());
             return null; // will never run
         }
+    }
+    public static Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getPrezzoMotorizzazione(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), motorizzazione);
     }
 
 
@@ -238,10 +275,19 @@ public class F1antasyDB {
         return ClassificaPrivata.getSample().stream().map(ClassificaPrivata::getNome).collect(Collectors.toList());
     }
 
+    public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) {
+       // MOCKUP
+       return GranPremioProgrammato.getSample().stream().filter(gpp -> gpp.getCampionato().getAnno().equals(annoCampionato)).collect(Collectors.toList());
+    }
+
     public static GranPremioProgrammato getGranPremioProgrammatoCorrente() {
         // search for first non-finished Gran Prix
 
         // MOCKUP
         return GranPremioProgrammato.getSample().get(4);
+    }
+
+    public static Campionato getCampionatoCorrente() {
+        return getGranPremioProgrammatoCorrente().getCampionato();
     }
 }

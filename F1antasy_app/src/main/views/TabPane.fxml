@@ -24,7 +24,10 @@
     </Tab>
     <Tab fx:id="tabGranPremi" text="Gran Premi">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css">
+               <children>
+                  <fx:include fx:id="paneGranPremi" source="PaneGranPremi.fxml" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
       </content>
     </Tab>
   </tabs>
