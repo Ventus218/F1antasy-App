@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import main.F1antasyDB;
 import main.Utils;
 import main.controllers.delegates.LoginDelegate;
 
@@ -35,9 +36,7 @@ public class PaneLoginController implements Initializable {
     }
 
     private Boolean validateLogin() {
-        // TODO
-        // compare with DB data
-        return textFieldUsername.getText().equals("user") && textFieldPassword.getText().equals("password"); // JUST A MOCK!!!!
+        return F1antasyDB.logInUtente(textFieldUsername.getText(), textFieldPassword.getText());
     }
 
     @FXML

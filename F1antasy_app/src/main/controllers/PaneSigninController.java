@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import main.F1antasyDB;
 import main.Utils;
 import main.controllers.delegates.SigninDelegate;
 
@@ -40,9 +41,7 @@ public class PaneSigninController implements Initializable {
         if ( ! textFieldPassword.getText().equals(textFieldConfirmPassword.getText()) ) {
             return false;
         } else {
-            // TODO
-            // check DB data
-            return true; // JUST A MOCK!!!!
+            return !F1antasyDB.checkIfUtenteExists(textFieldUsername.getText());
         }
     }
 

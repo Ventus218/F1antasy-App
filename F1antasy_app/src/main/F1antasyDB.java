@@ -162,6 +162,16 @@ public class F1antasyDB {
 
     // ***** MISSING OPERATIONS *****
 
+    public static Boolean logInUtente(String username, String password) {
+        // MOCKUP
+        return username.equals("user") && password.equals("password");
+    }
+
+    public static Boolean checkIfUtenteExists(String username) {
+        // MOCKUP
+        return false;
+    }
+
     public static Integer getPunteggioAttualeUtente(String username) {
         // MOCKUP
         return 100;
