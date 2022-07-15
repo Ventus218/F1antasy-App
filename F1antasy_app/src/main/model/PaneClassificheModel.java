@@ -1,6 +1,9 @@
 package main.model;
 
 import main.F1antasyDB;
+import main.components.UtenteInClassificaConPosizionamento;
+import main.dto.Classifica;
+import main.dto.ClassificaPrivata;
 import main.dto.UtenteInClassifica;
 
 import java.util.*;
@@ -13,9 +16,9 @@ public class PaneClassificheModel {
 
     private Optional<String> selectedClassificaPrivata = Optional.empty();
 
-    private Optional<List<UtenteInClassifica>> classificaPrivata = Optional.empty();
+    private Optional<ClassificaPrivata> classificaPrivata = Optional.empty();
 
-    private List<UtenteInClassifica> classificaGlobale;
+    private Classifica classificaGlobale;
 
 
     public PaneClassificheModel(String username) {
@@ -28,55 +31,16 @@ public class PaneClassificheModel {
         return F1antasyDB.getNomiClassifichePrivateUtente(getUsername());
     }
 
-    private Optional<List<UtenteInClassifica>> getClassificaPrivataFromDB() {
+    private Optional<ClassificaPrivata> getClassificaPrivataFromDB() {
         if (this.getSelectedClassificaPrivata().isEmpty()) {
             return Optional.empty();
         } else {
-            // TODO
-
-            // MOCKUP
-            Map<String, List<UtenteInClassifica>> map = new HashMap();
-
-            List<UtenteInClassifica> firstClassificaPrivata = new ArrayList();
-            firstClassificaPrivata.add(new UtenteInClassifica("Dario", 1, 75));
-            firstClassificaPrivata.add(new UtenteInClassifica("Ale", 2, 50));
-            firstClassificaPrivata.add(new UtenteInClassifica("Carlo", 3, 45));
-            map.put(getAvailableClassifichePrivate().get(0), firstClassificaPrivata);
-
-            List<UtenteInClassifica> secondClassificaPrivata = new ArrayList();
-            secondClassificaPrivata.add(new UtenteInClassifica("Dario", 1, 75));
-            secondClassificaPrivata.add(new UtenteInClassifica("Ale", 2, 50));
-            secondClassificaPrivata.add(new UtenteInClassifica("Carlo", 3, 45));
-            secondClassificaPrivata.add(new UtenteInClassifica("Lillo", 4, 15));
-            secondClassificaPrivata.add(new UtenteInClassifica("Pluto", 5, 10));
-            map.put(getAvailableClassifichePrivate().get(1), secondClassificaPrivata);
-
-            List<UtenteInClassifica> thirdClassificaPrivata = new ArrayList();
-            thirdClassificaPrivata.add(new UtenteInClassifica("Ciccio", 1, 100));
-            thirdClassificaPrivata.add(new UtenteInClassifica("Dario", 2, 75));
-            thirdClassificaPrivata.add(new UtenteInClassifica("Ale", 3, 50));
-            map.put(getAvailableClassifichePrivate().get(2), thirdClassificaPrivata);
-
-            return Optional.of(map.get(this.getSelectedClassificaPrivata().get()));
+            return Optional.of(F1antasyDB.getClassificaPrivata(getUsername(), getSelectedClassificaPrivata().get()));
         }
     }
 
-    private List<UtenteInClassifica> getClassificaGlobaleFromDB() {
-        // TODO
-
-        // MOCKUP
-        List<UtenteInClassifica> list = new ArrayList();
-        list.add(new UtenteInClassifica("Ciccio", 1, 100));
-        list.add(new UtenteInClassifica("Dario", 2, 75));
-        list.add(new UtenteInClassifica("Ale", 3, 50));
-        list.add(new UtenteInClassifica("Carlo", 4, 45));
-        list.add(new UtenteInClassifica("Franky", 5, 35));
-        list.add(new UtenteInClassifica("Jack", 6, 20));
-        list.add(new UtenteInClassifica("Lillo", 7, 15));
-        list.add(new UtenteInClassifica("Pluto", 8, 10));
-        list.add(new UtenteInClassifica("Suus", 9, 0));
-
-        return list;
+    private Classifica getClassificaGlobaleFromDB() {
+        return F1antasyDB.getClassificaGlobale();
     }
 
     public List<String> getAvailableClassifichePrivate() {
@@ -104,28 +68,34 @@ public class PaneClassificheModel {
         }
     }
 
-    public Optional<List<UtenteInClassifica>> getClassificaPrivata() {
-        if (classificaPrivata.isEmpty()) {
+    public Optional<List<UtenteInClassificaConPosizionamento>> getClassificaPrivata() {
+        if (classificaPrivata.isPresent()) {
+            List<UtenteInClassificaConPosizionamento> l = new ArrayList();
+            List<UtenteInClassifica> utenti = classificaPrivata.get().getUtenti();
+            for (int i = 0; i < utenti.size(); i++) {
+                l.add(new UtenteInClassificaConPosizionamento(utenti.get(i), i+1));
+            }
+            return Optional.of(l);
+        } else {
             return Optional.empty();
-        } else {
-            return Optional.of(new ArrayList(classificaPrivata.get()));
         }
     }
 
-    private void setClassificaPrivata(Optional<List<UtenteInClassifica>> classificaPrivata) {
-        if (classificaPrivata.isEmpty()) {
-            this.classificaPrivata = Optional.empty();
-        } else {
-            this.classificaPrivata = Optional.of(new ArrayList(classificaPrivata.get()));
+    private void setClassificaPrivata(Optional<ClassificaPrivata> classificaPrivata) {
+        this.classificaPrivata = classificaPrivata;
+    }
+
+    public List<UtenteInClassificaConPosizionamento> getClassificaGlobale() {
+        List<UtenteInClassificaConPosizionamento> l = new ArrayList();
+        List<UtenteInClassifica> utenti = classificaGlobale.getUtenti();
+        for (int i = 0; i < utenti.size(); i++) {
+            l.add(new UtenteInClassificaConPosizionamento(utenti.get(i), i+1));
         }
+        return l;
     }
 
-    public List<UtenteInClassifica> getClassificaGlobale() {
-        return new ArrayList(this.classificaGlobale);
-    }
-
-    private void setClassificaGlobale(List<UtenteInClassifica> classificaGlobale) {
-        this.classificaGlobale = new ArrayList(classificaGlobale);
+    private void setClassificaGlobale(Classifica classificaGlobale) {
+        this.classificaGlobale = classificaGlobale;
     }
 
     private String getUsername() { return this.username; }

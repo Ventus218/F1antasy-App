@@ -89,6 +89,33 @@ public class F1antasyDB {
     }
 
     /**
+     * O6 - Visualizzazione Classifica Globale
+     */
+    public static Classifica getClassificaGlobale() {
+        // MOCKUP
+        return Classifica.getSample();
+    }
+
+    /**
+     * O7 - Visualizzazione Classifica Privata
+     */
+    public static ClassificaPrivata getClassificaPrivata(String username, String nome) {
+        if (!getNomiClassifichePrivateUtente(username).contains(nome)) {
+            Utils.crashWithMessage("No ClassificaPrivata with name " + nome + " was found in " + getNomiClassifichePrivateUtente(username).toString());
+            return null; // will never run
+        }
+
+        // MOCKUP
+        Optional<ClassificaPrivata> first = ClassificaPrivata.getSample().stream().filter(c -> c.getNome().equals(nome)).findFirst();
+        if (first.isPresent()) {
+            return first.get();
+        } else {
+            Utils.crashWithMessage("No ClassificaPrivata " + nome + " was found for user: " + username);
+            return null; // will never run
+        }
+    }
+
+    /**
      * O12a - Scambio Pilota
      */
     public static Boolean exchangePiloti(String username, Integer annoCampionato, Date dataGranPremio, Pilota oldPilota, Pilota newPilota) {
@@ -208,11 +235,7 @@ public class F1antasyDB {
 
     public static List<String> getNomiClassifichePrivateUtente(String username) {
         // MOCKUP
-        List<String> list = new ArrayList();
-        list.add("Winners");
-        list.add("Losers");
-        list.add("HappyPeople");
-        return list;
+        return ClassificaPrivata.getSample().stream().map(ClassificaPrivata::getNome).collect(Collectors.toList());
     }
 
     public static GranPremioProgrammato getGranPremioProgrammatoCorrente() {

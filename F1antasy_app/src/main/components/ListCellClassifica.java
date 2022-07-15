@@ -9,9 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import main.dto.UtenteInClassifica;
 
-public class ListCellUtenteInClassifica extends ListCell<UtenteInClassifica> {
+public class ListCellClassifica extends ListCell<UtenteInClassificaConPosizionamento> {
 
     private Parent parent ;
 
@@ -19,7 +18,7 @@ public class ListCellUtenteInClassifica extends ListCell<UtenteInClassifica> {
     Label labelUsername;
     Label labelPosizione;
 
-    public ListCellUtenteInClassifica() {
+    public ListCellClassifica() {
         AnchorPane anchor = new AnchorPane();
         anchor.setPrefHeight(60);
 
@@ -79,14 +78,14 @@ public class ListCellUtenteInClassifica extends ListCell<UtenteInClassifica> {
     }
 
     @Override
-    protected void updateItem(UtenteInClassifica u, boolean empty) {
+    protected void updateItem(UtenteInClassificaConPosizionamento u, boolean empty) {
         super.updateItem(u, empty);
         if (empty || u==null) {
             setGraphic(null);
         } else {
             labelPosizione.setText(u.getPosizionamento().toString());
-            labelUsername.setText(u.getUsername());
-            labelPunteggio.setText(u.getPunteggio().toString());
+            labelUsername.setText(u.getUtenteInClassifica().getUsername());
+            labelPunteggio.setText(u.getUtenteInClassifica().getPunteggio().toString());
 
             setGraphic(parent);
         }

@@ -7,7 +7,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import main.User;
 import main.components.DisabledSelectionModel;
-import main.components.ListCellUtenteInClassifica;
+import main.components.ListCellClassifica;
+import main.components.UtenteInClassificaConPosizionamento;
+import main.dto.Classifica;
+import main.dto.ClassificaPrivata;
 import main.dto.UtenteInClassifica;
 import main.model.PaneClassificheModel;
 
@@ -20,11 +23,11 @@ public class PaneClassificheController implements Initializable {
     private PaneClassificheModel model = new PaneClassificheModel(User.loggedInUser.getUsername());
 
     @FXML
-    public ListView listViewClassificaGlobale;
+    public ListView<UtenteInClassificaConPosizionamento> listViewClassificaGlobale;
     @FXML
     public ComboBox<String> comboBoxClassificaPrivataSelezionata;
     @FXML
-    public ListView listViewClassificaPrivata;
+    public ListView<UtenteInClassificaConPosizionamento> listViewClassificaPrivata;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,12 +36,12 @@ public class PaneClassificheController implements Initializable {
         }
 
         // Disabling selection.
-        listViewClassificaGlobale.setSelectionModel(new DisabledSelectionModel<UtenteInClassifica>());
-        listViewClassificaPrivata.setSelectionModel(new DisabledSelectionModel<UtenteInClassifica>());
+        listViewClassificaGlobale.setSelectionModel(new DisabledSelectionModel<UtenteInClassificaConPosizionamento>());
+        listViewClassificaPrivata.setSelectionModel(new DisabledSelectionModel<UtenteInClassificaConPosizionamento>());
 
 
         listViewClassificaGlobale.getItems().addAll(model.getClassificaGlobale());
-        listViewClassificaGlobale.setCellFactory(lv -> new ListCellUtenteInClassifica());
+        listViewClassificaGlobale.setCellFactory(lv -> new ListCellClassifica());
     }
 
     @FXML
@@ -47,6 +50,6 @@ public class PaneClassificheController implements Initializable {
         listViewClassificaPrivata.getItems().removeAll(listViewClassificaPrivata.getItems());
         listViewClassificaPrivata.getItems().addAll(model.getClassificaPrivata().get());
 
-        listViewClassificaPrivata.setCellFactory(lv -> new ListCellUtenteInClassifica());
+        listViewClassificaPrivata.setCellFactory(lv -> new ListCellClassifica());
     }
 }
