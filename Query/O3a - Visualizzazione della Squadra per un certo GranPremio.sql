@@ -1,4 +1,4 @@
-# O3a - Visualizzazione della Squadra per un certo Gran Premio
+# O3a - Visualizzazione della Squadra per un certo Gran Premio (Piloti)
 SELECT P.*
 FROM UTENTE U JOIN SQUADRA S JOIN SCELTA_PILOTA SP JOIN PILOTA P
     ON U.Username = S.UsernameUtente

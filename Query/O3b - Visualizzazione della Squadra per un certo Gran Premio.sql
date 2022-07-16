@@ -1,4 +1,4 @@
-# O3b - Visualizzazione della Squadra per un certo Gran Premio
+# O3b - Visualizzazione della Squadra per un certo Gran Premio (Motorizzazione)
 
 SELECT S.NomeMotorizzazione
 FROM SQUADRA S
