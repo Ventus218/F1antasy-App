@@ -1,8 +1,6 @@
 package main;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,8 +12,6 @@ import main.controllers.delegates.InizializzazioneSquadraDelegate;
 import main.controllers.delegates.LoginDelegate;
 import main.controllers.PaneLoginController;
 import main.controllers.delegates.SigninDelegate;
-
-import java.util.Optional;
 
 public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate {
 
