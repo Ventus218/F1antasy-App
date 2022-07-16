@@ -1,5 +1,6 @@
 package main.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,13 +10,13 @@ public class Squadra {
 
     private String nome;
     private Integer annoCampionato;
-    private Date dataGranPremio;
+    private LocalDate dataGranPremio;
     private String usernameUtente;
     private Integer scambiEffettuati;
     private Integer budgetRimanente;
     private Motorizzazione nomeMotorizzazione;
 
-    public Squadra(String nome, Integer annoCampionato, Date dataGranPremio, String usernameUtente, Integer scambiEffettuati, Integer budgetRimanente, Motorizzazione nomeMotorizzazione) {
+    public Squadra(String nome, Integer annoCampionato, LocalDate dataGranPremio, String usernameUtente, Integer scambiEffettuati, Integer budgetRimanente, Motorizzazione nomeMotorizzazione) {
         this.nome = nome;
         this.annoCampionato = annoCampionato;
         this.dataGranPremio = dataGranPremio;
@@ -31,7 +32,7 @@ public class Squadra {
         return annoCampionato;
     }
 
-    public Date getDataGranPremio() {
+    public LocalDate getDataGranPremio() {
         return dataGranPremio;
     }
 

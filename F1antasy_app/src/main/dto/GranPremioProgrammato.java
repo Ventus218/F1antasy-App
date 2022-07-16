@@ -2,19 +2,19 @@ package main.dto;
 
 import main.Utils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class GranPremioProgrammato {
 
     private Campionato campionato;
-    private Date dataGranPremio;
+    private LocalDate dataGranPremio;
     private GranPremio granPremio;
     private Boolean concluso;
 
-    public GranPremioProgrammato(Campionato campionato, Date dataGranPremio, GranPremio granPremio, Boolean concluso) {
+    public GranPremioProgrammato(Campionato campionato, LocalDate dataGranPremio, GranPremio granPremio, Boolean concluso) {
         this.campionato = campionato;
         this.dataGranPremio = dataGranPremio;
         this.granPremio = granPremio;
@@ -25,7 +25,7 @@ public class GranPremioProgrammato {
         return campionato;
     }
 
-    public Date getDataGranPremio() {
+    public LocalDate getDataGranPremio() {
         return dataGranPremio;
     }
 
@@ -53,12 +53,12 @@ public class GranPremioProgrammato {
     public static List<GranPremioProgrammato> getSample() {
         List<GranPremioProgrammato> list = new ArrayList();
 
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("21/08/2021"), GranPremio.getSample().get(0), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("28/08/2021"), GranPremio.getSample().get(1), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), Utils.dateFromStringDDMMYYYY("03/09/2021"), GranPremio.getSample().get(2), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("21/08/2022"), GranPremio.getSample().get(0), true));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("28/08/2022"), GranPremio.getSample().get(1), false));
-        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), Utils.dateFromStringDDMMYYYY("03/09/2022"), GranPremio.getSample().get(2), false));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), LocalDate.of(2021, 8, 21), GranPremio.getSample().get(0), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), LocalDate.of(2021, 8, 28), GranPremio.getSample().get(1), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(0), LocalDate.of(2021, 9, 5), GranPremio.getSample().get(2), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), LocalDate.of(2022, 8, 21), GranPremio.getSample().get(0), true));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), LocalDate.of(2022, 8, 28), GranPremio.getSample().get(1), false));
+        list.add(new GranPremioProgrammato(Campionato.getSample().get(1), LocalDate.of(2022, 9, 5), GranPremio.getSample().get(2), false));
 
         return list;
     }

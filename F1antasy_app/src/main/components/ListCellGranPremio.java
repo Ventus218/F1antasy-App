@@ -94,10 +94,9 @@ public class ListCellGranPremio extends ListCell<GranPremioProgrammato> {
             labelStato.setText(gpp.getGranPremio().getStato());
             labelNomeGranPremio.setText(gpp.getGranPremio().getNome());
 
-            LocalDate ld = gpp.getDataGranPremio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Locale l = Locale.ITALY ;
             DateTimeFormatter f = DateTimeFormatter.ofLocalizedDate( FormatStyle.LONG ).withLocale( l );
-            labelData.setText(ld.format(f));
+            labelData.setText(gpp.getDataGranPremio().format(f));
 
             setGraphic(parent);
         }

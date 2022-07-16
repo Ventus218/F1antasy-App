@@ -2,6 +2,7 @@ package main;
 
 import main.dto.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ public class F1antasyDB {
     /**
      * O2 - Inizializzazione della Squadra
      */
-    public static Boolean createSquadra(String username, Integer annoCampionato, Date dataGranPremio, String nome, List<Pilota> piloti, Motorizzazione motorizzazione) {
+    public static Boolean createSquadra(String username, Integer annoCampionato, LocalDate dataGranPremio, String nome, List<Pilota> piloti, Motorizzazione motorizzazione) {
         // MOCKUP
         return true;
     }
@@ -30,7 +31,7 @@ public class F1antasyDB {
     /**
      * O3 - Visualizzazione della Squadra per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
      */
-    public static Squadra getSquadraUtente(String username, Integer annoCampionato, Date dataGranPremio) {
+    public static Squadra getSquadraUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to get Squadra of " + username + " while it was not even initialized.");
         // }
@@ -48,7 +49,7 @@ public class F1antasyDB {
     /**
      * O3 - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
      */
-    public static List<Pilota> getSquadraPilotiUtente(String username, Integer annoCampionato, Date dataGranPremio) {
+    public static List<Pilota> getSquadraPilotiUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to get SquadraPiloti of " + username + " while it was not even initialized.");
         // }
@@ -75,7 +76,7 @@ public class F1antasyDB {
     /**
      * O4 - Visualizzazione di tutti i Piloti del Campionato corrente in ordine decrescente di prezzo
      */
-    public static List<PilotaConPrezzo> getPilotiConPrezzo(Integer annoCampionato, Date dataGranPremio) {
+    public static List<PilotaConPrezzo> getPilotiConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) {
         // MOCKUP
         return PilotaConPrezzo.getSample();
     }
@@ -90,7 +91,7 @@ public class F1antasyDB {
     /**
      * O5 - Visualizzazione di tutte le Motorizzazioni del Campionato corrente in ordine decrescente di prezzo
      */
-    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo(Integer annoCampionato, Date dataGranPremio) {
+    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) {
         // MOCKUP
         return MotorizzazioneConPrezzo.getSample();
     }
@@ -128,7 +129,7 @@ public class F1antasyDB {
     /**
      * O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
      */
-    public static Integer getPunteggioOttenutoGranPremioConcluso(String username, Integer annoCampionato, Date dataGranPremio) {
+    public static Integer getPunteggioOttenutoGranPremioConcluso(String username, Integer annoCampionato, LocalDate dataGranPremio) {
         Optional<GranPremioProgrammato> gp = getGranPremiProgrammati(annoCampionato).stream().filter(g -> g.getDataGranPremio().equals(dataGranPremio)).findFirst();
         if (gp.isEmpty()) {
             Utils.crashWithMessage("Gran Premio for annoCampionato: " + annoCampionato.toString() + " and dataGranPremio: " + dataGranPremio.toString() + " not found.");
@@ -143,7 +144,7 @@ public class F1antasyDB {
     /**
      * O12a - Scambio Pilota
      */
-    public static Boolean exchangePiloti(String username, Integer annoCampionato, Date dataGranPremio, Pilota oldPilota, Pilota newPilota) {
+    public static Boolean exchangePiloti(String username, Integer annoCampionato, LocalDate dataGranPremio, Pilota oldPilota, Pilota newPilota) {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to exchange Piloti of " + username + " while it's Squadra was not even initialized.");
         // }
@@ -162,7 +163,7 @@ public class F1antasyDB {
     /**
      * O12b - Scambio Motorizzazione
      */
-    public static Boolean exchangeMotorizzazione(String username, Integer annoCampionato, Date dataGranPremio, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) {
+    public static Boolean exchangeMotorizzazione(String username, Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to exchange Motorizzazione of " + username + " while it's Squadra was not even initialized.");
         // }
@@ -224,7 +225,7 @@ public class F1antasyDB {
     /**
      * O22 - Visualizzazione del Valore di una Squadra
      */
-    public static Integer getValoreSquadra(String username, Integer annoCampionato, Date dataGranPremio) {
+    public static Integer getValoreSquadra(String username, Integer annoCampionato, LocalDate dataGranPremio) {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to get ValoreSquadra of " + username + " while it's Squadra was not even initialized.");
         // }
@@ -253,7 +254,7 @@ public class F1antasyDB {
     }
 
 
-    public static Integer getPrezzoPilota(Integer annoCampionato, Date dataGranPremio, Pilota pilota) {
+    public static Integer getPrezzoPilota(Integer annoCampionato, LocalDate dataGranPremio, Pilota pilota) {
         Optional<PilotaConPrezzo> first = getPilotiConPrezzo(annoCampionato, dataGranPremio).stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
@@ -267,7 +268,7 @@ public class F1antasyDB {
         return getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), pilota);
     }
 
-    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, Date dataGranPremio, Motorizzazione motorizzazione) {
+    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione motorizzazione) {
         Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio).stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
@@ -294,7 +295,7 @@ public class F1antasyDB {
         return false;
     }
 
-    public static Boolean utenteHasInitializedSquadra(String username, Integer annoCampionato, Date dataGranPremio) {
+    public static Boolean utenteHasInitializedSquadra(String username, Integer annoCampionato, LocalDate dataGranPremio) {
         // REMEMBER TO UNCOMMENT USAGE IN O3 O12 O22
         // MOCKUP
         return false;
