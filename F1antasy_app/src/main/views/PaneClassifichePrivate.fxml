@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="712.0" prefWidth="1115.0" styleClass="tab-anchor-pane" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PaneClassifichePrivateController">
+   <children>
+      <HBox layoutX="14.0" layoutY="14.0" spacing="40.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="722.0" prefWidth="539.0" spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" styleClass="title">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/white-podium.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Classifica Privata:" />
+                        <ComboBox fx:id="comboBoxClassificaPrivataSelezionata" minWidth="200.0" onAction="#comboBoxClassificaPrivataSelezionataValueWasChanged" styleClass="class-priv-combo-box" />
+                     </children>
+                  </HBox>
+                  <ListView fx:id="listViewClassificaPrivata" prefHeight="731.0" prefWidth="527.0" styleClass="semi-transparent-list-view" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" spacing="100.0" HBox.hgrow="NEVER">
+               <children>
+                  <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-padding: 10;">
+                     <children>
+                        <Label text="Crea una Classifica Privata per giocare con i tuoi amici!" />
+                        <TextField fx:id="textFieldCreaClassificaPrivata" onKeyTyped="#anyTextFieldValueWasChanged" promptText="Nome Classifica Privata" />
+                        <Button fx:id="buttonCreaClassificaPrivata" mnemonicParsing="false" onAction="#buttonCreaWasPressed" styleClass="blueButton" text="Crea" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-padding: 10;">
+                     <children>
+                        <Label text="Unisciti ad una Classifica Privata" />
+                        <TextField fx:id="textFieldUniscitiClassificaPrivata" onKeyTyped="#anyTextFieldValueWasChanged" promptText="Nome Classifica Privata" />
+                        <Button fx:id="buttonUniscitiClassificaPrivata" mnemonicParsing="false" onAction="#buttonUniscitiWasPressed" styleClass="blueButton" text="Unisciti" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-padding: 10;">
+                     <children>
+                        <Label text="Esci da una Classifica Privata" />
+                        <ComboBox fx:id="comboBoxEsciClassificaPrivata" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#comboBoxEsciClassificaPrivataValueWasChanged" styleClass="class-priv-combo-box" />
+                        <Button fx:id="buttonEsciClassificaPrivata" mnemonicParsing="false" onAction="#buttonEsciWasPressed" styleClass="red-button" text="Esci" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -113,18 +113,14 @@ public class F1antasyDB {
     /**
      * O7 - Visualizzazione Classifica Privata
      */
-    public static ClassificaPrivata getClassificaPrivata(String username, String nome) {
-        if (!getNomiClassifichePrivateUtente(username).contains(nome)) {
-            Utils.crashWithMessage("No ClassificaPrivata with name " + nome + " was found in " + getNomiClassifichePrivateUtente(username).toString());
-            return null; // will never run
-        }
+    public static ClassificaPrivata getClassificaPrivata(String nome) {
 
         // MOCKUP
         Optional<ClassificaPrivata> first = ClassificaPrivata.getSample().stream().filter(c -> c.getNome().equals(nome)).findFirst();
         if (first.isPresent()) {
             return first.get();
         } else {
-            Utils.crashWithMessage("No ClassificaPrivata " + nome + " was found for user: " + username);
+            Utils.crashWithMessage("No ClassificaPrivata " + nome + " was found.");
             return null; // will never run
         }
     }
@@ -180,6 +176,49 @@ public class F1antasyDB {
     public static Boolean exchangeMotorizzazione(String username, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return exchangeMotorizzazione(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), oldMotorizzazione, newMotorizzazione);
+    }
+
+    /**
+     * O13 - Creazione Classifica Privata
+     */
+    public static Boolean createClassificaPrivata(String username, String nome) {
+        // if (classificaPrivataExists(nome)) {
+        //     return false;
+        // }
+
+        // MOCKUP
+        // if (classificaPrivataExists(nome)) {
+        if (false) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * O14 – Iscrizione ad una Classifica Privata
+     */
+    public static Boolean joinClassificaPrivata(String username, String nome) {
+        if (getNomiClassifichePrivateUtente(username).contains(nome)) {
+            Utils.crashWithMessage("User " + username + " already subscribed to ClassificaPrivata: " + nome);
+        }
+        if (! classificaPrivataExists(nome)) {
+            return false;
+        }
+
+        // MOCKUP
+        return true;
+    }
+
+    /**
+     * O15 – Uscita da una Classifica Privata
+     */
+    public static Boolean leaveClassificaPrivata(String username, String nome) {
+        if (! getNomiClassifichePrivateUtente(username).contains(nome)) {
+            return false;
+        }
+
+        // MOCKUP
+        return true;
     }
 
     /**
@@ -268,6 +307,11 @@ public class F1antasyDB {
     public static Integer getPunteggioAttualeUtente(String username) {
         // MOCKUP
         return 100;
+    }
+
+    public static Boolean classificaPrivataExists(String nome) {
+        // MOCKUP
+        return ClassificaPrivata.getSample().stream().map(ClassificaPrivata::getNome).collect(Collectors.toList()).contains(nome);
     }
 
     public static List<String> getNomiClassifichePrivateUtente(String username) {

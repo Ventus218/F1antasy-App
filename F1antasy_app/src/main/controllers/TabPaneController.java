@@ -2,7 +2,6 @@ package main.controllers;
 
 
 import javafx.fxml.FXML;
-import main.Utils;
 
 public class TabPaneController {
 
@@ -10,13 +9,17 @@ public class TabPaneController {
     private PaneSquadraController paneSquadraController;
 
     @FXML
-    private PaneClassificheController paneClassificheController;
+    private PaneGranPremiController paneGranPremiController;
 
     @FXML
-    private PaneGranPremiController paneGranPremiController;
+    private PaneClassifichePrivateController paneClassifichePrivateController;
+
+    @FXML
+    private PaneClassificaGlobaleController paneClassificaGlobaleController;
 
     public void setup() {
         paneSquadraController.setup();
         paneGranPremiController.setup();
+        paneClassifichePrivateController.setup();
     }
 }
