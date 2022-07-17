@@ -95,8 +95,7 @@ create table SCAMBIO_MOTORIZZAZIONE (
      DataOra date not null,
      MotorizzazioneCeduta varchar(255) not null,
      MotorizzazioneAcquisita varchar(255) not null,
-     constraint IDSCAMBIO_MOTORIZZAZIONE unique (AnnoCampionato, DataGranPremio, UsernameUtente),
-     constraint IDSCAMBIO_MOTORIZZAZIONE_1 primary key (Codice));
+     constraint IDSCAMBIO_MOTORIZZAZIONE primary key (Codice));
 
 create table SCAMBIO_PILOTA (
      AnnoCampionato int not null,
@@ -106,8 +105,7 @@ create table SCAMBIO_PILOTA (
      DataOra date not null,
      PilotaCeduto int not null,
      PilotaAcquisito int not null,
-     constraint IDSCAMBIO_PILOTA unique (AnnoCampionato, DataGranPremio, UsernameUtente),
-     constraint IDSCAMBIO_PILOTA_1 primary key (Codice));
+     constraint IDSCAMBIO_PILOTA primary key (Codice));
 
 create table SCELTA_PILOTA (
      CodicePilota int not null,
@@ -314,9 +312,10 @@ alter table SQUADRA add constraint FKSCELTA_MOTORIZZAZIONE
      on update cascade;
 
 
--- Index Section
--- _____________ 
 
-create index FKISCRIZIONE_IND
-     on SCUDERIA_PARTECIPANTE (AnnoCampionato);
 
+
+-- ADDED BY US SECTION --
+ALTER TABLE SQUADRA
+    ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK ( SQUADRA.BudgetRimanente >= 0 ),
+    ADD CONSTRAINT CHK_ScambiEffettuati_MAX CHECK ( SQUADRA.ScambiEffettuati <= 2 );

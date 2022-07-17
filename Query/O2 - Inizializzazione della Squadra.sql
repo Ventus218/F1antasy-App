@@ -53,9 +53,3 @@ BEGIN
     COMMIT;
 
 END;
-
-# Need to add in DDL
-/*
-    ALTER TABLE SQUADRA
-    ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK (SQUADRA.BudgetRimanente >= 0);
-*/

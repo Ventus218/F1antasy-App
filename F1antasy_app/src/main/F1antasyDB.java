@@ -304,7 +304,21 @@ public class F1antasyDB {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
 
-        // MOCKUP
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call scambioPilota(?, ?, ?, ?, ?)}");
+            s.setString(1, username);
+            s.setInt(2, annoCampionato);
+            s.setDate(3, Date.valueOf(dataGranPremio));
+            s.setInt(4, oldPilota.getCodice());
+            s.setInt(5, newPilota.getCodice());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+
+        s.execute();
+        s.close();
         return true;
     }
     /**
@@ -323,7 +337,21 @@ public class F1antasyDB {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
 
-        // MOCKUP
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call scambioMotorizzazione(?, ?, ?, ?, ?)}");
+            s.setString(1, username);
+            s.setInt(2, annoCampionato);
+            s.setDate(3, Date.valueOf(dataGranPremio));
+            s.setString(4, oldMotorizzazione.getNome());
+            s.setString(5, newMotorizzazione.getNome());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+
+        s.execute();
+        s.close();
         return true;
     }
     /**

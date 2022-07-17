@@ -75,9 +75,21 @@ public class PaneExchangeModel<T extends Acquistabile> {
 
     private List<T> getAvailableAcquistabiliFromDB() {
         if (oldAcquistabileIsPilota()) {
-            Pilota oldPilota = ((PilotaConPrezzo) oldAcquistabile).getPilota();
-            List<PilotaConPrezzo> filtered = getPilotiConPrezzoFromDB().stream().filter(p -> ! p.getPilota().getCodice().equals(oldPilota.getCodice())).collect(Collectors.toList());
-            return (List<T>) filtered;
+            try {
+                List<Integer> codiciPilotiGiaInSquadra = F1antasyDB.getSquadraPilotiUtente(getUsername())
+                        .stream()
+                        .map(PilotaConPrezzo::getPilota)
+                        .map(Pilota::getCodice)
+                        .collect(Collectors.toList());
+                List<PilotaConPrezzo> filtered = getPilotiConPrezzoFromDB()
+                        .stream()
+                        .filter(p -> ! codiciPilotiGiaInSquadra.contains(p.getPilota().getCodice()))
+                        .collect(Collectors.toList());
+                return (List<T>) filtered;
+            } catch (SQLException e) {
+                Utils.crashWithMessage("Failed to retrieve squadra to filter out on availableForExchange with error\n" + e.toString());
+                return null; // will never run
+            }
         } else { // is MotorizzazioneConPrezzo
             Motorizzazione oldMotorizzazione = ((MotorizzazioneConPrezzo) oldAcquistabile).getMotorizzazione();
             List<MotorizzazioneConPrezzo> filtered = getMotorizzazioniConPrezzoFromDB().stream().filter(m -> ! m.getMotorizzazione().equals(oldMotorizzazione)).collect(Collectors.toList());

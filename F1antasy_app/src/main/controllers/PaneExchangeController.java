@@ -91,8 +91,9 @@ public class PaneExchangeController<T extends Acquistabile> {
 
     @FXML
     public void buttonConfermaWasPressed(ActionEvent actionEvent) {
-        delegate.exchangeWasCompleted();
-        if (!model.makeExchange()) {
+        if (model.makeExchange()) {
+            delegate.exchangeWasCompleted();
+        } else {
             Utils.showError("Qualcosa è andato storto effettuando lo scambio.");
         }
         closeStage();

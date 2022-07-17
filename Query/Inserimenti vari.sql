@@ -79,24 +79,17 @@ INSERT INTO POSIZIONE_PUNTEGGIO(Posizione, Punteggio)
 CALL registrazioneUtente('CiccioCarluz', 'Password');
 CALL registrazioneUtente('Mario', 'Password');
 CALL registrazioneUtente('Dario', 'Password');
+CALL registrazioneUtente('Ventu', 'Password');
 CALL registrazioneUtente('Franky', 'Password');
 CALL registrazioneUtente('Roman', 'Password');
 
-INSERT INTO CLASSIFICA_PRIVATA(Nome, NumeroPartecipanti)
-    VALUES
-        ('TheTeam', 0),
-        ('IBomber', 0),
-        ('Brothers', 0),
-        ('FintiDivertiti', 0);
+CALL creazioneClassificaPrivata('CiccioCarluz', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Dario', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Roman', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Ventu', 'UniboLeague');
 
-INSERT INTO REGISTRAZIONE(UsernameUtente, NomeClassificaPrivata)
-    VALUES
-        ('Mario', 'TheTeam'),
-        ('Dario', 'TheTeam'),
-        ('CiccioCarluz', 'TheTeam'),
-        ('Mario', 'IBomber'),
-        ('Franky', 'Brothers'),
-        ('Roman', 'FintiDivertiti');
+CALL creazioneClassificaPrivata('Ventu', 'Bolognesi');
+CALL iscrizioneClassificaPrivata('Dario', 'Bolognesi');
 
 INSERT INTO CAMPIONATO(Anno)
     VALUES
@@ -229,7 +222,38 @@ VALUES
     (2021, '2021-05-22', 'Renault',        9000000, NULL),
     (2021, '2021-05-22', 'Ferrari',         8000000, NULL),*/
     (2022, '2022-05-22', 'Mercedes',    15000000, NULL),
-    (2022, '2022-05-22', 'Honda',         10000000, NULL),
     (2022, '2022-05-22', 'Ferrari',         9000000, NULL),
     (2022, '2022-05-22', 'Renault',        8000000, NULL),
     (2022, '2022-05-22', 'Red Bull',        7000000, NULL);
+
+
+
+# PRIMO GRAN PREMIO
+
+CALL inizializzazioneSquadra('CiccioCarluz', 'Ferrari', 5, 6, 12, 19);
+CALL inizializzazioneSquadra('Dario', 'Mercedes', 5, 8, 12, 10);
+CALL inizializzazioneSquadra('Ventu', 'Ferrari', 5, 8, 12, 11);
+CALL inizializzazioneSquadra('Mario', 'Mercedes', 22, 21, 3, 11);
+CALL inizializzazioneSquadra('Franky', 'Red Bull', 22, 17, 3, 13);
+CALL inizializzazioneSquadra('Roman', 'Red Bull', 17, 21, 3, 11);
+
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 1, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 3, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 2, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 5, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 6, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 8, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 7, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 11, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 4, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 9, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 10, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 21, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 12, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 22, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 13, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 14, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 19, 17);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 17, 18);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-05-22');
