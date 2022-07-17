@@ -1,5 +1,5 @@
 # O2 - Inizializzazione della Squadra (scelta Piloti e Motorizzazione)
-DROP PROCEDURE inizializzazioneSquadra
+
 CREATE PROCEDURE inizializzazioneSquadra (  IN user VARCHAR(255),
                                                                         IN nomeMot VARCHAR(255),
                                                                         IN codicePilota1 INT,
@@ -26,7 +26,7 @@ BEGIN
          dataGP,
          user,
          0, -- mettere default
-         100000000 - (SELECT Prezzo FROM PREZZO_MOTORIZZAZIONE -- mettere default al posto di 100000000 ma controllare se funziona
+         100000000 - (SELECT Prezzo FROM MOTORIZZAZIONE_IN_GRAN_PREMIO -- mettere default al posto di 100000000 ma controllare se funziona
                                 WHERE AnnoCampionato = annoC
                                 AND DataGranPremio = dataGP
                                 AND NomeMotorizzazione = nomeMot),
@@ -40,7 +40,7 @@ BEGIN
         (codicePilota4, annoC, dataGP, user);
 
     UPDATE SQUADRA
-    SET  BudgetRimanente = BudgetRimanente - (  SELECT sum(Prezzo) AS PrezzoTotale FROM PREZZO_PILOTA
+    SET  BudgetRimanente = BudgetRimanente - (  SELECT sum(Prezzo) AS PrezzoTotale FROM PILOTA_IN_GRAN_PREMIO
                                                                             WHERE AnnoCampionato = annoC
                                                                             AND DataGranPremio = dataGP
                                                                             AND (   CodicePilota = codicePilota1

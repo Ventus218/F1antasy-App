@@ -3,13 +3,13 @@
 CREATE PROCEDURE visualizzazionePilotiPrezzoPerGranPremio (IN annoC INT, IN dataGP DATE)
 BEGIN
 
-    SELECT P.*, PP.Prezzo
-    FROM SCUDERIA_PARTECIPANTE SP JOIN INGAGGIO_PILOTA IP JOIN PILOTA P JOIN PREZZO_PILOTA PP
+    SELECT P.*, PGP.Prezzo
+    FROM SCUDERIA_PARTECIPANTE SP JOIN INGAGGIO_PILOTA IP JOIN PILOTA P JOIN PILOTA_IN_GRAN_PREMIO PGP
         ON SP.AnnoCampionato = IP.AnnoCampionato AND SP.NomeScuderia = IP.NomeScuderia
         AND P.Codice = IP.CodicePilota
-        AND PP.CodicePilota = P.Codice AND PP.AnnoCampionato = SP.AnnoCampionato
+        AND PGP.CodicePilota = P.Codice AND PGP.AnnoCampionato = SP.AnnoCampionato
     WHERE SP.AnnoCampionato = annoC
-    AND PP.DataGranPremio = dataGP
-    ORDER BY PP.Prezzo DESC ;
+    AND PGP.DataGranPremio = dataGP
+    ORDER BY PGP.Prezzo DESC ;
 
 END;

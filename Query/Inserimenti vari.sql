@@ -76,19 +76,17 @@ INSERT INTO POSIZIONE_PUNTEGGIO(Posizione, Punteggio)
     (19, 1),
     (20, 0);
 
-INSERT INTO UTENTE(Username, Password, PunteggioCorrente)
-    VALUES
-        ('CiccioCarluz', 'Password', 0),
-        ('Mario', 'Password', 0),
-        ('Dario', 'Password', 0),
-        ('Franky', 'Password', 0),
-        ('Roman', 'Password', 0);
+CALL registrazioneUtente('CiccioCarluz', 'Password');
+CALL registrazioneUtente('Mario', 'Password');
+CALL registrazioneUtente('Dario', 'Password');
+CALL registrazioneUtente('Franky', 'Password');
+CALL registrazioneUtente('Roman', 'Password');
 
 INSERT INTO CLASSIFICA_PRIVATA(Nome, NumeroPartecipanti)
     VALUES
         ('TheTeam', 0),
         ('IBomber', 0),
-        ('Ciccioni', 0),
+        ('Brothers', 0),
         ('FintiDivertiti', 0);
 
 INSERT INTO REGISTRAZIONE(UsernameUtente, NomeClassificaPrivata)
@@ -97,26 +95,26 @@ INSERT INTO REGISTRAZIONE(UsernameUtente, NomeClassificaPrivata)
         ('Dario', 'TheTeam'),
         ('CiccioCarluz', 'TheTeam'),
         ('Mario', 'IBomber'),
-        ('Franky', 'Ciccioni'),
+        ('Franky', 'Brothers'),
         ('Roman', 'FintiDivertiti');
 
 INSERT INTO CAMPIONATO(Anno)
     VALUES
-        (2022),
-        (2021);
+        (2022);
+        /* (2021); */
 
 INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
      VALUES
-        (2021, '2021-05-22', 'Spagna', 'Catalogna', 0),
+       /* (2021, '2021-05-22', 'Spagna', 'Catalogna', 0),
         (2021, '2021-05-29', 'Principato di Monaco', 'Monte Carlo', 0),
-        (2021, '2021-06-1', 'Azerbaijan', 'Baku', 0),
+        (2021, '2021-06-1', 'Azerbaijan', 'Baku', 0), */
         (2022, '2022-05-22', 'Spagna', 'Catalogna', 0),
         (2022, '2022-05-29', 'Principato di Monaco', 'Monte Carlo', 0),
         (2022, '2022-06-1', 'Azerbaijan', 'Baku', 0);
 
 INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
     VALUES
-        (2021, 'Ferrari', 'Ferrari'),
+       /* (2021, 'Ferrari', 'Ferrari'),
         (2021, 'Mercedes', 'Mercedes'),
         (2021, 'Mclaren', 'Mercedes'),
         (2021, 'Red Bull', 'Honda'),
@@ -125,7 +123,7 @@ INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazio
         (2021, 'Aston Martin', 'Mercedes'),
         (2021, 'Williams', 'Mercedes'),
         (2021, 'Alfa Romeo', 'Ferrari'),
-        (2021, 'Haas', 'Ferrari'),
+        (2021, 'Haas', 'Ferrari'),*/
         (2022, 'Ferrari', 'Ferrari'),
         (2022, 'Mercedes', 'Mercedes'),
         (2022, 'Mclaren', 'Mercedes'),
@@ -140,7 +138,7 @@ INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazio
 
 INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
     VALUES
-        (2021, 'Mercedes', 1),
+        /*(2021, 'Mercedes', 1),
         (2021, 'Mercedes', 2),
         (2021, 'Red Bull', 3),
         (2021, 'Red Bull', 4),
@@ -159,7 +157,7 @@ INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
         (2021, 'Haas', 17),
         (2021, 'Haas', 18),
         (2021, 'Williams', 19),
-        (2021, 'Williams', 20),
+        (2021, 'Williams', 20),*/
         (2022, 'Mercedes', 1),
         (2022, 'Mercedes', 19),
         (2022, 'Red Bull', 3),
@@ -181,57 +179,57 @@ INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
         (2022, 'Williams', 20),
         (2022, 'Williams', 21);
 
-INSERT INTO PREZZO_PILOTA(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo)
+INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo, Posizione)
     VALUES
-        (2021, '2021-05-22', 1,     40000000),
-        (2021, '2021-05-22', 2,     40000000),
-        (2021, '2021-05-22', 3,     33000000),
-        (2021, '2021-05-22', 4,     32000000),
-        (2021, '2021-05-22', 5,     30000000),
-        (2021, '2021-05-22', 12,   25000000),
-        (2021, '2021-05-22', 11,   23000000),
-        (2021, '2021-05-22', 6,     21000000),
-        (2021, '2021-05-22', 13,     19000000),
-        (2021, '2021-05-22', 8,   17000000),
-        (2021, '2021-05-22', 9,     15000000),
-        (2021, '2021-05-22', 7,     14000000),
-        (2021, '2021-05-22', 16,   13000000),
-        (2021, '2021-05-22', 15,   12000000),
-        (2021, '2021-05-22', 19,   11000000),
-        (2021, '2021-05-22', 20,   11000000),
-        (2021, '2021-05-22', 10,   20000000),
-        (2021, '2021-05-22', 14,   10000000),
-        (2021, '2021-05-22', 17,   10000000),
-        (2021, '2021-05-22', 18,   10000000),
-        (2022, '2022-05-22', 3,     40000000),
-        (2022, '2022-05-22', 1,     36000000),
-        (2022, '2022-05-22', 2,     33000000),
-        (2022, '2022-05-22', 4,     32000000),
-        (2022, '2022-05-22', 12,   30000000),
-        (2022, '2022-05-22', 6,     27000000),
-        (2022, '2022-05-22', 11,   25000000),
-        (2022, '2022-05-22', 5,     23000000),
-        (2022, '2022-05-22', 13,   21000000),
-        (2022, '2022-05-22', 10,   19000000),
-        (2022, '2022-05-22', 9,     17000000),
-        (2022, '2022-05-22', 7,     15000000),
-        (2022, '2022-05-22', 8,     13000000),
-        (2022, '2022-05-22', 14,   11000000),
-        (2022, '2022-05-22', 19,   9000000),
-        (2022, '2022-05-22', 20,   7000000),
-        (2022, '2022-05-22', 17,   6000000),
-        (2022, '2022-05-22', 21,   10000000),
-        (2022, '2022-05-22', 22,   10000000),
-        (2022, '2022-05-22', 23,   10000000);
+        /*(2021, '2021-05-22', 1,     40000000, NULL),
+        (2021, '2021-05-22', 2,     40000000, NULL),
+        (2021, '2021-05-22', 3,     33000000, NULL),
+        (2021, '2021-05-22', 4,     32000000, NULL),
+        (2021, '2021-05-22', 5,     30000000, NULL),
+        (2021, '2021-05-22', 12,   25000000, NULL),
+        (2021, '2021-05-22', 11,   23000000, NULL),
+        (2021, '2021-05-22', 6,     21000000, NULL),
+        (2021, '2021-05-22', 13,     19000000, NULL),
+        (2021, '2021-05-22', 8,   17000000, NULL),
+        (2021, '2021-05-22', 9,     15000000, NULL),
+        (2021, '2021-05-22', 7,     14000000, NULL),
+        (2021, '2021-05-22', 16,   13000000, NULL),
+        (2021, '2021-05-22', 15,   12000000, NULL),
+        (2021, '2021-05-22', 19,   11000000, NULL),
+        (2021, '2021-05-22', 20,   11000000, NULL),
+        (2021, '2021-05-22', 10,   20000000, NULL),
+        (2021, '2021-05-22', 14,   10000000, NULL),
+        (2021, '2021-05-22', 17,   10000000, NULL),
+        (2021, '2021-05-22', 18,   10000000, NULL),*/
+        (2022, '2022-05-22', 3,     40000000, NULL),
+        (2022, '2022-05-22', 1,     36000000, NULL),
+        (2022, '2022-05-22', 2,     33000000, NULL),
+        (2022, '2022-05-22', 4,     32000000, NULL),
+        (2022, '2022-05-22', 12,   30000000, NULL),
+        (2022, '2022-05-22', 6,     27000000, NULL),
+        (2022, '2022-05-22', 11,   25000000, NULL),
+        (2022, '2022-05-22', 5,     23000000, NULL),
+        (2022, '2022-05-22', 13,   21000000, NULL),
+        (2022, '2022-05-22', 10,   19000000, NULL),
+        (2022, '2022-05-22', 9,     17000000, NULL),
+        (2022, '2022-05-22', 7,     15000000, NULL),
+        (2022, '2022-05-22', 8,     13000000, NULL),
+        (2022, '2022-05-22', 14,   11000000, NULL),
+        (2022, '2022-05-22', 19,   9000000, NULL),
+        (2022, '2022-05-22', 20,   7000000, NULL),
+        (2022, '2022-05-22', 17,   6000000, NULL),
+        (2022, '2022-05-22', 21,   10000000, NULL),
+        (2022, '2022-05-22', 22,   10000000, NULL),
+        (2022, '2022-05-22', 23,   10000000, NULL);
 
-INSERT INTO PREZZO_MOTORIZZAZIONE(AnnoCampionato, DataGranPremio, NomeMotorizzazione, Prezzo)
+INSERT INTO MOTORIZZAZIONE_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, NomeMotorizzazione, Prezzo, PunteggioOttenuto)
 VALUES
-    (2021, '2021-05-22', 'Mercedes',    15000000),
-    (2021, '2021-05-22', 'Honda',         10000000),
-    (2021, '2021-05-22', 'Renault',        9000000),
-    (2021, '2021-05-22', 'Ferrari',         8000000),
-    (2022, '2022-05-22', 'Mercedes',    15000000),
-    (2022, '2022-05-22', 'Honda',         10000000),
-    (2022, '2022-05-22', 'Ferrari',         9000000),
-    (2022, '2022-05-22', 'Renault',        8000000),
-    (2022, '2022-05-22', 'Red Bull',        7000000);
+    /*(2021, '2021-05-22', 'Mercedes',    15000000, NULL),
+    (2021, '2021-05-22', 'Honda',         10000000, NULL),
+    (2021, '2021-05-22', 'Renault',        9000000, NULL),
+    (2021, '2021-05-22', 'Ferrari',         8000000, NULL),*/
+    (2022, '2022-05-22', 'Mercedes',    15000000, NULL),
+    (2022, '2022-05-22', 'Honda',         10000000, NULL),
+    (2022, '2022-05-22', 'Ferrari',         9000000, NULL),
+    (2022, '2022-05-22', 'Renault',        8000000, NULL),
+    (2022, '2022-05-22', 'Red Bull',        7000000, NULL);

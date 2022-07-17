@@ -6,7 +6,7 @@ BEGIN
     SELECT SUM(t.Punteggio) as punteggio_tot INTO punteggio
     FROM (SELECT pp.Punteggio
         FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s
-        JOIN scelta_pilota sp JOIN risultato_pilota rp JOIN posizione_punteggio pp
+        JOIN scelta_pilota sp JOIN pilota_in_gran_premio rp JOIN posizione_punteggio pp
             ON (gpp.AnnoCampionato = s.AnnoCampionato
             AND gpp.Data = s.DataGranPremio
             AND u.Username = s.UsernameUtente
@@ -21,14 +21,14 @@ BEGIN
         AND gpp.Data = dataGP
         AND u.Username = user
         UNION ALL
-        SELECT rm.PunteggioOttenuto
-        FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s JOIN risultato_motorizzazione rm
+        SELECT mgp.PunteggioOttenuto
+        FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s JOIN motorizzazione_in_gran_premio mgp
             ON (gpp.AnnoCampionato = s.AnnoCampionato
             AND gpp.Data = s.DataGranPremio
             AND u.Username = s.UsernameUtente
-            AND rm.AnnoCampionato = s.AnnoCampionato
-            AND rm.DataGranPremio = s.DataGranPremio
-            AND rm.NomeMotorizzazione = s.NomeMotorizzazione)
+            AND mgp.AnnoCampionato = s.AnnoCampionato
+            AND mgp.DataGranPremio = s.DataGranPremio
+            AND mgp.NomeMotorizzazione = s.NomeMotorizzazione)
         WHERE gpp.AnnoCampionato = annoC
         AND gpp.Data = dataGP
         AND u.Username = user) AS t;

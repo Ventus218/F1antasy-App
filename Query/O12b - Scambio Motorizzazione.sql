@@ -5,13 +5,13 @@ VALUE (2021, '2021-05-29', 'CiccioCarluz', current_date(), 'Ferrari', 'Renault')
 
 UPDATE squadra s
 SET ScambiEffettuati = ScambiEffettuati + 1,
-BudgetRimanente = BudgetRimanente + (SELECT p.Prezzo
-                                     FROM prezzo_motorizzazione p
-                                     WHERE p.AnnoCampionato = s.AnnoCampionato AND p.DataGranPremio = s.DataGranPremio
-                                     AND p.NomeMotorizzazione = 'Ferrari'),
-BudgetRimanente = BudgetRimanente - (SELECT P.Prezzo FROM prezzo_motorizzazione p
-                                     WHERE p.AnnoCampionato = s.AnnoCampionato AND p.DataGranPremio = s.DataGranPremio
-                                     AND p.NomeMotorizzazione = 'Renault'),
+BudgetRimanente = BudgetRimanente + (SELECT MGP.Prezzo
+                                     FROM MOTORIZZAZIONE_IN_GRAN_PREMIO MGP
+                                     WHERE MGP.AnnoCampionato = s.AnnoCampionato AND MGP.DataGranPremio = s.DataGranPremio
+                                     AND MGP.NomeMotorizzazione = 'Ferrari'),
+BudgetRimanente = BudgetRimanente - (SELECT MGP.Prezzo FROM MOTORIZZAZIONE_IN_GRAN_PREMIO MGP
+                                     WHERE MGP.AnnoCampionato = s.AnnoCampionato AND MGP.DataGranPremio = s.DataGranPremio
+                                     AND MGP.NomeMotorizzazione = 'Renault'),
 NomeMotorizzazione = 'Renault'
 WHERE AnnoCampionato = 2021
 AND DataGranPremio = '2021-05-29'

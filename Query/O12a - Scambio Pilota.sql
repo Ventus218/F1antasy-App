@@ -12,12 +12,12 @@ AND CodicePilota = 9;
 
 UPDATE SQUADRA S
 SET ScambiEffettuati = ScambiEffettuati + 1,
-BudgetRimanente = BudgetRimanente + (SELECT P.Prezzo FROM PREZZO_PILOTA P
-                                                                WHERE P.AnnoCampionato = S.AnnoCampionato AND P.DataGranPremio = S.DataGranPremio
-                                                                AND P.CodicePilota = 9),
-BudgetRimanente = BudgetRimanente - (SELECT P.Prezzo FROM PREZZO_PILOTA P
-                                                                WHERE P.AnnoCampionato = S.AnnoCampionato AND P.DataGranPremio = S.DataGranPremio
-                                                                AND P.CodicePilota = 1)
+BudgetRimanente = BudgetRimanente + (SELECT PGP.Prezzo FROM PILOTA_IN_GRAN_PREMIO PGP
+                                                                WHERE PGP.AnnoCampionato = S.AnnoCampionato AND PGP.DataGranPremio = S.DataGranPremio
+                                                                AND PGP.CodicePilota = 9),
+BudgetRimanente = BudgetRimanente - (SELECT PGP.Prezzo FROM PILOTA_IN_GRAN_PREMIO PGP
+                                                                WHERE PGP.AnnoCampionato = S.AnnoCampionato AND PGP.DataGranPremio = S.DataGranPremio
+                                                                AND PGP.CodicePilota = 1)
 WHERE AnnoCampionato = 2021
 AND DataGranPremio = '2021-05-29'
 AND UsernameUtente = 'CiccioCarluz';

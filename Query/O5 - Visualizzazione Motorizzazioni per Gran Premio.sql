@@ -3,10 +3,10 @@
 CREATE PROCEDURE visualizzazioneMotorizzazioniPrezzoPerGranPremio (IN annoC INT, IN dataGP DATE)
 BEGIN
 
-    SELECT pm.NomeMotorizzazione, pm.Prezzo
-    FROM prezzo_motorizzazione pm
-    WHERE pm.AnnoCampionato = annoC
-    AND pm.DataGranPremio = dataGP
-    ORDER BY pm.Prezzo DESC;
+    SELECT MGP.NomeMotorizzazione, MGP.Prezzo
+    FROM MOTORIZZAZIONE_IN_GRAN_PREMIO MGP
+    WHERE MGP.AnnoCampionato = annoC
+    AND MGP.DataGranPremio = dataGP
+    ORDER BY MGP.Prezzo DESC;
 
 END;
