@@ -1,4 +1,9 @@
-INSERT INTO UTENTE(Username, Password, PunteggioCorrente)
-    VALUES('Ventus', 'Password', 0);
+# O1 - RegistrazioneUtente
 
-SELECT * FROM UTENTE;
+CREATE PROCEDURE registrazioneUtente (IN user VARCHAR(255), IN pass VARCHAR(255))
+BEGIN
+
+    INSERT INTO UTENTE(Username, Password, PunteggioCorrente)
+        VALUES(user, pass, 0); -- mettere default
+
+END;

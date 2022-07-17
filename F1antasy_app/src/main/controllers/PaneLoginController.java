@@ -11,6 +11,7 @@ import main.Utils;
 import main.controllers.delegates.LoginDelegate;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PaneLoginController implements Initializable {
@@ -36,7 +37,12 @@ public class PaneLoginController implements Initializable {
     }
 
     private Boolean validateLogin() {
-        return F1antasyDB.logInUtente(textFieldUsername.getText(), textFieldPassword.getText());
+        try {
+            return F1antasyDB.logInUtente(textFieldUsername.getText(), textFieldPassword.getText());
+        } catch (SQLException e) {
+            Utils.showError(e.toString());
+            return false;
+        }
     }
 
     @FXML
@@ -44,7 +50,7 @@ public class PaneLoginController implements Initializable {
         if (validateLogin()) {
             loginDelegate.loginEndedSuccessfully(textFieldUsername.getText());
         } else {
-            Utils.showError("I dati non sono corretti");
+            Utils.showError("I dati inseriti non sono corretti");
         }
     }
 

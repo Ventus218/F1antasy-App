@@ -1,11 +1,11 @@
 package main.model;
 
 import main.F1antasyDB;
-import main.User;
 import main.Utils;
 import main.components.Acquistabile;
 import main.dto.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +25,13 @@ public class PaneExchangeModel<T extends Acquistabile> {
         this.oldAcquistabile = oldAcquistabile;
         this.availableAquistabili = getAvailableAcquistabiliFromDB();
 
-        GranPremioProgrammato currentGP = F1antasyDB.getGranPremioProgrammatoCorrente();
-        Squadra s = F1antasyDB.getSquadraUtente(getUsername(), currentGP.getCampionato().getAnno(), currentGP.getDataGranPremio());
-        setBudgetRimanente(s.getBudgetRimanente());
+        try {
+            GranPremioProgrammato currentGP = F1antasyDB.getGranPremioProgrammatoCorrente();
+            Squadra s = F1antasyDB.getSquadraUtente(getUsername(), currentGP.getCampionato().getAnno(), currentGP.getDataGranPremio());
+            setBudgetRimanente(s.getBudgetRimanente());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+        }
     }
 
     public Boolean makeExchange() {
@@ -35,11 +39,21 @@ public class PaneExchangeModel<T extends Acquistabile> {
         if (oldAcquistabileIsPilota()) {
             PilotaConPrezzo oldPCP = (PilotaConPrezzo) oldAcquistabile;
             PilotaConPrezzo newPCP = (PilotaConPrezzo) newAcquistabile.get();
-            return F1antasyDB.exchangePiloti(getUsername(), oldPCP.getPilota(), newPCP.getPilota());
+            try {
+                return F1antasyDB.exchangePiloti(getUsername(), oldPCP.getPilota(), newPCP.getPilota());
+            } catch (SQLException e) {
+                Utils.crashWithMessage(e.toString());
+                return null; // will never run
+            }
         } else {
             MotorizzazioneConPrezzo oldM = (MotorizzazioneConPrezzo) oldAcquistabile;
             MotorizzazioneConPrezzo newM = (MotorizzazioneConPrezzo) newAcquistabile.get();
-            return F1antasyDB.exchangeMotorizzazione(getUsername(), oldM.getMotorizzazione(), newM.getMotorizzazione());
+            try {
+                return F1antasyDB.exchangeMotorizzazione(getUsername(), oldM.getMotorizzazione(), newM.getMotorizzazione());
+            } catch (SQLException e) {
+                Utils.crashWithMessage(e.toString());
+                return null; // will never run
+            }
         }
     }
 
@@ -72,11 +86,21 @@ public class PaneExchangeModel<T extends Acquistabile> {
     }
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
-        return F1antasyDB.getPilotiConPrezzo();
+        try {
+            return F1antasyDB.getPilotiConPrezzo();
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
-        return F1antasyDB.getMotorizzazioniConPrezzo();
+        try {
+            return F1antasyDB.getMotorizzazioniConPrezzo();
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     public T getOldAcquistabile() {

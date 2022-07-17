@@ -7,6 +7,7 @@ import main.dto.Pilota;
 import main.dto.PilotaConPrezzo;
 import main.dto.Squadra;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,11 @@ public class PaneGranPremiModel {
     public PaneGranPremiModel(String username) {
         this.username = username;
 
-        this.granPremi = F1antasyDB.getGranPremiProgrammati(F1antasyDB.getCampionatoCorrente().getAnno());
+        try {
+            this.granPremi = F1antasyDB.getGranPremiProgrammati(F1antasyDB.getCampionatoCorrente().getAnno());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+        }
     }
 
 
@@ -34,12 +39,13 @@ public class PaneGranPremiModel {
         }
         setSelectedGranPremio(Optional.of(gpp));
         if (gpp.getConcluso()) {
-            setSelectedGranPremioSquadra(Optional.of(F1antasyDB.getSquadraUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())));
-            List<Pilota> squadraPiloti = F1antasyDB.getSquadraPilotiUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
-            List<PilotaConPrezzo> squadraPilotiConPrezzo = squadraPiloti.stream()
-                    .map(p -> new PilotaConPrezzo(p, F1antasyDB.getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), p)))
-                    .collect(Collectors.toList());
-            setSelectedGranPremioPilotiConPrezzo(Optional.of(squadraPilotiConPrezzo));
+            try {
+                setSelectedGranPremioSquadra(Optional.of(F1antasyDB.getSquadraUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())));
+                List<PilotaConPrezzo> squadraPilotiConPrezzo = F1antasyDB.getSquadraPilotiUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
+                setSelectedGranPremioPilotiConPrezzo(Optional.of(squadraPilotiConPrezzo));
+            } catch (SQLException e) {
+                Utils.crashWithMessage(e.toString());
+            }
         } else {
             setSelectedGranPremioSquadra(Optional.empty());
             setSelectedGranPremioPilotiConPrezzo(Optional.empty());
@@ -49,7 +55,12 @@ public class PaneGranPremiModel {
     public Optional<Integer> getSelectedGranPremioPrezzoMotorizzazione() {
         if (getSelectedGranPremio().isPresent()) {
             GranPremioProgrammato selectedGPP = getSelectedGranPremio().get();
-            return Optional.of(F1antasyDB.getPrezzoMotorizzazione(selectedGPP.getCampionato().getAnno(), selectedGPP.getDataGranPremio(), getSelectedGranPremioSquadra().get().getNomeMotorizzazione()));
+            try {
+                return Optional.of(F1antasyDB.getPrezzoMotorizzazione(selectedGPP.getCampionato().getAnno(), selectedGPP.getDataGranPremio(), getSelectedGranPremioSquadra().get().getNomeMotorizzazione()));
+            } catch (SQLException e) {
+                Utils.crashWithMessage(e.toString());
+                return null; // will never run
+            }
         } else {
             return Optional.empty();
         }

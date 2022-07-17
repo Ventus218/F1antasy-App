@@ -8,10 +8,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import main.F1antasyDB;
 import main.User;
+import main.Utils;
 import main.components.ListCellGranPremio;
 import main.dto.*;
 import main.model.PaneGranPremiModel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,7 +92,11 @@ public class PaneGranPremiController {
                 labelPrezzoMotorizzazione.setText(model.getSelectedGranPremioPrezzoMotorizzazione().get().toString());
 
                 labelMessage.setText("Punteggio Ottenuto");
-                labelPunteggioOttenuto.setText(F1antasyDB.getPunteggioOttenutoGranPremioConcluso(model.getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()).toString());
+                try {
+                    labelPunteggioOttenuto.setText(F1antasyDB.getPunteggioOttenutoGranPremioConcluso(model.getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()).toString());
+                } catch (SQLException e) {
+                    Utils.crashWithMessage(e.toString());
+                }
                 hBoxPunteggio.setOpacity(1);
             } else {
                 labelNomeMotorizzazione.setText("???");

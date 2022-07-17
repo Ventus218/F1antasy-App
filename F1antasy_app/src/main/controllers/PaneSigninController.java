@@ -11,6 +11,7 @@ import main.Utils;
 import main.controllers.delegates.SigninDelegate;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PaneSigninController implements Initializable {
@@ -48,6 +49,9 @@ public class PaneSigninController implements Initializable {
     @FXML
     private void signinButtonWasPressed(ActionEvent actionEvent) {
         if (validateSignin()) {
+            try { F1antasyDB.signInUtente(textFieldUsername.getText(), textFieldPassword.getText()); }
+            catch (SQLException e) { Utils.showError(e.toString()); }
+
             signinDelegate.signinEndedSuccessfully();
         } else {
             if ( ! textFieldPassword.getText().equals(textFieldConfirmPassword.getText()) ) {

@@ -2,8 +2,10 @@ package main.model;
 
 import main.F1antasyDB;
 import main.User;
+import main.Utils;
 import main.dto.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,8 +45,12 @@ public class PaneSquadraModel {
     }
 
     private Squadra getSquadraFromDB() {
-        GranPremioProgrammato currentGP = F1antasyDB.getGranPremioProgrammatoCorrente();
-        return F1antasyDB.getSquadraUtente(getUsername(), currentGP.getCampionato().getAnno(), currentGP.getDataGranPremio());
+        try {
+            return F1antasyDB.getSquadraUtente(getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private Integer getPunteggioAttualeFromDB() {
@@ -52,27 +58,39 @@ public class PaneSquadraModel {
     }
 
     private Integer getValoreSquadraFromDB() {
-        return F1antasyDB.getValoreSquadra(getUsername());
+        try {
+            return F1antasyDB.getValoreSquadra(getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
-        List<Pilota> piloti = F1antasyDB.getSquadraPilotiUtente(getUsername());
-
-        // LEAVE THIS HERE
-        List<PilotaConPrezzo> pilotiConPrezzo = new ArrayList();
-        for (int i = 0; i < piloti.size(); i++) {
-            Pilota p = piloti.get(i);
-            pilotiConPrezzo.add(new PilotaConPrezzo(p, getPrezzoPilotaFromDB(p)));
+        try {
+            return F1antasyDB.getSquadraPilotiUtente(getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
         }
-        return pilotiConPrezzo;
     }
 
     private Integer getPrezzoPilotaFromDB(Pilota pilota) {
-        return F1antasyDB.getPrezzoPilota(pilota);
+        try {
+            return F1antasyDB.getPrezzoPilota(pilota);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private Integer getPrezzoMotorizzazioneFromDB(Motorizzazione motorizzazione) {
-        return F1antasyDB.getPrezzoMotorizzazione(motorizzazione);
+        try {
+            return F1antasyDB.getPrezzoMotorizzazione(motorizzazione);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
 

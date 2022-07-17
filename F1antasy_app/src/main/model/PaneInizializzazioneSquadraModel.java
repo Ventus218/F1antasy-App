@@ -1,11 +1,13 @@
 package main.model;
 
 import main.F1antasyDB;
+import main.Utils;
 import main.dto.Motorizzazione;
 import main.dto.MotorizzazioneConPrezzo;
 import main.dto.Pilota;
 import main.dto.PilotaConPrezzo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,12 +39,11 @@ public class PaneInizializzazioneSquadraModel {
         if (getBudgetRimanente() < 0) { return false; }
         if (getNomeSquadra().isEmpty()) { return false; }
 
-        createSquadraInDB(getUsername(),
+        return createSquadraInDB(getUsername(),
                 getNomeSquadra(),
                 getSelectedPiloti().stream().map(PilotaConPrezzo::getPilota).collect(Collectors.toList()),
                 getSelectedMotorizzazione().get().getMotorizzazione()
         );
-        return true;
     }
 
     public Boolean selectPiloti(List<PilotaConPrezzo> piloti) {
@@ -74,16 +75,33 @@ public class PaneInizializzazioneSquadraModel {
         setBudgetRimanente(result);
     }
 
-    private void createSquadraInDB(String username, String nome, List<Pilota> piloti, Motorizzazione motorizzazione ) {
-        F1antasyDB.createSquadra(username, nome, piloti, motorizzazione);
+    private Boolean createSquadraInDB(String username, String nome, List<Pilota> piloti, Motorizzazione motorizzazione ) {
+        try {
+            F1antasyDB.createSquadra(username, nome, piloti, motorizzazione);
+            return true;
+        }
+        catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return false;
+        }
     }
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
-        return F1antasyDB.getPilotiConPrezzo();
+        try {
+            return F1antasyDB.getPilotiConPrezzo();
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
-        return F1antasyDB.getMotorizzazioniConPrezzo();
+        try {
+            return F1antasyDB.getMotorizzazioniConPrezzo();
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     public List<PilotaConPrezzo> getSelectedPiloti() {

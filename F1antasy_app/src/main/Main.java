@@ -13,6 +13,8 @@ import main.controllers.delegates.LoginDelegate;
 import main.controllers.PaneLoginController;
 import main.controllers.delegates.SigninDelegate;
 
+import java.sql.SQLException;
+
 public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate {
 
     private Stage primaryStage;
@@ -79,8 +81,13 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         primaryStage.show();
     }
 
-    private boolean userHasAlreadyInitializedSquadra() {
-        return F1antasyDB.utenteHasInitializedSquadra(User.loggedInUser.getUsername());
+    private Boolean userHasAlreadyInitializedSquadra() {
+        try {
+            return F1antasyDB.utenteHasInitializedSquadra(User.loggedInUser.getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     @Override
