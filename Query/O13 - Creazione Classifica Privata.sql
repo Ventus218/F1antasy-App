@@ -1,7 +1,19 @@
 # O13 - Creazione Classifica Privata
 
-INSERT INTO CLASSIFICA_PRIVATA(Nome, NumeroPartecipanti)
-VALUE ('Winners', 0)
+CREATE PROCEDURE creazioneClassificaPrivata (IN user VARCHAR(255), IN nome VARCHAR(255))
+BEGIN
 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;  -- rollback any changes made in the transaction
+        RESIGNAL;  -- raise again the sql exception to the caller
+    END;
 
-# Subito dopo eseguire almeno una O14 per rispettare il vincolo di avere sempre almeno un UTENTE in ogni CLASSIFICA_PRIVATA
+    START TRANSACTION;
+        INSERT INTO CLASSIFICA_PRIVATA(Nome, NumeroPartecipanti)
+        VALUE (nome, 0);
+
+        CALL iscrizioneClassificaPrivata(user, nome);
+    COMMIT;
+
+END;

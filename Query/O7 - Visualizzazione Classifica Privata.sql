@@ -1,3 +1,11 @@
 # O7 - Visualizzazione Classifica Privata
-SELECT R.NomeClassificaPrivata, U.Username, U.PunteggioCorrente FROM REGISTRAZIONE R JOIN UTENTE U ON R.UsernameUtente = U.Username
-WHERE R.NomeClassificaPrivata = 'TheTeam';
+
+CREATE PROCEDURE visualizzazioneClassificaPrivata (IN nome VARCHAR(255))
+BEGIN
+
+    SELECT U.Username, U.PunteggioCorrente
+    FROM REGISTRAZIONE R JOIN UTENTE U
+        ON R.UsernameUtente = U.Username
+    WHERE R.NomeClassificaPrivata = nome;
+
+END;

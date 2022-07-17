@@ -54,45 +54,7 @@ public class F1antasyDB {
     }
 
     /**
-     * O3 - Visualizzazione della Squadra per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
-     */
-    public static Squadra getSquadraUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
-        if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
-            Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
-        }
-
-        CallableStatement s;
-        try {
-            s = connection.prepareCall("{call visualizzazioneSquadra(?, ?, ?)}");
-            s.setString(1, username);
-            s.setInt(2, annoCampionato);
-            s.setDate(3, Date.valueOf(dataGranPremio));
-        } catch (SQLException e) {
-            Utils.crashWithMessage(e.toString());
-            return null; // will never run
-        }
-        s.execute();
-        ResultSet rs = s.getResultSet();
-        rs.next();
-        Integer annoC = rs.getInt(1);
-        LocalDate dataGP = rs.getDate(2).toLocalDate();
-        String user = rs.getString(3);
-        Integer scambi = rs.getInt(4);
-        Integer budget = rs.getInt(5);
-        String nomeMot = rs.getString(6);
-
-        return new Squadra("NOME", annoC, dataGP, user, scambi, budget, new Motorizzazione(nomeMot));
-    }
-    /**
-     * O3 - Visualizzazione della Squadra per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
-     */
-    public static Squadra getSquadraUtente(String username) throws SQLException {
-        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
-        return getSquadraUtente(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
-    }
-
-    /**
-     * O3 - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
+     * O3a - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio
      */
     public static List<PilotaConPrezzo> getSquadraPilotiUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
@@ -131,11 +93,49 @@ public class F1antasyDB {
         return l;
     }
     /**
-     * O3 - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio                  (DA DIVIDERE COME OPERAZIONE IN SQUADRA E PILOTI)
+     * O3a - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio
      */
     public static List<PilotaConPrezzo> getSquadraPilotiUtente(String username) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getSquadraPilotiUtente(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
+    }
+
+    /**
+     * O3b - Visualizzazione della Squadra per un certo Gran Premio
+     */
+    public static Squadra getSquadraUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+        if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
+            Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
+        }
+
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzazioneSquadra(?, ?, ?)}");
+            s.setString(1, username);
+            s.setInt(2, annoCampionato);
+            s.setDate(3, Date.valueOf(dataGranPremio));
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        s.execute();
+        ResultSet rs = s.getResultSet();
+        rs.next();
+        Integer annoC = rs.getInt(1);
+        LocalDate dataGP = rs.getDate(2).toLocalDate();
+        String user = rs.getString(3);
+        Integer scambi = rs.getInt(4);
+        Integer budget = rs.getInt(5);
+        String nomeMot = rs.getString(6);
+
+        return new Squadra("NOME", annoC, dataGP, user, scambi, budget, new Motorizzazione(nomeMot));
+    }
+    /**
+     * O3b - Visualizzazione della Squadra per un certo Gran Premio
+     */
+    public static Squadra getSquadraUtente(String username) throws SQLException {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getSquadraUtente(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
     /**
@@ -217,24 +217,64 @@ public class F1antasyDB {
     /**
      * O6 - Visualizzazione Classifica Globale
      */
-    public static Classifica getClassificaGlobale() {
-        // MOCKUP
-        return Classifica.getSample();
+    public static Classifica getClassificaGlobale() throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzazioneClassificaGlobale()}");
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        Boolean result = s.execute();
+
+        List<UtenteInClassifica> l = new ArrayList();
+        while (result) {
+            ResultSet rs = s.getResultSet();
+
+            while (rs.next()) {
+                String username = rs.getString(1);
+                Integer punteggio = rs.getInt(2);
+
+                l.add(new UtenteInClassifica(username, punteggio));
+            }
+
+            result = s.getMoreResults();
+        }
+        s.close();
+
+        return new Classifica(l);
     }
 
     /**
      * O7 - Visualizzazione Classifica Privata
      */
-    public static ClassificaPrivata getClassificaPrivata(String nome) {
-
-        // MOCKUP
-        Optional<ClassificaPrivata> first = ClassificaPrivata.getSample().stream().filter(c -> c.getNome().equals(nome)).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        } else {
-            Utils.crashWithMessage("No ClassificaPrivata " + nome + " was found.");
+    public static ClassificaPrivata getClassificaPrivata(String nome) throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzazioneClassificaPrivata(?)}");
+            s.setString(1, nome);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
             return null; // will never run
         }
+        Boolean result = s.execute();
+
+        List<UtenteInClassifica> l = new ArrayList();
+        while (result) {
+            ResultSet rs = s.getResultSet();
+
+            while (rs.next()) {
+                String username = rs.getString(1);
+                Integer punteggio = rs.getInt(2);
+
+                l.add(new UtenteInClassifica(username, punteggio));
+            }
+
+            result = s.getMoreResults();
+        }
+        s.close();
+
+        return new ClassificaPrivata(nome, l);
     }
 
     /**
@@ -297,43 +337,65 @@ public class F1antasyDB {
     /**
      * O13 - Creazione Classifica Privata
      */
-    public static Boolean createClassificaPrivata(String username, String nome) {
-        // if (classificaPrivataExists(nome)) {
-        //     return false;
-        // }
-
-        // MOCKUP
-        // if (classificaPrivataExists(nome)) {
-        if (false) {
-            return false;
+    public static Boolean createClassificaPrivata(String username, String nome) throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call creazioneClassificaPrivata(?, ?)}");
+            s.setString(1, username);
+            s.setString(2, nome);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
         }
+
+        s.execute();
+        s.close();
         return true;
     }
 
     /**
      * O14 – Iscrizione ad una Classifica Privata
      */
-    public static Boolean joinClassificaPrivata(String username, String nome) {
+    public static Boolean joinClassificaPrivata(String username, String nome) throws SQLException {
         if (getNomiClassifichePrivateUtente(username).contains(nome)) {
             Utils.crashWithMessage("User " + username + " already subscribed to ClassificaPrivata: " + nome);
         }
-        if (! classificaPrivataExists(nome)) {
-            return false;
+
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call iscrizioneClassificaPrivata(?, ?)}");
+            s.setString(1, username);
+            s.setString(2, nome);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
         }
 
-        // MOCKUP
+        s.execute();
+        s.close();
         return true;
     }
 
     /**
      * O15 – Uscita da una Classifica Privata
      */
-    public static Boolean leaveClassificaPrivata(String username, String nome) {
+    public static Boolean leaveClassificaPrivata(String username, String nome) throws SQLException {
         if (! getNomiClassifichePrivateUtente(username).contains(nome)) {
-            return false;
+            Utils.crashWithMessage("User " + username + " is not subscribed to ClassificaPrivata: " + nome);
         }
 
-        // MOCKUP
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call uscitaClassificaPrivata(?, ?)}");
+            s.setString(1, username);
+            s.setString(2, nome);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+
+        s.execute();
+        s.close();
         return true;
     }
 
@@ -448,14 +510,32 @@ public class F1antasyDB {
         return 100;
     }
 
-    public static Boolean classificaPrivataExists(String nome) {
-        // MOCKUP
-        return ClassificaPrivata.getSample().stream().map(ClassificaPrivata::getNome).collect(Collectors.toList()).contains(nome);
-    }
+    public static List<String> getNomiClassifichePrivateUtente(String username) throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzaNomiClassifichePrivateUtente(?)}");
+            s.setString(1, username);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        Boolean result = s.execute();
 
-    public static List<String> getNomiClassifichePrivateUtente(String username) {
-        // MOCKUP
-        return ClassificaPrivata.getSample().stream().map(ClassificaPrivata::getNome).collect(Collectors.toList());
+        List<String> l = new ArrayList();
+        while (result) {
+            ResultSet rs = s.getResultSet();
+
+            while (rs.next()) {
+                String nome = rs.getString(1);
+
+                l.add(nome);
+            }
+
+            result = s.getMoreResults();
+        }
+        s.close();
+
+        return l;
     }
 
     public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) {

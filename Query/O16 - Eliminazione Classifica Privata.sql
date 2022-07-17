@@ -1,4 +1,9 @@
 # O16 - Eliminazione Classifica Privata
 
-DELETE FROM CLASSIFICA_PRIVATA
-WHERE Nome = 'Winners'
+CREATE PROCEDURE eliminaClassificaPrivata(IN nome VARCHAR(255))
+BEGIN
+
+    DELETE FROM CLASSIFICA_PRIVATA C
+    WHERE C.Nome = nome;
+
+END;

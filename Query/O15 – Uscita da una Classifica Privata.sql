@@ -1,9 +1,26 @@
 # O15 – Uscita da una Classifica Privata
 
-DELETE FROM REGISTRAZIONE
-WHERE UsernameUtente = 'CiccioCarluz'
-AND NomeClassificaPrivata = 'Winners';
+CREATE PROCEDURE uscitaClassificaPrivata (IN user VARCHAR(255), IN nome VARCHAR(255))
+BEGIN
 
-UPDATE CLASSIFICA_PRIVATA
-SET NumeroPartecipanti = NumeroPartecipanti - 1
-WHERE Nome = 'Winners';
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;  -- rollback any changes made in the transaction
+        RESIGNAL;  -- raise again the sql exception to the caller
+    END;
+
+    START TRANSACTION;
+        DELETE FROM REGISTRAZIONE
+        WHERE UsernameUtente = user
+        AND NomeClassificaPrivata = nome;
+
+        UPDATE CLASSIFICA_PRIVATA C
+        SET C.NumeroPartecipanti = C.NumeroPartecipanti - 1
+        WHERE C.Nome = nome;
+
+        IF (SELECT C.NumeroPartecipanti FROM CLASSIFICA_PRIVATA C WHERE C.Nome = nome) = 0 THEN
+            CALL eliminaClassificaPrivata(nome);
+        END IF;
+    COMMIT;
+
+END;

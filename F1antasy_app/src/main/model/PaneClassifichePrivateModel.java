@@ -7,6 +7,7 @@ import main.dto.Classifica;
 import main.dto.ClassificaPrivata;
 import main.dto.UtenteInClassifica;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,23 +39,37 @@ public class PaneClassifichePrivateModel {
         }
 
         setSelectedClassificaPrivata(Optional.of(nome));
-        setClassificaPrivata(Optional.of(F1antasyDB.getClassificaPrivata(nome)));
+        try {
+            setClassificaPrivata(Optional.of(F1antasyDB.getClassificaPrivata(nome)));
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+        }
     }
 
     public Boolean createClassificaPrivata(String nome) {
-        if (F1antasyDB.createClassificaPrivata(getUsername(), nome)) {
-            refreshData();
-            return true;
-        } else {
+        try {
+            if (F1antasyDB.createClassificaPrivata(getUsername(), nome)) {
+                refreshData();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Utils.showError(e.toString());
             return false;
         }
     }
 
     public Boolean joinClassificaPrivata(String nome) {
-        if (F1antasyDB.joinClassificaPrivata(getUsername(), nome)) {
-            refreshData();
-            return true;
-        } else {
+        try {
+            if (F1antasyDB.joinClassificaPrivata(getUsername(), nome)) {
+                refreshData();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Utils.showError(e.toString());
             return false;
         }
     }
@@ -63,16 +78,26 @@ public class PaneClassifichePrivateModel {
         if (! availableClassifichePrivate.contains(nome)) {
             Utils.crashWithMessage("Trying to leave ClassificaPrivata which is not present in availableClassifichePrivata. ");
         }
-        if (F1antasyDB.leaveClassificaPrivata(getUsername(), nome)) {
-            refreshData();
-            return true;
-        } else {
+        try {
+            if (F1antasyDB.leaveClassificaPrivata(getUsername(), nome)) {
+                refreshData();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Utils.showError(e.toString());
             return false;
         }
     }
 
     private List<String> getAvailableClassifichePrivateFromDB() {
-        return F1antasyDB.getNomiClassifichePrivateUtente(getUsername());
+        try {
+            return F1antasyDB.getNomiClassifichePrivateUtente(getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     public List<String> getAvailableClassifichePrivate() {

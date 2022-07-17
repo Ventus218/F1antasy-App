@@ -1,10 +1,12 @@
 package main.model;
 
 import main.F1antasyDB;
+import main.Utils;
 import main.components.UtenteInClassificaConPosizionamento;
 import main.dto.Classifica;
 import main.dto.UtenteInClassifica;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class PaneClassificaGlobaleModel {
@@ -21,7 +23,12 @@ public class PaneClassificaGlobaleModel {
 
 
     private Classifica getClassificaGlobaleFromDB() {
-        return F1antasyDB.getClassificaGlobale();
+        try {
+            return F1antasyDB.getClassificaGlobale();
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     public List<UtenteInClassificaConPosizionamento> getClassificaGlobale() {
