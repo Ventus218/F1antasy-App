@@ -21,7 +21,6 @@ public class PaneInizializzazioneSquadraModel {
 
     private List<PilotaConPrezzo> selectedPiloti = new ArrayList();
     private Optional<MotorizzazioneConPrezzo> selectedMotorizzazione = Optional.empty();
-    private String nomeSquadra = "";
     private Integer budgetRimanente = BUDGET;
     private List<PilotaConPrezzo> availablePiloti;
     private List<MotorizzazioneConPrezzo> availableMotorizzazioni;
@@ -37,10 +36,8 @@ public class PaneInizializzazioneSquadraModel {
         if (getSelectedPiloti().size() != 4) { return false; }
         if (getSelectedMotorizzazione().isEmpty()) { return false; }
         if (getBudgetRimanente() < 0) { return false; }
-        if (getNomeSquadra().isEmpty()) { return false; }
 
         return createSquadraInDB(getUsername(),
-                getNomeSquadra(),
                 getSelectedPiloti().stream().map(PilotaConPrezzo::getPilota).collect(Collectors.toList()),
                 getSelectedMotorizzazione().get().getMotorizzazione()
         );
@@ -63,7 +60,7 @@ public class PaneInizializzazioneSquadraModel {
     }
 
     public Boolean canCreateSquadra() {
-        return !(getSelectedPiloti().size() != 4 || getSelectedMotorizzazione().isEmpty() || getNomeSquadra().isEmpty() || getBudgetRimanente() < 0);
+        return !(getSelectedPiloti().size() != 4 || getSelectedMotorizzazione().isEmpty() || getBudgetRimanente() < 0);
     }
 
     private void updateBudget() {
@@ -75,9 +72,9 @@ public class PaneInizializzazioneSquadraModel {
         setBudgetRimanente(result);
     }
 
-    private Boolean createSquadraInDB(String username, String nome, List<Pilota> piloti, Motorizzazione motorizzazione ) {
+    private Boolean createSquadraInDB(String username, List<Pilota> piloti, Motorizzazione motorizzazione ) {
         try {
-            F1antasyDB.createSquadra(username, nome, piloti, motorizzazione);
+            F1antasyDB.createSquadra(username, piloti, motorizzazione);
             return true;
         }
         catch (SQLException e) {
@@ -118,14 +115,6 @@ public class PaneInizializzazioneSquadraModel {
 
     private void setSelectedMotorizzazione(Optional<MotorizzazioneConPrezzo> selectedMotorizzazione) {
         this.selectedMotorizzazione = selectedMotorizzazione;
-    }
-
-    public String getNomeSquadra() {
-        return nomeSquadra;
-    }
-
-    public void setNomeSquadra(String nomeSquadra) {
-        this.nomeSquadra = nomeSquadra;
     }
 
     public Integer getBudgetRimanente() {

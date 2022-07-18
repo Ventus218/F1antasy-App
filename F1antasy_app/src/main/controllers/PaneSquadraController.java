@@ -22,7 +22,6 @@ public class PaneSquadraController implements PaneExchangeDelegate {
 
     private PaneSquadraModel model;
 
-    @FXML public Label labelNomeSquadra;
     @FXML public Label labelPunteggioAttuale;
     @FXML public Label labelBudgetRimanente;
     @FXML public Label labelValoreSquadra;
@@ -67,7 +66,6 @@ public class PaneSquadraController implements PaneExchangeDelegate {
     }
 
     private void updateUI() {
-        labelNomeSquadra.setText(model.getSquadra().getNome());
         labelPunteggioAttuale.setText(model.getPunteggioAttuale().toString());
         labelBudgetRimanente.setText(model.getSquadra().getBudgetRimanente().toString());
         labelValoreSquadra.setText(model.getValoreSquadra().toString());

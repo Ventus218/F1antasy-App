@@ -19,16 +19,6 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
                      <children>
-                        <Label text="Squadra:" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label id="labelNomeSquadra" fx:id="labelNomeSquadra" layoutX="10.0" layoutY="10.0" styleClass="outputLabel" stylesheets="@../style/style.css" text="WinTeam" textFill="WHITE" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
-                     <children>
                         <Label text="Punteggio:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />

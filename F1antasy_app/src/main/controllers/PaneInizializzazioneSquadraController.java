@@ -27,8 +27,6 @@ public class PaneInizializzazioneSquadraController {
     @FXML
     public ListView<MotorizzazioneConPrezzo> listViewMotorizzazioni;
     @FXML
-    public TextField textFieldNomeSquadra;
-    @FXML
     public Button buttonConferma;
 
     public void setDelegate(InizializzazioneSquadraDelegate d) {
@@ -72,7 +70,6 @@ public class PaneInizializzazioneSquadraController {
         if (listViewMotorizzazioni.getSelectionModel().getSelectedItems().size() == 1) {
             model.selectMotorizzazione(listViewMotorizzazioni.getSelectionModel().getSelectedItems().stream().findFirst().get());
         }
-        model.setNomeSquadra(textFieldNomeSquadra.getText());
     }
 
     private void updateUI() {

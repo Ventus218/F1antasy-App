@@ -34,7 +34,7 @@ public class F1antasyDB {
     /**
      * O2 - Inizializzazione della Squadra
      */
-    public static void createSquadra(String username, String nome, List<Pilota> piloti, Motorizzazione motorizzazione) throws SQLException {
+    public static void createSquadra(String username, List<Pilota> piloti, Motorizzazione motorizzazione) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call inizializzazioneSquadra(?, ?, ?, ?, ?, ?)}");
@@ -127,7 +127,7 @@ public class F1antasyDB {
         Integer budget = rs.getInt(5);
         String nomeMot = rs.getString(6);
 
-        return new Squadra("NOME", annoC, dataGP, user, scambi, budget, new Motorizzazione(nomeMot));
+        return new Squadra(annoC, dataGP, user, scambi, budget, new Motorizzazione(nomeMot));
     }
     /**
      * O3b - Visualizzazione della Squadra per un certo Gran Premio
