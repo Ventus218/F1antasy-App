@@ -435,19 +435,19 @@ public class F1antasyDB {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
 
-        // MOCKUP BUT SHOULD WORK CORRECTLY
-        Motorizzazione mot = getSquadraUtente(username, annoCampionato, dataGranPremio).getNomeMotorizzazione();
-        return (Integer) getSquadraPilotiUtente(username, annoCampionato, dataGranPremio).stream()
-                .map(PilotaConPrezzo::getPrezzo)
-                .mapToInt(Integer::intValue)
-                .sum()
-                +
-                getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio)
-                .stream()
-                .filter(m -> m.getMotorizzazione().equals(mot))
-                .findFirst()
-                .get()
-                .getPrezzo();
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call valoreSquadra(?, ?, ? ,?)}");
+            s.setString(1, username);
+            s.setInt(2, annoCampionato);
+            s.setDate(3, Date.valueOf(dataGranPremio));
+            s.registerOutParameter(4, Types.INTEGER);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        s.execute();
+        return s.getInt(4);
     }
     /**
      * O22 - Visualizzazione del Valore di una Squadra
@@ -566,9 +566,36 @@ public class F1antasyDB {
         return l;
     }
 
-    public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) {
-       // MOCKUP
-       return GranPremioProgrammato.getSample().stream().filter(gpp -> gpp.getCampionato().getAnno().equals(annoCampionato)).collect(Collectors.toList());
+    public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzaGranPremiPerCampionato(?)}");
+            s.setInt(1, annoCampionato);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        Boolean result = s.execute();
+
+        List<GranPremioProgrammato> l = new ArrayList();
+        while (result) {
+            ResultSet rs = s.getResultSet();
+
+            while (rs.next()) {
+                Integer anno = rs.getInt(1);
+                LocalDate dataGP = rs.getDate(2).toLocalDate();
+                String stato = rs.getString(3);
+                String nome = rs.getString(4);
+                Boolean concluso = rs.getBoolean(5);
+
+                l.add(new GranPremioProgrammato(new Campionato(anno), dataGP, stato, nome, concluso));
+            }
+
+            result = s.getMoreResults();
+        }
+        s.close();
+
+        return l;
     }
 
     /**

@@ -1,27 +1,25 @@
-# O20 - Aggiornamento prezzo Pilota
+# O20 - Aggiornamento prezzi Piloti
 
-INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo)
-    SELECT 2021, '2021-05-29', PGP.CodicePilota, (PGP.Prezzo + (P.Punteggio-10)*100000) AS NuovoPrezzo
-    FROM PILOTA_IN_GRAN_PREMIO PGP JOIN POSIZIONE_PUNTEGGIO P
-        ON PGP.Posizione = P.Posizione
-    WHERE PGP.AnnoCampionato = 2021
-    AND PGP.DataGranPremio = '2021-05-22'
-    UNION ALL
-    SELECT 2021, '2021-05-29', PGP.CodicePilota, (PGP.Prezzo -1500000) AS NuovoPrezzo
-    FROM PILOTA_IN_GRAN_PREMIO PGP
-    WHERE PGP.AnnoCampionato = 2021
-    AND PGP.DataGranPremio = '2021-05-22'
-    AND PGP.Posizione IS NULL;
+CREATE PROCEDURE aggiornamentoPrezziPilotiGPConcluso (IN annoC INT, IN dataGP DATE)
+BEGIN
 
+    DECLARE nextAnnoC INT;
+    DECLARE nextDataGP DATE;
 
+    # GETTING NEXT GRAND PRIX
+    CALL visualizzaGranPremioCorrente(nextAnnoC, nextDataGP, @useless, @useless, @useless);
 
-# UTILI PER CONTROLLARE
-SELECT * FROM PILOTA_IN_GRAN_PREMIO
-WHERE AnnoCampionato = 2021
-AND DataGranPremio = '2021-05-22';
+    INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo)
+        SELECT nextAnnoC, nextDataGP, PGP.CodicePilota, (PGP.Prezzo + (P.Punteggio-10)*100000) AS NuovoPrezzo
+        FROM PILOTA_IN_GRAN_PREMIO PGP JOIN POSIZIONE_PUNTEGGIO P
+            ON PGP.Posizione = P.Posizione
+        WHERE PGP.AnnoCampionato = annoC
+        AND PGP.DataGranPremio = dataGP
+        UNION ALL
+        SELECT nextAnnoC, nextDataGP, PGP.CodicePilota, (PGP.Prezzo -1500000) AS NuovoPrezzo
+        FROM PILOTA_IN_GRAN_PREMIO PGP
+        WHERE PGP.AnnoCampionato = annoC
+        AND PGP.DataGranPremio = dataGP
+        AND PGP.Posizione IS NULL;
 
-SELECT * FROM PILOTA_IN_GRAN_PREMIO
-WHERE AnnoCampionato = 2021
-AND DataGranPremio = '2021-05-29';
-
-delete from PILOTA_IN_GRAN_PREMIO where true;
+END;

@@ -73,43 +73,40 @@ public class PaneGranPremiController {
     }
 
     private void updateUI() {
+        Optional<GranPremioProgrammato> selectedGP = model.getSelectedGranPremio();
         Optional<List<PilotaConPrezzo>> piloti = model.getSelectedGranPremioPilotiConPrezzo();
-        for (int i = 0; i < _labelsNomiPiloti.size(); i++) {
-            if (piloti.isPresent()) {
+        if (selectedGP.isPresent() && piloti.isPresent()) {
+            labelNomeMotorizzazione.setText(model.getSelectedGranPremioSquadra().get().getNomeMotorizzazione().getNome());
+            labelPrezzoMotorizzazione.setText(model.getSelectedGranPremioPrezzoMotorizzazione().get().toString());
+
+            for (int i = 0; i < _labelsNomiPiloti.size(); i++) {
                 PilotaConPrezzo p = piloti.get().get(i);
                 _labelsNomiPiloti.get(i).setText(p.getPilota().getNome() + " " + p.getPilota().getCognome());
                 _labelsPrezziPiloti.get(i).setText(p.getPrezzo().toString());
-            } else {
-                _labelsNomiPiloti.get(i).setText("???");
-                _labelsPrezziPiloti.get(i).setText("???");
             }
-        }
-
-        Optional<GranPremioProgrammato> gp = model.getSelectedGranPremio();
-        if (gp.isPresent()) {
-            if (gp.get().getConcluso()) {
-                labelNomeMotorizzazione.setText(model.getSelectedGranPremioSquadra().get().getNomeMotorizzazione().getNome());
-                labelPrezzoMotorizzazione.setText(model.getSelectedGranPremioPrezzoMotorizzazione().get().toString());
-
+            if(selectedGP.get().getConcluso()) {
                 labelMessage.setText("Punteggio Ottenuto");
-                try {
-                    labelPunteggioOttenuto.setText(F1antasyDB.getPunteggioOttenutoGranPremioConcluso(model.getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()).toString());
-                } catch (SQLException e) {
-                    Utils.crashWithMessage(e.toString());
-                }
+                Integer punteggio = model.getSelectedGPPunteggioOttenuto().get();
+                labelPunteggioOttenuto.setText(punteggio.toString());
                 hBoxPunteggio.setOpacity(1);
             } else {
-                labelNomeMotorizzazione.setText("???");
-                labelPrezzoMotorizzazione.setText("???");
-
-                labelMessage.setText("Questo Gran Premio non è ancora concluso.");
+                labelMessage.setText("Questo Gran Premio è in fase di svolgimento");
                 hBoxPunteggio.setOpacity(0);
             }
         } else {
             labelNomeMotorizzazione.setText("???");
             labelPrezzoMotorizzazione.setText("???");
 
-            labelMessage.setText("Seleziona un Gran Premio per vedere la squadra con cui hai partecipato.");
+            for (int i = 0; i < _labelsNomiPiloti.size(); i++) {
+                _labelsNomiPiloti.get(i).setText("???");
+                _labelsPrezziPiloti.get(i).setText("???");
+            }
+
+            if (selectedGP.isPresent()) {
+                labelMessage.setText("Vedrai la squadra quando questo Gran Premio sarà concluso o in svolgimento.");
+            } else {
+                labelMessage.setText("Seleziona un Gran Premio per vedere la squadra con cui hai partecipato.");
+            }
             hBoxPunteggio.setOpacity(0);
         }
     }

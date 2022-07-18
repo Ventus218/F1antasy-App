@@ -38,17 +38,17 @@ public class PaneGranPremiModel {
             Utils.crashWithMessage("Trying to select a GranPremio which is not present in " + getGranPremi().toString());
         }
         setSelectedGranPremio(Optional.of(gpp));
-        if (gpp.getConcluso()) {
-            try {
+        try {
+            if (F1antasyDB.utenteHasSquadraForGranPremio(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())) {
                 setSelectedGranPremioSquadra(Optional.of(F1antasyDB.getSquadraUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())));
                 List<PilotaConPrezzo> squadraPilotiConPrezzo = F1antasyDB.getSquadraPilotiUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
                 setSelectedGranPremioPilotiConPrezzo(Optional.of(squadraPilotiConPrezzo));
-            } catch (SQLException e) {
-                Utils.crashWithMessage(e.toString());
+            } else {
+                setSelectedGranPremioSquadra(Optional.empty());
+                setSelectedGranPremioPilotiConPrezzo(Optional.empty());
             }
-        } else {
-            setSelectedGranPremioSquadra(Optional.empty());
-            setSelectedGranPremioPilotiConPrezzo(Optional.empty());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
         }
     }
 
@@ -57,6 +57,20 @@ public class PaneGranPremiModel {
             GranPremioProgrammato selectedGPP = getSelectedGranPremio().get();
             try {
                 return Optional.of(F1antasyDB.getPrezzoMotorizzazione(selectedGPP.getCampionato().getAnno(), selectedGPP.getDataGranPremio(), getSelectedGranPremioSquadra().get().getNomeMotorizzazione()));
+            } catch (SQLException e) {
+                Utils.crashWithMessage(e.toString());
+                return null; // will never run
+            }
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Integer> getSelectedGPPunteggioOttenuto() {
+        Optional<GranPremioProgrammato> gp = getSelectedGranPremio();
+        if (gp.isPresent()) {
+            try {
+                return Optional.of(F1antasyDB.getPunteggioOttenutoGranPremioConcluso(getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()));
             } catch (SQLException e) {
                 Utils.crashWithMessage(e.toString());
                 return null; // will never run

@@ -59,3 +59,16 @@ BEGIN
     COMMIT;
 
 END;
+
+CREATE TRIGGER granPremioConclusoEvent AFTER UPDATE  ON GRAN_PREMIO_PROGRAMMATO
+FOR EACH ROW
+BEGIN
+
+    IF NEW.Concluso = TRUE AND OLD.Concluso = FALSE THEN
+        CALL aggiornamentoPunteggiUtentiGranPremioConcluso(NEW.AnnoCampionato, NEW.Data);
+        CALL aggiornamentoPrezziPilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
+        CALL aggiornamentoPrezziMotorizzazioniGPConcluso();
+        CALL copiaSquadrePilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
+    END IF;
+
+END;

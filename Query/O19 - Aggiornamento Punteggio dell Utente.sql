@@ -1,38 +1,38 @@
-# O19 - Aggiornamento Punteggio dell’Utente
+# O19 - Aggiornamento Punteggi degli Utenti
 
-UPDATE utente
-SET PunteggioCorrente = PunteggioCorrente + (
-    SELECT SUM(t.Punteggio) as punteggio_tot
-    FROM (SELECT pp.Punteggio
-          FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s
-              JOIN scelta_pilota sp JOIN pilota_in_gran_premio pgp JOIN posizione_punteggio pp
-                    ON (gpp.AnnoCampionato = s.AnnoCampionato
-                        AND gpp.Data = s.DataGranPremio
-                        AND u.Username = s.UsernameUtente
-                        AND sp.AnnoCampionato = s.AnnoCampionato
-                        AND sp.UsernameUtente = u.Username
-                        AND sp.DataGranPremio = s.DataGranPremio
-                        AND pgp.DataGranPremio = s.DataGranPremio
-                        AND pgp.AnnoCampionato = s.AnnoCampionato
-                        AND pgp.CodicePilota = sp.CodicePilota
-                        AND pgp.Posizione = pp.Posizione)
-          WHERE gpp.AnnoCampionato = '2021'
-            AND gpp.Data = '2021-05-22'
-            AND u.Username = 'CiccioCarluz'
-          UNION ALL
-          SELECT mgp.PunteggioOttenuto
-          FROM utente u JOIN gran_premio_programmato gpp JOIN squadra s JOIN motorizzazione_in_gran_premio mgp
-                ON (gpp.AnnoCampionato = s.AnnoCampionato
-                    AND gpp.Data = s.DataGranPremio
-                    AND u.Username = s.UsernameUtente
-                    AND mgp.AnnoCampionato = s.AnnoCampionato
-                    AND mgp.DataGranPremio = s.DataGranPremio
-                    AND mgp.NomeMotorizzazione = s.NomeMotorizzazione)
-          WHERE gpp.AnnoCampionato = '2021'
-            AND gpp.Data = '2021-05-22'
-            AND u.Username = 'CiccioCarluz') AS t)
-WHERE Username = 'CiccioCarluz';
+CREATE PROCEDURE aggiornamentoPunteggiUtentiGranPremioConcluso (IN annoC INT, IN dataGP DATE)
+BEGIN
 
-SELECT PunteggioCorrente
-FROM utente
-WHERE Username = 'CiccioCarluz';
+    WITH PUNTEGGI_OTTENUTI_UTENTE (UsernameUtente, PunteggioOttenuto) AS (
+        SELECT t.UsernameUtente, SUM(t.Punteggio) as PunteggioOttenuto
+            FROM (
+                SELECT S.UsernameUtente, PP.Punteggio
+                FROM GRAN_PREMIO_PROGRAMMATO GPP JOIN SQUADRA S JOIN SCELTA_PILOTA SP JOIN PILOTA_IN_GRAN_PREMIO PGP JOIN POSIZIONE_PUNTEGGIO PP
+                    ON GPP.AnnoCampionato = S.AnnoCampionato
+                    AND GPP.Data = S.DataGranPremio
+                    AND S.AnnoCampionato = SP.AnnoCampionato
+                    AND S.UsernameUtente = SP.UsernameUtente
+                    AND S.DataGranPremio = SP.DataGranPremio
+                    AND SP.DataGranPremio = PGP.DataGranPremio
+                    AND SP.AnnoCampionato = PGP.AnnoCampionato
+                    AND SP.CodicePilota = PGP.CodicePilota
+                    AND PGP.Posizione = PP.Posizione
+                WHERE GPP.AnnoCampionato = annoC
+                AND GPP.Data = dataGP
+                UNION ALL
+                SELECT S.UsernameUtente, MGP.PunteggioOttenuto
+                FROM GRAN_PREMIO_PROGRAMMATO GPP JOIN SQUADRA S JOIN motorizzazione_in_gran_premio MGP
+                    ON GPP.AnnoCampionato = S.AnnoCampionato
+                    AND GPP.Data = S.DataGranPremio
+                    AND S.AnnoCampionato = MGP.AnnoCampionato
+                    AND S.DataGranPremio = MGP.DataGranPremio
+                    AND S.NomeMotorizzazione = MGP.NomeMotorizzazione
+                WHERE GPP.AnnoCampionato = annoC
+                AND GPP.Data = dataGP) AS T
+            GROUP BY T.UsernameUtente
+        )
+    UPDATE UTENTE U JOIN PUNTEGGI_OTTENUTI_UTENTE P
+        ON U.Username = P.UsernameUtente
+    SET U.PunteggioCorrente = U.PunteggioCorrente + P.PunteggioOttenuto;
+
+END;
