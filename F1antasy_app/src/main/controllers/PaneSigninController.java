@@ -39,26 +39,21 @@ public class PaneSigninController implements Initializable {
     }
 
     private Boolean validateSignin() {
-        if ( ! textFieldPassword.getText().equals(textFieldConfirmPassword.getText()) ) {
-            return false;
-        } else {
-            return !F1antasyDB.checkIfUtenteExists(textFieldUsername.getText());
-        }
+        return textFieldPassword.getText().equals(textFieldConfirmPassword.getText());
     }
 
     @FXML
     private void signinButtonWasPressed(ActionEvent actionEvent) {
         if (validateSignin()) {
-            try { F1antasyDB.signInUtente(textFieldUsername.getText(), textFieldPassword.getText()); }
-            catch (SQLException e) { Utils.showError(e.toString()); }
-
-            signinDelegate.signinEndedSuccessfully();
-        } else {
-            if ( ! textFieldPassword.getText().equals(textFieldConfirmPassword.getText()) ) {
-                Utils.showError("Le password non coincidono.");
-            } else {
-                Utils.showError("La registrazione non è andata a buon fine.");
+            try {
+                F1antasyDB.signInUtente(textFieldUsername.getText(), textFieldPassword.getText());
+                signinDelegate.signinEndedSuccessfully();
             }
+            catch (SQLException e) {
+                Utils.showError("E' possibile che l'username scelto sia già utilizzato.\n Errore: " + e.toString());
+            }
+        } else {
+            Utils.showError("Le password non coincidono.");
         }
     }
 

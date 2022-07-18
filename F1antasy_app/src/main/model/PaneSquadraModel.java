@@ -54,7 +54,12 @@ public class PaneSquadraModel {
     }
 
     private Integer getPunteggioAttualeFromDB() {
-        return F1antasyDB.getPunteggioAttualeUtente(getUsername());
+        try {
+            return F1antasyDB.getPunteggioAttualeUtente(getUsername());
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
     }
 
     private Integer getValoreSquadraFromDB() {

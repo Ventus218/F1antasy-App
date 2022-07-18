@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class F1antasyDB {
 
@@ -458,38 +457,6 @@ public class F1antasyDB {
         return getValoreSquadra(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
-
-    public static Integer getPrezzoPilota(Integer annoCampionato, LocalDate dataGranPremio, Pilota pilota) throws SQLException {
-        Optional<PilotaConPrezzo> first = getPilotiConPrezzo(annoCampionato, dataGranPremio).stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
-        if (first.isPresent()) {
-            return first.get().getPrezzo();
-        } else {
-            Utils.crashWithMessage("PrezzoPilota was not found as no Pilota like " + pilota.toString() + " was found in " + getPilotiConPrezzo(annoCampionato, dataGranPremio).toString());
-            return null; // will never run
-        }
-    }
-    public static Integer getPrezzoPilota(Pilota pilota) throws SQLException {
-        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
-        return getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), pilota);
-    }
-
-    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione motorizzazione) throws SQLException {
-        Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio).stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
-        if (first.isPresent()) {
-            return first.get().getPrezzo();
-        } else {
-            Utils.crashWithMessage("PrezzoMotorizzazione was not found as no Motorizzazione like " + motorizzazione.toString() + " was found in " + getMotorizzazioniConPrezzo().toString());
-            return null; // will never run
-        }
-    }
-    public static Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) throws SQLException {
-        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
-        return getPrezzoMotorizzazione(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), motorizzazione);
-    }
-
-
-    // ***** MISSING OPERATIONS *****
-
     /**
      * O23 - Login Utente
      */
@@ -508,11 +475,9 @@ public class F1antasyDB {
         return s.getBoolean(3);
     }
 
-    public static Boolean checkIfUtenteExists(String username) {
-        // MOCKUP
-        return false;
-    }
-
+    /**
+     * O24 - Controllo se Utente ha Squadra per Gran Premio
+     */
     public static Boolean utenteHasSquadraForGranPremio(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         CallableStatement s;
         try {
@@ -533,11 +498,29 @@ public class F1antasyDB {
         return utenteHasSquadraForGranPremio(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
 
-    public static Integer getPunteggioAttualeUtente(String username) {
-        // MOCKUP
-        return 100;
+    /**
+     * O25 - Visualizza Gran Premio Corrente
+     */
+    public static GranPremioProgrammato getGranPremioProgrammatoCorrente() throws SQLException {
+        CallableStatement s;
+        try {
+            s = connection.prepareCall("{call visualizzaGranPremioCorrente(?, ?, ?, ?, ?)}");
+            s.registerOutParameter(1, Types.INTEGER);
+            s.registerOutParameter(2, Types.DATE);
+            s.registerOutParameter(3, Types.VARCHAR);
+            s.registerOutParameter(4, Types.VARCHAR);
+            s.registerOutParameter(5, Types.BOOLEAN);
+        } catch (SQLException e) {
+            Utils.crashWithMessage(e.toString());
+            return null; // will never run
+        }
+        s.execute();
+        return new GranPremioProgrammato(new Campionato(s.getInt(1)), s.getDate(2).toLocalDate(), s.getString(3), s.getString(4), s.getBoolean(5));
     }
 
+    /**
+     * O26 - Visualizza Nomi Classifiche Private Utente
+     */
     public static List<String> getNomiClassifichePrivateUtente(String username) throws SQLException {
         CallableStatement s;
         try {
@@ -566,6 +549,9 @@ public class F1antasyDB {
         return l;
     }
 
+    /**
+     * O27 - Visualizza Gran Premi per Campionato
+     */
     public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) throws SQLException {
         CallableStatement s;
         try {
@@ -599,23 +585,52 @@ public class F1antasyDB {
     }
 
     /**
-     * O25 - Visualizza Gran Premio Corrente.sql
+     * O28 - Visualizza Punteggio attuale Utente
      */
-    public static GranPremioProgrammato getGranPremioProgrammatoCorrente() throws SQLException {
+    public static Integer getPunteggioAttualeUtente(String username) throws SQLException {
         CallableStatement s;
         try {
-            s = connection.prepareCall("{call visualizzaGranPremioCorrente(?, ?, ?, ?, ?)}");
-            s.registerOutParameter(1, Types.INTEGER);
-            s.registerOutParameter(2, Types.DATE);
-            s.registerOutParameter(3, Types.VARCHAR);
-            s.registerOutParameter(4, Types.VARCHAR);
-            s.registerOutParameter(5, Types.BOOLEAN);
+            s = connection.prepareCall("{call visualizzaPunteggioAttualeUtente(?, ?)}");
+            s.setString(1, username);
+            s.registerOutParameter(2, Types.INTEGER);
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run
         }
         s.execute();
-        return new GranPremioProgrammato(new Campionato(s.getInt(1)), s.getDate(2).toLocalDate(), s.getString(3), s.getString(4), s.getBoolean(5));
+
+        return s.getInt(2);
+    }
+
+
+    // ***** CONVENIENCE METHODS ******
+
+    public static Integer getPrezzoPilota(Integer annoCampionato, LocalDate dataGranPremio, Pilota pilota) throws SQLException {
+        Optional<PilotaConPrezzo> first = getPilotiConPrezzo(annoCampionato, dataGranPremio).stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
+        if (first.isPresent()) {
+            return first.get().getPrezzo();
+        } else {
+            Utils.crashWithMessage("PrezzoPilota was not found as no Pilota like " + pilota.toString() + " was found in " + getPilotiConPrezzo(annoCampionato, dataGranPremio).toString());
+            return null; // will never run
+        }
+    }
+    public static Integer getPrezzoPilota(Pilota pilota) throws SQLException {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), pilota);
+    }
+
+    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione motorizzazione) throws SQLException {
+        Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio).stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
+        if (first.isPresent()) {
+            return first.get().getPrezzo();
+        } else {
+            Utils.crashWithMessage("PrezzoMotorizzazione was not found as no Motorizzazione like " + motorizzazione.toString() + " was found in " + getMotorizzazioniConPrezzo().toString());
+            return null; // will never run
+        }
+    }
+    public static Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) throws SQLException {
+        GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
+        return getPrezzoMotorizzazione(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), motorizzazione);
     }
 
     public static Campionato getCampionatoCorrente() throws SQLException {
