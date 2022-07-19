@@ -35,6 +35,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
 
         Stage s = Utils.getNewStage();
         s.setTitle("F1antasy - Accesso al DB");
+        s.getIcons().add(new Image(Utils.class.getResourceAsStream("asset/app_icon.png")));
         s.setScene(new Scene(root));
         s.setResizable(false);
         s.showAndWait();
@@ -47,6 +48,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         loginController.setLoginDelegate(this);
 
         primaryStage.setTitle("F1antasy - Accesso");
+        primaryStage.getIcons().add(new Image(Utils.class.getResourceAsStream("asset/app_icon.png")));
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
     }
@@ -58,6 +60,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         signinController.setSigninDelegate(this);
 
         primaryStage.setTitle("F1antasy - Registrazione");
+        primaryStage.getIcons().add(new Image(Utils.class.getResourceAsStream("asset/app_icon.png")));
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
     }
@@ -69,6 +72,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         tabPaneController.setup();
 
         primaryStage.setTitle("F1antasy");
+        primaryStage.getIcons().add(new Image(Utils.class.getResourceAsStream("asset/app_icon.png")));
         primaryStage.setScene(new Scene(root, 1080, 720));
         primaryStage.setResizable(true);
         primaryStage.setMinWidth(1080);
@@ -84,6 +88,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         controller.setup();
 
         primaryStage.setTitle("F1antasy - Inizializzazione Squadra");
+        primaryStage.getIcons().add(new Image(Utils.class.getResourceAsStream("asset/app_icon.png")));
         primaryStage.setScene(new Scene(root, 1080, 720));
         primaryStage.setResizable(true);
         primaryStage.setMinWidth(1080);
