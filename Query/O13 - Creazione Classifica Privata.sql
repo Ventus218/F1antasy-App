@@ -1,4 +1,4 @@
-# O13 - Creazione Classifica Privata
+-- O13 - Creazione Classifica Privata
 
 CREATE PROCEDURE creazioneClassificaPrivata (IN user VARCHAR(255), IN nome VARCHAR(255))
 BEGIN

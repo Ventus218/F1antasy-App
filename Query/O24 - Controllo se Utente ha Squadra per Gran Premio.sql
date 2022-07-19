@@ -1,4 +1,4 @@
-# O24 - Controllo se Utente ha Squadra per Gran Premio
+-- O24 - Controllo se Utente ha Squadra per Gran Premio
 
 CREATE PROCEDURE checkUtenteHaSquadraPerGranPremio (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE, OUT result BOOL)
 BEGIN

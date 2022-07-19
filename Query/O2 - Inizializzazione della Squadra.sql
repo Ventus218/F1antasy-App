@@ -1,4 +1,4 @@
-# O2 - Inizializzazione della Squadra (scelta Piloti e Motorizzazione)
+-- O2 - Inizializzazione della Squadra (scelta Piloti e Motorizzazione)
 
 CREATE PROCEDURE inizializzazioneSquadra (  IN user VARCHAR(255),
                                                                         IN nomeMot VARCHAR(255),

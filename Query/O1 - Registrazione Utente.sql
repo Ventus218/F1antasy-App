@@ -1,4 +1,4 @@
-# O1 - RegistrazioneUtente
+-- O1 - RegistrazioneUtente
 
 CREATE PROCEDURE registrazioneUtente (IN user VARCHAR(255), IN pass VARCHAR(255))
 BEGIN

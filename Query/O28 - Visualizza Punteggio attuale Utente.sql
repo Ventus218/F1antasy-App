@@ -1,4 +1,4 @@
-# O28 - Visualizza Punteggio attuale Utente
+-- O28 - Visualizza Punteggio attuale Utente
 
 CREATE PROCEDURE visualizzaPunteggioAttualeUtente (IN user VARCHAR(255), OUT punteggio INT)
 BEGIN

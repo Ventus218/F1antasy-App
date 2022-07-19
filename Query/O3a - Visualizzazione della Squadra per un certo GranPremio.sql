@@ -1,4 +1,4 @@
-# O3a - Visualizzazione della Squadra per un certo Gran Premio (Piloti)
+-- O3a - Visualizzazione della Squadra per un certo Gran Premio (Piloti)
 
 CREATE PROCEDURE visualizzazionePilotiSquadra (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE)
 BEGIN

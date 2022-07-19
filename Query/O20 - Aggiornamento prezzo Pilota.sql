@@ -1,4 +1,4 @@
-# O20 - Aggiornamento prezzi Piloti
+-- O20 - Aggiornamento prezzi Piloti
 
 CREATE PROCEDURE aggiornamentoPrezziPilotiGPConcluso (IN annoC INT, IN dataGP DATE)
 BEGIN
@@ -6,7 +6,7 @@ BEGIN
     DECLARE nextAnnoC INT;
     DECLARE nextDataGP DATE;
 
-    # GETTING NEXT GRAND PRIX
+    -- GETTING NEXT GRAND PRIX
     CALL visualizzaGranPremioCorrente(nextAnnoC, nextDataGP, @useless, @useless, @useless);
 
     INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo)

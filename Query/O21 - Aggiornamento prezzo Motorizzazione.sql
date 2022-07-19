@@ -1,4 +1,4 @@
-# O21 - Aggiornamento prezzi Motorizzazioni
+-- O21 - Aggiornamento prezzi Motorizzazioni
 
 CREATE PROCEDURE aggiornamentoPrezziMotorizzazioniGPConcluso ()
 BEGIN
@@ -6,7 +6,7 @@ BEGIN
     DECLARE nextAnnoC INT;
     DECLARE nextDataGP DATE;
 
-    # GETTING NEXT GRAND PRIX
+    -- GETTING NEXT GRAND PRIX
     CALL visualizzaGranPremioCorrente(nextAnnoC, nextDataGP, @useless, @useless, @useless);
 
     INSERT into MOTORIZZAZIONE_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, NomeMotorizzazione, Prezzo)

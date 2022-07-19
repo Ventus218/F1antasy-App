@@ -1,4 +1,4 @@
-# O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
+-- O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
 
 CREATE PROCEDURE punteggioUtentePerGranPremio (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE, OUT punteggio INT)
 BEGIN

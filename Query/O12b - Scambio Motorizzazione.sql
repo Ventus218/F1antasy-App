@@ -1,4 +1,4 @@
-# O12b - Scambio Motorizzazione
+-- O12b - Scambio Motorizzazione
 
 CREATE PROCEDURE scambioMotorizzazione (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE, IN motCed VARCHAR(255), IN motAcq VARCHAR(255))
 BEGIN

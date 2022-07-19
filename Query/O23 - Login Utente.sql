@@ -1,4 +1,4 @@
-# O23 - Login Utente
+-- O23 - Login Utente
 
 CREATE PROCEDURE loginUtente (IN user VARCHAR(255), IN pass VARCHAR(255), OUT success BOOL)
 BEGIN

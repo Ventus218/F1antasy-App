@@ -1,4 +1,4 @@
-# O26 - Visualizza Nomi Classifiche Private Utente
+-- O26 - Visualizza Nomi Classifiche Private Utente
 
 CREATE PROCEDURE visualizzaNomiClassifichePrivateUtente (IN user VARCHAR(255))
 BEGIN

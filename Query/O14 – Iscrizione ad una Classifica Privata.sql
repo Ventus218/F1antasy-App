@@ -1,4 +1,4 @@
-# O14 – Iscrizione ad una Classifica Privata
+-- O14 – Iscrizione ad una Classifica Privata
 
 CREATE PROCEDURE iscrizioneClassificaPrivata (IN user VARCHAR(255), IN nome VARCHAR(255))
 BEGIN

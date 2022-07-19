@@ -1,4 +1,4 @@
-# O12a - Scambio Pilota
+-- O12a - Scambio Pilota
 
 CREATE PROCEDURE scambioPilota (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE, IN codPilCed INT, IN codPilAcq INT)
 BEGIN

@@ -1,4 +1,4 @@
-#O6 - Visualizzazione Classifica Globale
+-- O6 - Visualizzazione Classifica Globale
 
 CREATE PROCEDURE visualizzazioneClassificaGlobale ()
 BEGIN

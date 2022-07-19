@@ -1,4 +1,4 @@
-# O15 – Uscita da una Classifica Privata
+-- O15 – Uscita da una Classifica Privata
 
 CREATE PROCEDURE uscitaClassificaPrivata (IN user VARCHAR(255), IN nome VARCHAR(255))
 BEGIN

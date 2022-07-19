@@ -1,4 +1,4 @@
-# O7 - Visualizzazione Classifica Privata
+-- O7 - Visualizzazione Classifica Privata
 
 CREATE PROCEDURE visualizzazioneClassificaPrivata (IN nome VARCHAR(255))
 BEGIN

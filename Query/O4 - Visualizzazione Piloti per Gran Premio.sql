@@ -1,4 +1,4 @@
-# O4 - Visualizzazione di tutti i Piloti per un certo Gran Premio in ordine decrescente di prezzo
+-- O4 - Visualizzazione di tutti i Piloti per un certo Gran Premio in ordine decrescente di prezzo
 
 CREATE PROCEDURE visualizzazionePilotiPrezzoPerGranPremio (IN annoC INT, IN dataGP DATE)
 BEGIN

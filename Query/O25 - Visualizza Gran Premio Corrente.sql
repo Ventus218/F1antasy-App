@@ -1,4 +1,4 @@
-# O25 - Visualizza Gran Premio Corrente.sql
+-- O25 - Visualizza Gran Premio Corrente.sql
 
 CREATE PROCEDURE visualizzaGranPremioCorrente (OUT annoC INT,
                                                                                 OUT dataGP DATE,

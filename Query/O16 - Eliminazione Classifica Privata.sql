@@ -1,4 +1,4 @@
-# O16 - Eliminazione Classifica Privata
+-- O16 - Eliminazione Classifica Privata
 
 CREATE PROCEDURE eliminaClassificaPrivata(IN nome VARCHAR(255))
 BEGIN

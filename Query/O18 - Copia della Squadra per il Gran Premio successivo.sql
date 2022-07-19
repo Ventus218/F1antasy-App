@@ -1,4 +1,4 @@
-# O18 - Copia della Squadra per il Gran Premio successivo
+-- O18 - Copia della Squadra per il Gran Premio successivo
 
 CREATE PROCEDURE copiaSquadrePilotiGPConcluso (IN annoC INT, IN dataGP DATE)
 BEGIN
@@ -6,7 +6,7 @@ BEGIN
     DECLARE nextAnnoC INT;
     DECLARE nextDataGP DATE;
 
-    # GETTING NEXT GRAND PRIX
+    -- GETTING NEXT GRAND PRIX
     CALL visualizzaGranPremioCorrente(nextAnnoC, nextDataGP, @useless, @useless, @useless);
 
     INSERT INTO SQUADRA(AnnoCampionato, DataGranPremio, UsernameUtente, ScambiEffettuati, BudgetRimanente, NomeMotorizzazione)

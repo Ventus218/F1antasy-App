@@ -1,4 +1,4 @@
-# O22 - Visualizzazione del Valore di una Squadra.sql
+-- O22 - Visualizzazione del Valore di una Squadra.sql
 
 CREATE PROCEDURE valoreSquadra (IN user VARCHAR(255), IN annoC INT, IN dataGP DATE, OUT result INT)
 BEGIN

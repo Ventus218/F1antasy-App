@@ -1,4 +1,4 @@
-# O19 - Aggiornamento Punteggi degli Utenti
+-- O19 - Aggiornamento Punteggi degli Utenti
 
 CREATE PROCEDURE aggiornamentoPunteggiUtentiGranPremioConcluso (IN annoC INT, IN dataGP DATE)
 BEGIN

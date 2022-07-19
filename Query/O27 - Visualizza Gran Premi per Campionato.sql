@@ -1,3 +1,5 @@
+-- O27 - Visualizzazione dei Gran Premi di un Campionato
+
 CREATE PROCEDURE visualizzaGranPremiPerCampionato (IN annoC INT)
 BEGIN
 
