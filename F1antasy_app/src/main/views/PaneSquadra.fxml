@@ -24,7 +24,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelPunteggioCorrente" fx:id="labelPunteggioAttuale" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="0pt" textFill="WHITE" />
+                        <HBox styleClass="outputLabel">
+                           <children>
+                              <Label id="labelPunteggioCorrente" fx:id="labelPunteggioAttuale" text="0" textFill="WHITE" />
+                              <Label id="labelPunteggioCorrente" text="pt" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
@@ -34,7 +39,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelBudgetRimanente" fx:id="labelBudgetRimanente" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="15.000.000$ " textFill="WHITE" />
+                        <HBox styleClass="outputLabel">
+                           <children>
+                              <Label id="labelBudgetRimanente" fx:id="labelBudgetRimanente" text="15.000.000" textFill="WHITE" />
+                              <Label id="labelBudgetRimanente" text="\$" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
@@ -44,17 +54,27 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelValoreSquadra" fx:id="labelValoreSquadra" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="75.000.000$ " textFill="WHITE" />
+                        <HBox styleClass="outputLabel">
+                           <children>
+                              <Label id="labelValoreSquadra" fx:id="labelValoreSquadra" text="75.000.000" textFill="WHITE" />
+                              <Label id="labelValoreSquadra" text="\$ " textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="navButton">
                      <children>
-                        <Label text="Scambi:" textFill="WHITE">
+                        <Label text="Scambi Effettuati:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelScambi" fx:id="labelScambi" layoutX="15.0" layoutY="15.0" styleClass="outputLabel" text="2/2" textFill="WHITE" />
+                        <HBox alignment="CENTER" styleClass="outputLabel">
+                           <children>
+                              <Label id="labelScambi" fx:id="labelScambi" text="2" textFill="WHITE" />
+                              <Label id="labelScambi" text="/2" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
