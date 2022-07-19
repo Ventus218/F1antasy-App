@@ -376,7 +376,7 @@ CALL checkScambioPilotiInStessoCampionato(NEW.AnnoCampionato, NEW.PilotaCeduto, 
 
 
 # checkScambioMotorizzazioniInStessoCampionato
-CREATE PROCEDURE checkScambioMotorizzazioniInStessoCampionato (IN newAnnoC INT, IN newMotCed INT, IN newMotAcq INT)
+CREATE PROCEDURE checkScambioMotorizzazioniInStessoCampionato (IN newAnnoC INT, IN newMotCed VARCHAR(255), IN newMotAcq VARCHAR(255))
 BEGIN
 
     IF NOT EXISTS(  SELECT *
