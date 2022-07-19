@@ -10,7 +10,9 @@
 
 
 -- Database Section
--- ________________ 
+-- ________________
+
+drop database if exists F1ANTASY;
 
 create database F1ANTASY;
 use F1ANTASY;
@@ -372,7 +374,7 @@ CREATE TRIGGER checkScambioPilotiInStessoCampionato_UPDATE AFTER UPDATE ON SCAMB
 FOR EACH ROW
 CALL checkScambioPilotiInStessoCampionato(NEW.AnnoCampionato, NEW.PilotaCeduto, NEW.PilotaAcquisito);
 
-/*
+
 # checkScambioMotorizzazioniInStessoCampionato
 CREATE PROCEDURE checkScambioMotorizzazioniInStessoCampionato (IN newAnnoC INT, IN newMotCed INT, IN newMotAcq INT)
 BEGIN
@@ -399,7 +401,7 @@ CREATE TRIGGER checkScambioMotorizzazioniInStessoCampionato_UPDATE AFTER UPDATE 
 FOR EACH ROW
 CALL checkScambioMotorizzazioniInStessoCampionato(NEW.AnnoCampionato, NEW.MotorizzazioneCeduta, NEW.MotorizzazioneCeduta);
 
-
+/*
 # checkScuderiaPartecipanteHaDuePiloti
 CREATE PROCEDURE checkScuderiaPartecipanteHaDuePiloti (IN newAnnoC INT, IN newNomeScud VARCHAR(255))
 BEGIN
