@@ -10,6 +10,7 @@ BEGIN
     END;
 
     START TRANSACTION;
+
         DELETE FROM REGISTRAZIONE
         WHERE UsernameUtente = user
         AND NomeClassificaPrivata = nome;
@@ -18,9 +19,6 @@ BEGIN
         SET C.NumeroPartecipanti = C.NumeroPartecipanti - 1
         WHERE C.Nome = nome;
 
-        IF (SELECT C.NumeroPartecipanti FROM CLASSIFICA_PRIVATA C WHERE C.Nome = nome) = 0 THEN
-            CALL eliminaClassificaPrivata(nome);
-        END IF;
     COMMIT;
 
 END;

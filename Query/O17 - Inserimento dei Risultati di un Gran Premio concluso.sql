@@ -65,10 +65,19 @@ FOR EACH ROW
 BEGIN
 
     IF NEW.Concluso = TRUE AND OLD.Concluso = FALSE THEN
+
         CALL aggiornamentoPunteggiUtentiGranPremioConcluso(NEW.AnnoCampionato, NEW.Data);
-        CALL aggiornamentoPrezziPilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
-        CALL aggiornamentoPrezziMotorizzazioniGPConcluso();
-        CALL copiaSquadrePilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
+
+        # QUESTO CONTROLLO SERVE PERCHE' SE QUESTO FOSSE L'ULTIMO CAMPIONATO DELL'ANNO
+        # SAREBBE SBAGLIATO INSERIRE I PILOTI/MOTORIZZAZIONI_IN_GRAN_PREMIO PER L'ANNO SUCCESSIVO.
+        # SIA PERCHE' NON SAREBBERO PRESENTI GLI INGAGGI PILOTI/MOTORIZZAZIONI SIA PERCHE' NON
+        # E' DETTO CHE TUTTI I PILOTI DI QUESTO ANNO PARTECIPINO ANCHE A QUELLO PROSSIMO.
+        IF  OLD.AnnoCampionato = NEW.AnnoCampionato THEN
+            CALL aggiornamentoPrezziPilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
+            CALL aggiornamentoPrezziMotorizzazioniGPConcluso();
+            CALL copiaSquadrePilotiGPConcluso(NEW.AnnoCampionato, NEW.Data);
+        END IF;
+
     END IF;
 
 END;

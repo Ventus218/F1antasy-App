@@ -141,17 +141,7 @@ create table UTENTE (
 
 
 -- Constraints Section
--- ___________________ 
-
--- Not implemented
--- alter table CAMPIONATO add constraint IDCAMPIONATO_CHK
---     check(exists(select * from GRAN_PREMIO_PROGRAMMATO
---                  where GRAN_PREMIO_PROGRAMMATO.AnnoCampionato = Anno)); 
-
--- Not implemented
--- alter table CLASSIFICA_PRIVATA add constraint IDCLASSIFICA_PRIVATA_CHK
---     check(exists(select * from REGISTRAZIONE
---                  where REGISTRAZIONE.NomeClassificaPrivata = Nome)); 
+-- ___________________
 
 alter table GRAN_PREMIO_PROGRAMMATO add constraint FKSVOLGIMENTO
      foreign key (Stato, Nome)
@@ -265,11 +255,6 @@ alter table SCELTA_PILOTA add constraint FKSCE_PIL
      on delete cascade
      on update cascade;
 
--- Not implemented
--- alter table SCUDERIA_PARTECIPANTE add constraint IDSCUDERIA_IN_CAMPIONATO_CHK
---     check(exists(select * from INGAGGIO_PILOTA
---                  where INGAGGIO_PILOTA.AnnoCampionato = AnnoCampionato and INGAGGIO_PILOTA.NomeScuderia = NomeScuderia)); 
-
 alter table SCUDERIA_PARTECIPANTE add constraint FKPARTECIPAZIONE
      foreign key (NomeScuderia)
      references SCUDERIA (Nome)
@@ -287,11 +272,6 @@ alter table SCUDERIA_PARTECIPANTE add constraint FKISCRIZIONE_FK
      references CAMPIONATO (Anno)
      on delete cascade
      on update cascade;
-
--- Not implemented
--- alter table SQUADRA add constraint IDSQUADRA_CHK
---     check(exists(select * from SCELTA_PILOTA
---                  where SCELTA_PILOTA.AnnoCampionato = AnnoCampionato and SCELTA_PILOTA.DataGranPremio = DataGranPremio and SCELTA_PILOTA.UsernameUtente = UsernameUtente)); 
 
 alter table SQUADRA add constraint FKCOSTRUZIONE
      foreign key (UsernameUtente)
@@ -319,3 +299,187 @@ alter table SQUADRA add constraint FKSCELTA_MOTORIZZAZIONE
 ALTER TABLE SQUADRA
     ADD CONSTRAINT CHK_BudgetRimanente_Positive CHECK ( SQUADRA.BudgetRimanente >= 0 ),
     ADD CONSTRAINT CHK_ScambiEffettuati_MAX CHECK ( SQUADRA.ScambiEffettuati <= 2 );
+
+# checkPilotaInGranPremioStessoCampionato
+CREATE PROCEDURE checkPilotaInGranPremioStessoCampionato (IN newAnnoC INT, IN newCodPil INT)
+BEGIN
+
+    IF NOT EXISTS(  SELECT *
+                            FROM INGAGGIO_PILOTA I
+                            WHERE I.AnnoCampionato = newAnnoC
+                            AND I.CodicePilota = newCodPil)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkPilotaInGranPremioStessoCampionato_INSERT AFTER INSERT ON PILOTA_IN_GRAN_PREMIO
+FOR EACH ROW
+CALL checkPilotaInGranPremioStessoCampionato(NEW.AnnoCampionato, NEW.CodicePilota);
+
+CREATE TRIGGER checkPilotaInGranPremioStessoCampionato_UPDATE AFTER UPDATE ON PILOTA_IN_GRAN_PREMIO
+FOR EACH ROW
+CALL checkPilotaInGranPremioStessoCampionato(NEW.AnnoCampionato, NEW.CodicePilota);
+
+
+# checkMotorizzazioneInGranPremioStessoCampionato
+CREATE PROCEDURE checkMotorizzazioneInGranPremioStessoCampionato (IN newAnnoC INT, IN newMot VARCHAR(255))
+BEGIN
+
+    IF NOT EXISTS(  SELECT *
+                            FROM SCUDERIA_PARTECIPANTE S
+                            WHERE S.AnnoCampionato = newAnnoC
+                            AND S.NomeMotorizzazione = newMot)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkMotorizzazioneInGranPremioStessoCampionato_INSERT AFTER INSERT ON MOTORIZZAZIONE_IN_GRAN_PREMIO
+FOR EACH ROW
+CALL checkMotorizzazioneInGranPremioStessoCampionato(NEW.AnnoCampionato, NEW.NomeMotorizzazione);
+
+CREATE TRIGGER checkMotorizzazioneInGranPremioStessoCampionato_UPDATE AFTER UPDATE ON MOTORIZZAZIONE_IN_GRAN_PREMIO
+FOR EACH ROW
+CALL checkMotorizzazioneInGranPremioStessoCampionato(NEW.AnnoCampionato, NEW.NomeMotorizzazione);
+
+
+# checkScambioPilotiInStessoCampionato
+CREATE PROCEDURE checkScambioPilotiInStessoCampionato (IN newAnnoC INT, IN newCodPilCed INT, IN newCodPilAcq INT)
+BEGIN
+
+    IF NOT EXISTS(  SELECT *
+                            FROM INGAGGIO_PILOTA I
+                            WHERE I.AnnoCampionato = newAnnoC
+                            AND I.CodicePilota = newCodPilCed)
+    OR NOT EXISTS(SELECT *
+                            FROM INGAGGIO_PILOTA I
+                            WHERE I.AnnoCampionato = newAnnoC
+                            AND I.CodicePilota = newCodPilAcq)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkScambioPilotiInStessoCampionato_INSERT AFTER INSERT ON SCAMBIO_PILOTA
+FOR EACH ROW
+CALL checkScambioPilotiInStessoCampionato(NEW.AnnoCampionato, NEW.PilotaCeduto, NEW.PilotaAcquisito);
+
+CREATE TRIGGER checkScambioPilotiInStessoCampionato_UPDATE AFTER UPDATE ON SCAMBIO_PILOTA
+FOR EACH ROW
+CALL checkScambioPilotiInStessoCampionato(NEW.AnnoCampionato, NEW.PilotaCeduto, NEW.PilotaAcquisito);
+
+/*
+# checkScambioMotorizzazioniInStessoCampionato
+CREATE PROCEDURE checkScambioMotorizzazioniInStessoCampionato (IN newAnnoC INT, IN newMotCed INT, IN newMotAcq INT)
+BEGIN
+
+    IF NOT EXISTS(  SELECT *
+                            FROM SCUDERIA_PARTECIPANTE S
+                            WHERE S.AnnoCampionato = newAnnoC
+                            AND S.NomeMotorizzazione = newMotCed)
+    OR NOT EXISTS(SELECT *
+                            FROM SCUDERIA_PARTECIPANTE S
+                            WHERE S.AnnoCampionato = newAnnoC
+                            AND S.NomeMotorizzazione = newMotAcq)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkScambioMotorizzazioniInStessoCampionato_INSERT AFTER INSERT ON SCAMBIO_MOTORIZZAZIONE
+FOR EACH ROW
+CALL checkScambioMotorizzazioniInStessoCampionato(NEW.AnnoCampionato, NEW.MotorizzazioneCeduta, NEW.MotorizzazioneCeduta);
+
+CREATE TRIGGER checkScambioMotorizzazioniInStessoCampionato_UPDATE AFTER UPDATE ON SCAMBIO_MOTORIZZAZIONE
+FOR EACH ROW
+CALL checkScambioMotorizzazioniInStessoCampionato(NEW.AnnoCampionato, NEW.MotorizzazioneCeduta, NEW.MotorizzazioneCeduta);
+
+
+# checkScuderiaPartecipanteHaDuePiloti
+CREATE PROCEDURE checkScuderiaPartecipanteHaDuePiloti (IN newAnnoC INT, IN newNomeScud VARCHAR(255))
+BEGIN
+
+    IF 2 != (   SELECT COUNT(*)
+                    FROM INGAGGIO_PILOTA I
+                    WHERE I.NomeScuderia = newNomeScud
+                    AND I.AnnoCampionato = newAnnoC)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkScuderiaPartecipanteHaDuePiloti_INSERT_SCUDERIA AFTER INSERT ON SCUDERIA_PARTECIPANTE
+FOR EACH ROW
+CALL checkScuderiaPartecipanteHaDuePiloti(NEW.AnnoCampionato, NEW.NomeScuderia);
+
+CREATE TRIGGER checkScuderiaPartecipanteHaDuePiloti_UPDATE_SCUDERIA AFTER UPDATE ON SCUDERIA_PARTECIPANTE
+FOR EACH ROW
+CALL checkScuderiaPartecipanteHaDuePiloti(NEW.AnnoCampionato, NEW.NomeScuderia);
+
+CREATE TRIGGER checkScuderiaPartecipanteHaDuePiloti_INSERT_INGAGGIO AFTER INSERT ON INGAGGIO_PILOTA
+FOR EACH ROW
+CALL checkScuderiaPartecipanteHaDuePiloti(NEW.AnnoCampionato, NEW.NomeScuderia);
+
+CREATE TRIGGER checkScuderiaPartecipanteHaDuePiloti_UPDATE_INGAGGIO AFTER UPDATE ON INGAGGIO_PILOTA
+FOR EACH ROW
+CALL checkScuderiaPartecipanteHaDuePiloti(NEW.AnnoCampionato, NEW.NomeScuderia);
+
+CREATE TRIGGER checkScuderiaPartecipanteHaDuePiloti_DELETE_INGAGGIO AFTER DELETE ON INGAGGIO_PILOTA
+FOR EACH ROW
+CALL checkScuderiaPartecipanteHaDuePiloti(OLD.AnnoCampionato, OLD.NomeScuderia);
+
+
+
+# checkSquadraHaQuattroPiloti
+CREATE PROCEDURE checkSquadraHaQuattroPiloti (IN newAnnoC INT, IN newDataGP DATE, IN newUser VARCHAR(255))
+BEGIN
+
+    IF 4 != (   SELECT COUNT(*)
+                    FROM SCELTA_PILOTA S
+                    WHERE S.AnnoCampionato = newAnnoC
+                    AND S.UsernameUtente = newUser
+                    AND S.DataGranPremio = newDataGP)
+    THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+
+CREATE TRIGGER checkSquadraHaQuattroPiloti_INSERT_SQUADRA AFTER INSERT ON SQUADRA
+FOR EACH ROW
+CALL checkSquadraHaQuattroPiloti(NEW.AnnoCampionato, NEW.DataGranPremio, NEW.UsernameUtente);
+
+CREATE TRIGGER checkSquadraHaQuattroPiloti_UPDATE_SQUADRA AFTER UPDATE ON SQUADRA
+FOR EACH ROW
+CALL checkSquadraHaQuattroPiloti(NEW.AnnoCampionato, NEW.DataGranPremio, NEW.UsernameUtente);
+
+CREATE TRIGGER checkSquadraHaQuattroPiloti_INSERT_SCELTA_PILOTA AFTER INSERT ON SCELTA_PILOTA
+FOR EACH ROW
+CALL checkSquadraHaQuattroPiloti(NEW.AnnoCampionato, NEW.DataGranPremio, NEW.UsernameUtente);
+
+CREATE TRIGGER checkSquadraHaQuattroPiloti_UPDATE_SCELTA_PILOTA AFTER UPDATE ON SCELTA_PILOTA
+FOR EACH ROW
+CALL checkSquadraHaQuattroPiloti(NEW.AnnoCampionato, NEW.DataGranPremio, NEW.UsernameUtente);
+
+CREATE TRIGGER checkSquadraHaQuattroPiloti_DELETE_SCELTA_PILOTA AFTER DELETE ON SCELTA_PILOTA
+FOR EACH ROW
+CALL checkSquadraHaQuattroPiloti(OLD.AnnoCampionato, OLD.DataGranPremio, OLD.UsernameUtente);
+*/
+
+# classificaPrivataMinUnPartecipante
+CREATE TRIGGER classificaPrivataMinUnPartecipante AFTER UPDATE ON CLASSIFICA_PRIVATA
+FOR EACH ROW
+BEGIN
+
+    IF NEW.NumeroPartecipanti = 0 THEN
+        DELETE FROM CLASSIFICA_PRIVATA C
+        WHERE C.Nome = NEW.Nome;
+    END IF;
+
+END;

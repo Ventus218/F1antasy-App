@@ -105,72 +105,74 @@ INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
         (2022, '2022-05-29', 'Principato di Monaco', 'Monte Carlo', 0),
         (2022, '2022-06-1', 'Azerbaijan', 'Baku', 0);
 
-INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
-    VALUES
-       /* (2021, 'Ferrari', 'Ferrari'),
-        (2021, 'Mercedes', 'Mercedes'),
-        (2021, 'Mclaren', 'Mercedes'),
-        (2021, 'Red Bull', 'Honda'),
-        (2021, 'Alpine', 'Renault'),
-        (2021, 'AlphaTauri', 'Honda'),
-        (2021, 'Aston Martin', 'Mercedes'),
-        (2021, 'Williams', 'Mercedes'),
-        (2021, 'Alfa Romeo', 'Ferrari'),
-        (2021, 'Haas', 'Ferrari'),*/
-        (2022, 'Ferrari', 'Ferrari'),
-        (2022, 'Mercedes', 'Mercedes'),
-        (2022, 'Mclaren', 'Mercedes'),
-        (2022, 'Red Bull', 'Red Bull'),
-        (2022, 'Alpine', 'Renault'),
-        (2022, 'AlphaTauri', 'Red Bull'),
-        (2022, 'Aston Martin', 'Mercedes'),
-        (2022, 'Williams', 'Mercedes'),
-        (2022, 'Alfa Romeo', 'Ferrari'),
-        (2022, 'Haas', 'Ferrari');
+-- START TRANSACTION;
+    INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
+        VALUES
+           /* (2021, 'Ferrari', 'Ferrari'),
+            (2021, 'Mercedes', 'Mercedes'),
+            (2021, 'Mclaren', 'Mercedes'),
+            (2021, 'Red Bull', 'Honda'),
+            (2021, 'Alpine', 'Renault'),
+            (2021, 'AlphaTauri', 'Honda'),
+            (2021, 'Aston Martin', 'Mercedes'),
+            (2021, 'Williams', 'Mercedes'),
+            (2021, 'Alfa Romeo', 'Ferrari'),
+            (2021, 'Haas', 'Ferrari'),*/
+            (2022, 'Ferrari', 'Ferrari'),
+            (2022, 'Mercedes', 'Mercedes'),
+            (2022, 'Mclaren', 'Mercedes'),
+            (2022, 'Red Bull', 'Red Bull'),
+            (2022, 'Alpine', 'Renault'),
+            (2022, 'AlphaTauri', 'Red Bull'),
+            (2022, 'Aston Martin', 'Mercedes'),
+            (2022, 'Williams', 'Mercedes'),
+            (2022, 'Alfa Romeo', 'Ferrari'),
+            (2022, 'Haas', 'Ferrari');
 
 
-INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
-    VALUES
-        /*(2021, 'Mercedes', 1),
-        (2021, 'Mercedes', 2),
-        (2021, 'Red Bull', 3),
-        (2021, 'Red Bull', 4),
-        (2021, 'Mclaren', 5),
-        (2021, 'Mclaren', 6),
-        (2021, 'Aston Martin', 7),
-        (2021, 'Aston Martin', 8),
-        (2021, 'Alpine', 9),
-        (2021, 'Alpine', 10),
-        (2021, 'Ferrari', 11),
-        (2021, 'Ferrari', 12),
-        (2021, 'AlphaTauri', 13),
-        (2021, 'AlphaTauri', 14),
-        (2021, 'Alfa Romeo', 15),
-        (2021, 'Alfa Romeo', 16),
-        (2021, 'Haas', 17),
-        (2021, 'Haas', 18),
-        (2021, 'Williams', 19),
-        (2021, 'Williams', 20),*/
-        (2022, 'Mercedes', 1),
-        (2022, 'Mercedes', 19),
-        (2022, 'Red Bull', 3),
-        (2022, 'Red Bull', 4),
-        (2022, 'Mclaren', 5),
-        (2022, 'Mclaren', 6),
-        (2022, 'Aston Martin', 7),
-        (2022, 'Aston Martin', 8),
-        (2022, 'Alpine', 9),
-        (2022, 'Alpine', 10),
-        (2022, 'Ferrari', 11),
-        (2022, 'Ferrari', 12),
-        (2022, 'AlphaTauri', 13),
-        (2022, 'AlphaTauri', 14),
-        (2022, 'Alfa Romeo', 2),
-        (2022, 'Alfa Romeo', 22),
-        (2022, 'Haas', 17),
-        (2022, 'Haas', 23),
-        (2022, 'Williams', 20),
-        (2022, 'Williams', 21);
+    INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
+        VALUES
+            /*(2021, 'Mercedes', 1),
+            (2021, 'Mercedes', 2),
+            (2021, 'Red Bull', 3),
+            (2021, 'Red Bull', 4),
+            (2021, 'Mclaren', 5),
+            (2021, 'Mclaren', 6),
+            (2021, 'Aston Martin', 7),
+            (2021, 'Aston Martin', 8),
+            (2021, 'Alpine', 9),
+            (2021, 'Alpine', 10),
+            (2021, 'Ferrari', 11),
+            (2021, 'Ferrari', 12),
+            (2021, 'AlphaTauri', 13),
+            (2021, 'AlphaTauri', 14),
+            (2021, 'Alfa Romeo', 15),
+            (2021, 'Alfa Romeo', 16),
+            (2021, 'Haas', 17),
+            (2021, 'Haas', 18),
+            (2021, 'Williams', 19),
+            (2021, 'Williams', 20),*/
+            (2022, 'Mercedes', 1),
+            (2022, 'Mercedes', 19),
+            (2022, 'Red Bull', 3),
+            (2022, 'Red Bull', 4),
+            (2022, 'Mclaren', 5),
+            (2022, 'Mclaren', 6),
+            (2022, 'Aston Martin', 7),
+            (2022, 'Aston Martin', 8),
+            (2022, 'Alpine', 9),
+            (2022, 'Alpine', 10),
+            (2022, 'Ferrari', 11),
+            (2022, 'Ferrari', 12),
+            (2022, 'AlphaTauri', 13),
+            (2022, 'AlphaTauri', 14),
+            (2022, 'Alfa Romeo', 2),
+            (2022, 'Alfa Romeo', 22),
+            (2022, 'Haas', 17),
+            (2022, 'Haas', 23),
+            (2022, 'Williams', 20),
+            (2022, 'Williams', 21);
+-- COMMIT ;
 
 INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo, Posizione)
     VALUES
@@ -257,3 +259,25 @@ CALL inserimentoRisultatoPilota(2022, '2022-05-22', 19, 17);
 CALL inserimentoRisultatoPilota(2022, '2022-05-22', 17, 18);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-22');
+
+
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 1, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 3, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 2, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 5, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 6, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 8, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 7, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 11, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 4, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 9, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 10, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 21, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 12, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 22, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 13, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 14, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 19, 17);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 17, 18);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-05-29');
