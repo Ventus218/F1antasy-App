@@ -24,6 +24,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         this.primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("asset/app_icon.png")));
 
         setupDBAccessAndWait();
+
         showLogin();
         primaryStage.show();
     }
