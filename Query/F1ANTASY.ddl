@@ -471,15 +471,3 @@ CREATE TRIGGER checkSquadraHaQuattroPiloti_DELETE_SCELTA_PILOTA AFTER DELETE ON 
 FOR EACH ROW
 CALL checkSquadraHaQuattroPiloti(OLD.AnnoCampionato, OLD.DataGranPremio, OLD.UsernameUtente);
 */
-
-# classificaPrivataMinUnPartecipante
-CREATE TRIGGER classificaPrivataMinUnPartecipante AFTER UPDATE ON CLASSIFICA_PRIVATA
-FOR EACH ROW
-BEGIN
-
-    IF NEW.NumeroPartecipanti = 0 THEN
-        DELETE FROM CLASSIFICA_PRIVATA C
-        WHERE C.Nome = NEW.Nome;
-    END IF;
-
-END;
