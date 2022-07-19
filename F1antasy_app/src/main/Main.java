@@ -7,12 +7,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.controllers.*;
 import main.controllers.delegates.InizializzazioneSquadraDelegate;
+import main.controllers.delegates.LoginDBDelegate;
 import main.controllers.delegates.LoginDelegate;
 import main.controllers.delegates.SigninDelegate;
 
 import java.sql.SQLException;
 
-public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate {
+public class Main extends Application implements LoginDelegate, SigninDelegate, InizializzazioneSquadraDelegate, LoginDBDelegate {
 
     private Stage primaryStage;
 
@@ -24,14 +25,13 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         this.primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("asset/app_icon.png")));
 
         setupDBAccessAndWait();
-
-        showLogin();
-        primaryStage.show();
     }
 
     private void setupDBAccessAndWait() {
         FXMLResource resource = Utils.loadResource("views/PaneLoginDB.fxml");
         Parent root = resource.getParent();
+        PaneLoginDBController loginDBController = (PaneLoginDBController) resource.getController();
+        loginDBController.setLoginDelegate(this);
 
         Stage s = Utils.getNewStage();
         s.setTitle("F1antasy - Accesso al DB");
@@ -98,6 +98,12 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
             Utils.crashWithMessage(e.toString());
             return null; // will never run
         }
+    }
+
+    @Override
+    public void loginDBEndedSuccessfully() {
+        primaryStage.show();
+        showLogin();
     }
 
     @Override
