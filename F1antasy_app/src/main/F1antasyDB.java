@@ -11,6 +11,7 @@ import java.util.Optional;
 public class F1antasyDB {
 
     public static void setUpDB(String user, String password) {
+        if (db != null) { Utils.crashWithMessage("F1antasyDB.setUpDB(...) can only be called once."); }
         db = new F1antasyDB(new ConnectionProvider(user, password, "F1ANTASY").getMySQLConnection());
     }
 
@@ -23,6 +24,7 @@ public class F1antasyDB {
     }
 
     public static F1antasyDB getDB() {
+        if (db == null) { Utils.crashWithMessage("F1antasyDB.setUpDB(...) must be called to access the DB"); }
         return db;
     }
 
