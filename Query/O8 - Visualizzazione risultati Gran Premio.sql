@@ -2,7 +2,7 @@
 
 SELECT P.Nome, P.Cognome, PP.Punteggio
 FROM PILOTA P JOIN POSIZIONE_PUNTEGGIO PP JOIN PILOTA_IN_GRAN_PREMIO PGP
-    ON PP.Posizione = RP.Posizione
+    ON PP.Posizione = PGP.Posizione
     AND P.Codice = PGP.CodicePilota
 WHERE PGP.AnnoCampionato= 2022
 AND PGP.DataGranPremio='2022-05-22'
