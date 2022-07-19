@@ -1,3 +1,4 @@
+-- Inserimento Motorizzazioni
 INSERT INTO MOTORIZZAZIONE(Nome)
     VALUES
         ('Ferrari'),
@@ -6,6 +7,7 @@ INSERT INTO MOTORIZZAZIONE(Nome)
         ('Renault'),
         ('Red Bull');
 
+-- Inserimento Scuderie
 INSERT INTO SCUDERIA(Nome)
     VALUES
         ('Ferrari'),
@@ -19,6 +21,7 @@ INSERT INTO SCUDERIA(Nome)
         ('Williams'),
         ('Aston Martin');
 
+-- Inserimento Gran Premi
 INSERT INTO GRAN_PREMIO(Stato, Nome, NumeroGiri, LunghezzaCircuito)
     VALUES
         ('Arabia Saudita', 'Jeddah', 50, 6000),
@@ -34,6 +37,7 @@ INSERT INTO GRAN_PREMIO(Stato, Nome, NumeroGiri, LunghezzaCircuito)
         ('Spagna', 'Catalogna', 69, 3000),
         ('Principato di Monaco', 'Monte Carlo', 70, 3000);
 
+-- Inserimento Piloti
 INSERT INTO PILOTA(Codice, Nome, Cognome)
 VALUES
     (1, 'Lewis', 'Hamilton'),
@@ -60,6 +64,7 @@ VALUES
     (22, 'Guanyu', 'Zhou'),
     (23, 'Kevin', 'Magnussen');
 
+-- Inserimento dei Punteggi relativi a ciascuna Posizione
 INSERT INTO POSIZIONE_PUNTEGGIO(Posizione, Punteggio)
     VALUES
     (1, 38),
@@ -83,25 +88,12 @@ INSERT INTO POSIZIONE_PUNTEGGIO(Posizione, Punteggio)
     (19, 1),
     (20, 0);
 
-CALL registrazioneUtente('CiccioCarluz', 'Password');
-CALL registrazioneUtente('Mario', 'Password');
-CALL registrazioneUtente('Dario', 'Password');
-CALL registrazioneUtente('Ventu', 'Password');
-CALL registrazioneUtente('Franky', 'Password');
-CALL registrazioneUtente('Roman', 'Password');
-
-CALL creazioneClassificaPrivata('CiccioCarluz', 'UniboLeague');
-CALL iscrizioneClassificaPrivata('Dario', 'UniboLeague');
-CALL iscrizioneClassificaPrivata('Roman', 'UniboLeague');
-CALL iscrizioneClassificaPrivata('Ventu', 'UniboLeague');
-
-CALL creazioneClassificaPrivata('Ventu', 'Bolognesi');
-CALL iscrizioneClassificaPrivata('Dario', 'Bolognesi');
-
+-- Inserimento Campionato
 INSERT INTO CAMPIONATO(Anno)
     VALUES
         (2022);
 
+-- Inserimento Gran Premi Programmati
 INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
      VALUES
         (2022, '2022-03-27', 'Arabia Saudita', 'Jeddah', 0),
@@ -117,45 +109,45 @@ INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
         (2022, '2022-10-30', 'Messico', 'Città del Messico', 0),
         (2022, '2022-11-13', 'Brasile', 'Interlagos', 0);
 
--- START TRANSACTION;
-    INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
-        VALUES
-            (2022, 'Ferrari', 'Ferrari'),
-            (2022, 'Mercedes', 'Mercedes'),
-            (2022, 'Mclaren', 'Mercedes'),
-            (2022, 'Red Bull', 'Red Bull'),
-            (2022, 'Alpine', 'Renault'),
-            (2022, 'AlphaTauri', 'Red Bull'),
-            (2022, 'Aston Martin', 'Mercedes'),
-            (2022, 'Williams', 'Mercedes'),
-            (2022, 'Alfa Romeo', 'Ferrari'),
-            (2022, 'Haas', 'Ferrari');
+-- Inserimento Scuderie che partecipano al Campionato
+INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
+    VALUES
+        (2022, 'Ferrari', 'Ferrari'),
+        (2022, 'Mercedes', 'Mercedes'),
+        (2022, 'Mclaren', 'Mercedes'),
+        (2022, 'Red Bull', 'Red Bull'),
+        (2022, 'Alpine', 'Renault'),
+        (2022, 'AlphaTauri', 'Red Bull'),
+        (2022, 'Aston Martin', 'Mercedes'),
+        (2022, 'Williams', 'Mercedes'),
+        (2022, 'Alfa Romeo', 'Ferrari'),
+        (2022, 'Haas', 'Ferrari');
 
+-- Inserimento dei Piloti nella propria Scuderia
+INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
+    VALUES
+        (2022, 'Mercedes', 1),
+        (2022, 'Mercedes', 19),
+        (2022, 'Red Bull', 3),
+        (2022, 'Red Bull', 4),
+        (2022, 'Mclaren', 5),
+        (2022, 'Mclaren', 6),
+        (2022, 'Aston Martin', 7),
+        (2022, 'Aston Martin', 8),
+        (2022, 'Alpine', 9),
+        (2022, 'Alpine', 10),
+        (2022, 'Ferrari', 11),
+        (2022, 'Ferrari', 12),
+        (2022, 'AlphaTauri', 13),
+        (2022, 'AlphaTauri', 14),
+        (2022, 'Alfa Romeo', 2),
+        (2022, 'Alfa Romeo', 22),
+        (2022, 'Haas', 17),
+        (2022, 'Haas', 23),
+        (2022, 'Williams', 20),
+        (2022, 'Williams', 21);
 
-    INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
-        VALUES
-            (2022, 'Mercedes', 1),
-            (2022, 'Mercedes', 19),
-            (2022, 'Red Bull', 3),
-            (2022, 'Red Bull', 4),
-            (2022, 'Mclaren', 5),
-            (2022, 'Mclaren', 6),
-            (2022, 'Aston Martin', 7),
-            (2022, 'Aston Martin', 8),
-            (2022, 'Alpine', 9),
-            (2022, 'Alpine', 10),
-            (2022, 'Ferrari', 11),
-            (2022, 'Ferrari', 12),
-            (2022, 'AlphaTauri', 13),
-            (2022, 'AlphaTauri', 14),
-            (2022, 'Alfa Romeo', 2),
-            (2022, 'Alfa Romeo', 22),
-            (2022, 'Haas', 17),
-            (2022, 'Haas', 23),
-            (2022, 'Williams', 20),
-            (2022, 'Williams', 21);
--- COMMIT ;
-
+-- Inserimento dei Piloti nel primo Gran Premio del Campionato
 INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo, Posizione)
     VALUES
         (2022, '2022-03-27', 3,     40000000, NULL),
@@ -179,6 +171,7 @@ INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, 
         (2022, '2022-03-27', 22,   10000000, NULL),
         (2022, '2022-03-27', 23,   10000000, NULL);
 
+-- Inserimento delle Motorizzazioni nel primo Gran Premio del Campionato
 INSERT INTO MOTORIZZAZIONE_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, NomeMotorizzazione, Prezzo, PunteggioOttenuto)
 VALUES
     (2022, '2022-03-27', 'Mercedes',    15000000, NULL),
@@ -186,10 +179,24 @@ VALUES
     (2022, '2022-03-27', 'Renault',        8000000, NULL),
     (2022, '2022-03-27', 'Red Bull',        7000000, NULL);
 
+-- Registrazione Utenti
+CALL registrazioneUtente('CiccioCarluz', 'Password');
+CALL registrazioneUtente('Mario', 'Password');
+CALL registrazioneUtente('Dario', 'Password');
+CALL registrazioneUtente('Ventu', 'Password');
+CALL registrazioneUtente('Franky', 'Password');
+CALL registrazioneUtente('Roman', 'Password');
 
+-- Creazione Classifiche Private
+CALL creazioneClassificaPrivata('CiccioCarluz', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Dario', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Roman', 'UniboLeague');
+CALL iscrizioneClassificaPrivata('Ventu', 'UniboLeague');
 
-# PRIMO GRAN PREMIO
+CALL creazioneClassificaPrivata('Ventu', 'Bolognesi');
+CALL iscrizioneClassificaPrivata('Dario', 'Bolognesi');
 
+-- Inizializzazione Squadre per il primo Gran Premio
 CALL inizializzazioneSquadra('CiccioCarluz', 'Ferrari', 5, 6, 12, 19);
 CALL inizializzazioneSquadra('Dario', 'Mercedes', 5, 8, 12, 10);
 CALL inizializzazioneSquadra('Ventu', 'Ferrari', 5, 8, 12, 11);
@@ -197,7 +204,9 @@ CALL inizializzazioneSquadra('Mario', 'Mercedes', 22, 21, 3, 11);
 CALL inizializzazioneSquadra('Franky', 'Red Bull', 22, 17, 3, 13);
 CALL inizializzazioneSquadra('Roman', 'Red Bull', 17, 21, 3, 11);
 
-# 2022-03-27, Arabia Saudita, Jeddah
+-- Inserimento risultati Gran Premi
+
+-- 2022-03-27, Arabia Saudita, Jeddah
 CALL inserimentoRisultatoPilota(2022, '2022-03-27', 1, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-03-27', 3, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-03-27', 2, 3);
@@ -219,8 +228,13 @@ CALL inserimentoRisultatoPilota(2022, '2022-03-27', 17, 18);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-03-27');
 
+-- Scambi Piloti e Motorizzazioni
+CALL scambioPilota('Dario', 2022, '2022-04-10',10, 23);
+CALL scambioMotorizzazione('Dario', 2022, '2022-04-10','Mercedes', 'Renault');
+CALL scambioPilota('Ventu', 2022, '2022-04-10',12, 22);
+CALL scambioPilota('Ventu', 2022, '2022-04-10',8, 14);
 
-# 2022-04-10, Australia, Melbourne,
+-- 2022-04-10, Australia, Melbourne,
 CALL inserimentoRisultatoPilota(2022, '2022-04-10', 11, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-04-10', 4, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-04-10', 19, 3);
@@ -241,8 +255,11 @@ CALL inserimentoRisultatoPilota(2022, '2022-04-10', 10, 17);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-04-10');
 
+-- Scambi Piloti e Motorizzazioni
+CALL scambioPilota('Dario', 2022, '2022-05-08',12, 11);
+CALL scambioPilota('Dario', 2022, '2022-05-08',5, 17);
 
-# 2022-05-08, Florida, Miami Autodrome
+-- 2022-05-08, Florida, Miami Autodrome
 CALL inserimentoRisultatoPilota(2022, '2022-05-08', 3, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-05-08', 11, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-05-08', 12, 3);
@@ -261,8 +278,11 @@ CALL inserimentoRisultatoPilota(2022, '2022-05-08', 17, 16);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-08');
 
+-- Scambi Piloti e Motorizzazioni
+CALL scambioPilota('Dario', 2022, '2022-05-22',11, 14);
+CALL scambioPilota('Dario', 2022, '2022-05-22',8, 21);
 
-# 2022-05-22, Spagna, Catalogna
+-- 2022-05-22, Spagna, Catalogna
 CALL inserimentoRisultatoPilota(2022, '2022-05-22', 3, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-05-22', 4, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-05-22', 19, 3);
@@ -284,8 +304,11 @@ CALL inserimentoRisultatoPilota(2022, '2022-05-22', 21, 18);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-22');
 
+-- Scambi Piloti e Motorizzazioni
+CALL scambioPilota('Dario', 2022, '2022-05-29',23, 20);
+CALL scambioPilota('Dario', 2022, '2022-05-29',17, 22);
 
-# 2022-05-29, Principato di Monaco, Monte Carlo
+-- 2022-05-29, Principato di Monaco, Monte Carlo
 CALL inserimentoRisultatoPilota(2022, '2022-05-29', 3, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-05-29', 2, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-05-29', 5, 3);
@@ -306,8 +329,10 @@ CALL inserimentoRisultatoPilota(2022, '2022-05-29', 23, 17);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-29');
 
+-- Scambi Piloti e Motorizzazioni
+CALL scambioPilota('Dario', 2022, '2022-07-03',22, 23);
 
-# 2022-07-03, Gran Bretagna, Silverstone
+-- 2022-07-03, Gran Bretagna, Silverstone
 CALL inserimentoRisultatoPilota(2022, '2022-07-03', 12, 1);
 CALL inserimentoRisultatoPilota(2022, '2022-07-03', 4, 2);
 CALL inserimentoRisultatoPilota(2022, '2022-07-03', 1, 3);
