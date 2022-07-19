@@ -5,12 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.controllers.PaneInizializzazioneSquadraController;
-import main.controllers.PaneSigninController;
-import main.controllers.TabPaneController;
+import main.controllers.*;
 import main.controllers.delegates.InizializzazioneSquadraDelegate;
 import main.controllers.delegates.LoginDelegate;
-import main.controllers.PaneLoginController;
 import main.controllers.delegates.SigninDelegate;
 
 import java.sql.SQLException;
@@ -26,8 +23,20 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
         this.primaryStage = primaryStage;
         this.primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("asset/app_icon.png")));
 
+        setupDBAccessAndWait();
         showLogin();
         primaryStage.show();
+    }
+
+    private void setupDBAccessAndWait() {
+        FXMLResource resource = Utils.loadResource("views/PaneLoginDB.fxml");
+        Parent root = resource.getParent();
+
+        Stage s = Utils.getNewStage();
+        s.setTitle("F1antasy - Accesso al DB");
+        s.setScene(new Scene(root));
+        s.setResizable(false);
+        s.showAndWait();
     }
 
     private void showLogin() {
@@ -83,7 +92,7 @@ public class Main extends Application implements LoginDelegate, SigninDelegate, 
 
     private Boolean userHasAlreadyInitializedSquadra() {
         try {
-            return F1antasyDB.utenteHasInitializedSquadra(User.loggedInUser.getUsername());
+            return F1antasyDB.getDB().utenteHasInitializedSquadra(User.loggedInUser.getUsername());
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run

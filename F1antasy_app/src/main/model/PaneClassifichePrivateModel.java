@@ -40,7 +40,7 @@ public class PaneClassifichePrivateModel {
 
         setSelectedClassificaPrivata(Optional.of(nome));
         try {
-            setClassificaPrivata(Optional.of(F1antasyDB.getClassificaPrivata(nome)));
+            setClassificaPrivata(Optional.of(F1antasyDB.getDB().getClassificaPrivata(nome)));
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
         }
@@ -48,7 +48,7 @@ public class PaneClassifichePrivateModel {
 
     public Boolean createClassificaPrivata(String nome) {
         try {
-            if (F1antasyDB.createClassificaPrivata(getUsername(), nome)) {
+            if (F1antasyDB.getDB().createClassificaPrivata(getUsername(), nome)) {
                 refreshData();
                 return true;
             } else {
@@ -62,7 +62,7 @@ public class PaneClassifichePrivateModel {
 
     public Boolean joinClassificaPrivata(String nome) {
         try {
-            if (F1antasyDB.joinClassificaPrivata(getUsername(), nome)) {
+            if (F1antasyDB.getDB().joinClassificaPrivata(getUsername(), nome)) {
                 refreshData();
                 return true;
             } else {
@@ -79,7 +79,7 @@ public class PaneClassifichePrivateModel {
             Utils.crashWithMessage("Trying to leave ClassificaPrivata which is not present in availableClassifichePrivata. ");
         }
         try {
-            if (F1antasyDB.leaveClassificaPrivata(getUsername(), nome)) {
+            if (F1antasyDB.getDB().leaveClassificaPrivata(getUsername(), nome)) {
                 refreshData();
                 return true;
             } else {
@@ -93,7 +93,7 @@ public class PaneClassifichePrivateModel {
 
     private List<String> getAvailableClassifichePrivateFromDB() {
         try {
-            return F1antasyDB.getNomiClassifichePrivateUtente(getUsername());
+            return F1antasyDB.getDB().getNomiClassifichePrivateUtente(getUsername());
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run

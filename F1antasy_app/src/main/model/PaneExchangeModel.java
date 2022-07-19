@@ -26,8 +26,8 @@ public class PaneExchangeModel<T extends Acquistabile> {
         this.availableAquistabili = getAvailableAcquistabiliFromDB();
 
         try {
-            GranPremioProgrammato currentGP = F1antasyDB.getGranPremioProgrammatoCorrente();
-            Squadra s = F1antasyDB.getSquadraUtente(getUsername(), currentGP.getCampionato().getAnno(), currentGP.getDataGranPremio());
+            GranPremioProgrammato currentGP = F1antasyDB.getDB().getGranPremioProgrammatoCorrente();
+            Squadra s = F1antasyDB.getDB().getSquadraUtente(getUsername(), currentGP.getCampionato().getAnno(), currentGP.getDataGranPremio());
             setBudgetRimanente(s.getBudgetRimanente());
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
@@ -40,7 +40,7 @@ public class PaneExchangeModel<T extends Acquistabile> {
             PilotaConPrezzo oldPCP = (PilotaConPrezzo) oldAcquistabile;
             PilotaConPrezzo newPCP = (PilotaConPrezzo) newAcquistabile.get();
             try {
-                return F1antasyDB.exchangePiloti(getUsername(), oldPCP.getPilota(), newPCP.getPilota());
+                return F1antasyDB.getDB().exchangePiloti(getUsername(), oldPCP.getPilota(), newPCP.getPilota());
             } catch (SQLException e) {
                 Utils.crashWithMessage(e.toString());
                 return null; // will never run
@@ -49,7 +49,7 @@ public class PaneExchangeModel<T extends Acquistabile> {
             MotorizzazioneConPrezzo oldM = (MotorizzazioneConPrezzo) oldAcquistabile;
             MotorizzazioneConPrezzo newM = (MotorizzazioneConPrezzo) newAcquistabile.get();
             try {
-                return F1antasyDB.exchangeMotorizzazione(getUsername(), oldM.getMotorizzazione(), newM.getMotorizzazione());
+                return F1antasyDB.getDB().exchangeMotorizzazione(getUsername(), oldM.getMotorizzazione(), newM.getMotorizzazione());
             } catch (SQLException e) {
                 Utils.crashWithMessage(e.toString());
                 return null; // will never run
@@ -76,7 +76,7 @@ public class PaneExchangeModel<T extends Acquistabile> {
     private List<T> getAvailableAcquistabiliFromDB() {
         if (oldAcquistabileIsPilota()) {
             try {
-                List<Integer> codiciPilotiGiaInSquadra = F1antasyDB.getSquadraPilotiUtente(getUsername())
+                List<Integer> codiciPilotiGiaInSquadra = F1antasyDB.getDB().getSquadraPilotiUtente(getUsername())
                         .stream()
                         .map(PilotaConPrezzo::getPilota)
                         .map(Pilota::getCodice)
@@ -99,7 +99,7 @@ public class PaneExchangeModel<T extends Acquistabile> {
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
         try {
-            return F1antasyDB.getPilotiConPrezzo();
+            return F1antasyDB.getDB().getPilotiConPrezzo();
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run
@@ -108,7 +108,7 @@ public class PaneExchangeModel<T extends Acquistabile> {
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
         try {
-            return F1antasyDB.getMotorizzazioniConPrezzo();
+            return F1antasyDB.getDB().getMotorizzazioniConPrezzo();
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run

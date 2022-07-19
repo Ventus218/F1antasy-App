@@ -10,14 +10,26 @@ import java.util.Optional;
 
 public class F1antasyDB {
 
-    private static final Connection connection = (new ConnectionProvider("root", "Password123!", "F1ANTASY")).getMySQLConnection();
+    public static void setUpDB(String user, String password) {
+        db = new F1antasyDB(new ConnectionProvider(user, password, "F1ANTASY").getMySQLConnection());
+    }
 
-    private F1antasyDB() { };
+    private static Connection connection;
+
+    private static F1antasyDB db;
+
+    private F1antasyDB(Connection connection) {
+        F1antasyDB.connection = connection;
+    }
+
+    public static F1antasyDB getDB() {
+        return db;
+    }
 
     /**
      * O1 - RegistrazioneUtente
      */
-    public static void signInUtente(String username, String password) throws SQLException {
+    public void signInUtente(String username, String password) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call registrazioneUtente(?, ?)}");
@@ -34,7 +46,7 @@ public class F1antasyDB {
     /**
      * O2 - Inizializzazione della Squadra
      */
-    public static void createSquadra(String username, List<Pilota> piloti, Motorizzazione motorizzazione) throws SQLException {
+    public void createSquadra(String username, List<Pilota> piloti, Motorizzazione motorizzazione) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call inizializzazioneSquadra(?, ?, ?, ?, ?, ?)}");
@@ -55,7 +67,7 @@ public class F1antasyDB {
     /**
      * O3a - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio
      */
-    public static List<PilotaConPrezzo> getSquadraPilotiUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public List<PilotaConPrezzo> getSquadraPilotiUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         // if (!utenteHasInitializedSquadra(username, annoCampionato, dataGranPremio)) {
         //     Utils.crashWithMessage("Trying to get SquadraPiloti of " + username + " while it was not even initialized.");
         // }
@@ -94,7 +106,7 @@ public class F1antasyDB {
     /**
      * O3a - Visualizzazione della Squadra (PILOTI) per un certo Gran Premio
      */
-    public static List<PilotaConPrezzo> getSquadraPilotiUtente(String username) throws SQLException {
+    public List<PilotaConPrezzo> getSquadraPilotiUtente(String username) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getSquadraPilotiUtente(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
@@ -102,7 +114,7 @@ public class F1antasyDB {
     /**
      * O3b - Visualizzazione della Squadra per un certo Gran Premio
      */
-    public static Squadra getSquadraUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public Squadra getSquadraUtente(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
@@ -132,7 +144,7 @@ public class F1antasyDB {
     /**
      * O3b - Visualizzazione della Squadra per un certo Gran Premio
      */
-    public static Squadra getSquadraUtente(String username) throws SQLException {
+    public Squadra getSquadraUtente(String username) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getSquadraUtente(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
@@ -140,7 +152,7 @@ public class F1antasyDB {
     /**
      * O4 - Visualizzazione di tutti i Piloti per un certo Gran Premio in ordine decrescente di prezzo
      */
-    public static List<PilotaConPrezzo> getPilotiConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public List<PilotaConPrezzo> getPilotiConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzazionePilotiPrezzoPerGranPremio(?, ?)}");
@@ -171,7 +183,7 @@ public class F1antasyDB {
 
         return l;
     }
-    public static List<PilotaConPrezzo> getPilotiConPrezzo() throws SQLException {
+    public List<PilotaConPrezzo> getPilotiConPrezzo() throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getPilotiConPrezzo(gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
@@ -179,7 +191,7 @@ public class F1antasyDB {
     /**
      * O5 - Visualizzazione di tutte le Motorizzazioni per un certo Gran Premio in ordine decrescente di prezzo
      */
-    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo(Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzazioneMotorizzazioniPrezzoPerGranPremio(?, ?)}");
@@ -208,7 +220,7 @@ public class F1antasyDB {
 
         return l;
     }
-    public static List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo() throws SQLException {
+    public List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzo() throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getMotorizzazioniConPrezzo(gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
@@ -216,7 +228,7 @@ public class F1antasyDB {
     /**
      * O6 - Visualizzazione Classifica Globale
      */
-    public static Classifica getClassificaGlobale() throws SQLException {
+    public Classifica getClassificaGlobale() throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzazioneClassificaGlobale()}");
@@ -247,7 +259,7 @@ public class F1antasyDB {
     /**
      * O7 - Visualizzazione Classifica Privata
      */
-    public static ClassificaPrivata getClassificaPrivata(String nome) throws SQLException {
+    public ClassificaPrivata getClassificaPrivata(String nome) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzazioneClassificaPrivata(?)}");
@@ -279,7 +291,7 @@ public class F1antasyDB {
     /**
      * O9 - Visualizzazione del Punteggio ottenuto in un Gran Premio concluso
      */
-    public static Integer getPunteggioOttenutoGranPremioConcluso(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public Integer getPunteggioOttenutoGranPremioConcluso(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call punteggioUtentePerGranPremio(?, ?, ?, ?)}");
@@ -298,7 +310,7 @@ public class F1antasyDB {
     /**
      * O12a - Scambio Pilota
      */
-    public static Boolean exchangePiloti(String username, Integer annoCampionato, LocalDate dataGranPremio, Pilota oldPilota, Pilota newPilota) throws SQLException {
+    public Boolean exchangePiloti(String username, Integer annoCampionato, LocalDate dataGranPremio, Pilota oldPilota, Pilota newPilota) throws SQLException {
         if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
@@ -323,7 +335,7 @@ public class F1antasyDB {
     /**
      * O12a - Scambio Pilota
      */
-    public static Boolean exchangePiloti(String username, Pilota oldPilota, Pilota newPilota) throws SQLException {
+    public Boolean exchangePiloti(String username, Pilota oldPilota, Pilota newPilota) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return exchangePiloti(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), oldPilota, newPilota);
     }
@@ -331,7 +343,7 @@ public class F1antasyDB {
     /**
      * O12b - Scambio Motorizzazione
      */
-    public static Boolean exchangeMotorizzazione(String username, Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) throws SQLException {
+    public Boolean exchangeMotorizzazione(String username, Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) throws SQLException {
         if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
@@ -356,7 +368,7 @@ public class F1antasyDB {
     /**
      * O12b - Scambio Motorizzazione
      */
-    public static Boolean exchangeMotorizzazione(String username, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) throws SQLException {
+    public Boolean exchangeMotorizzazione(String username, Motorizzazione oldMotorizzazione, Motorizzazione newMotorizzazione) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return exchangeMotorizzazione(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), oldMotorizzazione, newMotorizzazione);
     }
@@ -364,7 +376,7 @@ public class F1antasyDB {
     /**
      * O13 - Creazione Classifica Privata
      */
-    public static Boolean createClassificaPrivata(String username, String nome) throws SQLException {
+    public Boolean createClassificaPrivata(String username, String nome) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call creazioneClassificaPrivata(?, ?)}");
@@ -383,7 +395,7 @@ public class F1antasyDB {
     /**
      * O14 – Iscrizione ad una Classifica Privata
      */
-    public static Boolean joinClassificaPrivata(String username, String nome) throws SQLException {
+    public Boolean joinClassificaPrivata(String username, String nome) throws SQLException {
         if (getNomiClassifichePrivateUtente(username).contains(nome)) {
             Utils.crashWithMessage("User " + username + " already subscribed to ClassificaPrivata: " + nome);
         }
@@ -406,7 +418,7 @@ public class F1antasyDB {
     /**
      * O15 – Uscita da una Classifica Privata
      */
-    public static Boolean leaveClassificaPrivata(String username, String nome) throws SQLException {
+    public Boolean leaveClassificaPrivata(String username, String nome) throws SQLException {
         if (! getNomiClassifichePrivateUtente(username).contains(nome)) {
             Utils.crashWithMessage("User " + username + " is not subscribed to ClassificaPrivata: " + nome);
         }
@@ -429,7 +441,7 @@ public class F1antasyDB {
     /**
      * O22 - Visualizzazione del Valore di una Squadra
      */
-    public static Integer getValoreSquadra(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public Integer getValoreSquadra(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         if (!utenteHasSquadraForGranPremio(username, annoCampionato, dataGranPremio)) {
             Utils.crashWithMessage("Utente " + username + " doesn't have a squadra for GranPremio " + annoCampionato + " " + dataGranPremio.toString());
         }
@@ -451,7 +463,7 @@ public class F1antasyDB {
     /**
      * O22 - Visualizzazione del Valore di una Squadra
      */
-    public static Integer getValoreSquadra(String username) throws SQLException {
+    public Integer getValoreSquadra(String username) throws SQLException {
         // GETTING CURRENT GRAND PRIX (NEED ATTRIBUTES FOR INSERT)
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getValoreSquadra(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
@@ -460,7 +472,7 @@ public class F1antasyDB {
     /**
      * O23 - Login Utente
      */
-    public static Boolean logInUtente(String username, String password) throws SQLException {
+    public Boolean logInUtente(String username, String password) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call loginUtente(?, ?, ?)}");
@@ -478,7 +490,7 @@ public class F1antasyDB {
     /**
      * O24 - Controllo se Utente ha Squadra per Gran Premio
      */
-    public static Boolean utenteHasSquadraForGranPremio(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
+    public Boolean utenteHasSquadraForGranPremio(String username, Integer annoCampionato, LocalDate dataGranPremio) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call checkUtenteHaSquadraPerGranPremio(?, ?, ? ,?)}");
@@ -493,7 +505,7 @@ public class F1antasyDB {
         s.execute();
         return s.getBoolean(4);
     }
-    public static Boolean utenteHasInitializedSquadra(String username) throws SQLException {
+    public Boolean utenteHasInitializedSquadra(String username) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return utenteHasSquadraForGranPremio(username, gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
     }
@@ -501,7 +513,7 @@ public class F1antasyDB {
     /**
      * O25 - Visualizza Gran Premio Corrente
      */
-    public static GranPremioProgrammato getGranPremioProgrammatoCorrente() throws SQLException {
+    public GranPremioProgrammato getGranPremioProgrammatoCorrente() throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzaGranPremioCorrente(?, ?, ?, ?, ?)}");
@@ -521,7 +533,7 @@ public class F1antasyDB {
     /**
      * O26 - Visualizza Nomi Classifiche Private Utente
      */
-    public static List<String> getNomiClassifichePrivateUtente(String username) throws SQLException {
+    public List<String> getNomiClassifichePrivateUtente(String username) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzaNomiClassifichePrivateUtente(?)}");
@@ -552,7 +564,7 @@ public class F1antasyDB {
     /**
      * O27 - Visualizza Gran Premi per Campionato
      */
-    public static List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) throws SQLException {
+    public List<GranPremioProgrammato> getGranPremiProgrammati(Integer annoCampionato) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzaGranPremiPerCampionato(?)}");
@@ -587,7 +599,7 @@ public class F1antasyDB {
     /**
      * O28 - Visualizza Punteggio attuale Utente
      */
-    public static Integer getPunteggioAttualeUtente(String username) throws SQLException {
+    public Integer getPunteggioAttualeUtente(String username) throws SQLException {
         CallableStatement s;
         try {
             s = connection.prepareCall("{call visualizzaPunteggioAttualeUtente(?, ?)}");
@@ -605,7 +617,7 @@ public class F1antasyDB {
 
     // ***** CONVENIENCE METHODS ******
 
-    public static Integer getPrezzoPilota(Integer annoCampionato, LocalDate dataGranPremio, Pilota pilota) throws SQLException {
+    public Integer getPrezzoPilota(Integer annoCampionato, LocalDate dataGranPremio, Pilota pilota) throws SQLException {
         Optional<PilotaConPrezzo> first = getPilotiConPrezzo(annoCampionato, dataGranPremio).stream().filter(p -> p.getPilota().equals(pilota)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
@@ -614,12 +626,12 @@ public class F1antasyDB {
             return null; // will never run
         }
     }
-    public static Integer getPrezzoPilota(Pilota pilota) throws SQLException {
+    public Integer getPrezzoPilota(Pilota pilota) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getPrezzoPilota(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), pilota);
     }
 
-    public static Integer getPrezzoMotorizzazione(Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione motorizzazione) throws SQLException {
+    public Integer getPrezzoMotorizzazione(Integer annoCampionato, LocalDate dataGranPremio, Motorizzazione motorizzazione) throws SQLException {
         Optional<MotorizzazioneConPrezzo> first = getMotorizzazioniConPrezzo(annoCampionato, dataGranPremio).stream().filter(m -> m.getMotorizzazione().equals(motorizzazione)).findFirst();
         if (first.isPresent()) {
             return first.get().getPrezzo();
@@ -628,12 +640,12 @@ public class F1antasyDB {
             return null; // will never run
         }
     }
-    public static Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) throws SQLException {
+    public Integer getPrezzoMotorizzazione(Motorizzazione motorizzazione) throws SQLException {
         GranPremioProgrammato gpp = getGranPremioProgrammatoCorrente();
         return getPrezzoMotorizzazione(gpp.getCampionato().getAnno(), gpp.getDataGranPremio(), motorizzazione);
     }
 
-    public static Campionato getCampionatoCorrente() throws SQLException {
+    public Campionato getCampionatoCorrente() throws SQLException {
         return getGranPremioProgrammatoCorrente().getCampionato();
     }
 }

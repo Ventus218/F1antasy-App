@@ -46,7 +46,7 @@ public class PaneSigninController implements Initializable {
     private void signinButtonWasPressed(ActionEvent actionEvent) {
         if (validateSignin()) {
             try {
-                F1antasyDB.signInUtente(textFieldUsername.getText(), textFieldPassword.getText());
+                F1antasyDB.getDB().signInUtente(textFieldUsername.getText(), textFieldPassword.getText());
                 signinDelegate.signinEndedSuccessfully();
             }
             catch (SQLException e) {

@@ -24,7 +24,7 @@ public class PaneClassificaGlobaleModel {
 
     private Classifica getClassificaGlobaleFromDB() {
         try {
-            return F1antasyDB.getClassificaGlobale();
+            return F1antasyDB.getDB().getClassificaGlobale();
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run

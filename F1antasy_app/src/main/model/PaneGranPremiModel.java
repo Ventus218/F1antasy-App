@@ -26,7 +26,7 @@ public class PaneGranPremiModel {
         this.username = username;
 
         try {
-            this.granPremi = F1antasyDB.getGranPremiProgrammati(F1antasyDB.getCampionatoCorrente().getAnno());
+            this.granPremi = F1antasyDB.getDB().getGranPremiProgrammati(F1antasyDB.getDB().getCampionatoCorrente().getAnno());
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
         }
@@ -39,9 +39,9 @@ public class PaneGranPremiModel {
         }
         setSelectedGranPremio(Optional.of(gpp));
         try {
-            if (F1antasyDB.utenteHasSquadraForGranPremio(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())) {
-                setSelectedGranPremioSquadra(Optional.of(F1antasyDB.getSquadraUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())));
-                List<PilotaConPrezzo> squadraPilotiConPrezzo = F1antasyDB.getSquadraPilotiUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
+            if (F1antasyDB.getDB().utenteHasSquadraForGranPremio(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())) {
+                setSelectedGranPremioSquadra(Optional.of(F1antasyDB.getDB().getSquadraUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio())));
+                List<PilotaConPrezzo> squadraPilotiConPrezzo = F1antasyDB.getDB().getSquadraPilotiUtente(getUsername(), gpp.getCampionato().getAnno(), gpp.getDataGranPremio());
                 setSelectedGranPremioPilotiConPrezzo(Optional.of(squadraPilotiConPrezzo));
             } else {
                 setSelectedGranPremioSquadra(Optional.empty());
@@ -56,7 +56,7 @@ public class PaneGranPremiModel {
         if (getSelectedGranPremio().isPresent()) {
             GranPremioProgrammato selectedGPP = getSelectedGranPremio().get();
             try {
-                return Optional.of(F1antasyDB.getPrezzoMotorizzazione(selectedGPP.getCampionato().getAnno(), selectedGPP.getDataGranPremio(), getSelectedGranPremioSquadra().get().getNomeMotorizzazione()));
+                return Optional.of(F1antasyDB.getDB().getPrezzoMotorizzazione(selectedGPP.getCampionato().getAnno(), selectedGPP.getDataGranPremio(), getSelectedGranPremioSquadra().get().getNomeMotorizzazione()));
             } catch (SQLException e) {
                 Utils.crashWithMessage(e.toString());
                 return null; // will never run
@@ -70,7 +70,7 @@ public class PaneGranPremiModel {
         Optional<GranPremioProgrammato> gp = getSelectedGranPremio();
         if (gp.isPresent()) {
             try {
-                return Optional.of(F1antasyDB.getPunteggioOttenutoGranPremioConcluso(getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()));
+                return Optional.of(F1antasyDB.getDB().getPunteggioOttenutoGranPremioConcluso(getUsername(), gp.get().getCampionato().getAnno(), gp.get().getDataGranPremio()));
             } catch (SQLException e) {
                 Utils.crashWithMessage(e.toString());
                 return null; // will never run

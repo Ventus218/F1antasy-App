@@ -74,7 +74,7 @@ public class PaneInizializzazioneSquadraModel {
 
     private Boolean createSquadraInDB(String username, List<Pilota> piloti, Motorizzazione motorizzazione ) {
         try {
-            F1antasyDB.createSquadra(username, piloti, motorizzazione);
+            F1antasyDB.getDB().createSquadra(username, piloti, motorizzazione);
             return true;
         }
         catch (SQLException e) {
@@ -85,7 +85,7 @@ public class PaneInizializzazioneSquadraModel {
 
     private List<PilotaConPrezzo> getPilotiConPrezzoFromDB() {
         try {
-            return F1antasyDB.getPilotiConPrezzo();
+            return F1antasyDB.getDB().getPilotiConPrezzo();
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run
@@ -94,7 +94,7 @@ public class PaneInizializzazioneSquadraModel {
 
     private List<MotorizzazioneConPrezzo> getMotorizzazioniConPrezzoFromDB() {
         try {
-            return F1antasyDB.getMotorizzazioniConPrezzo();
+            return F1antasyDB.getDB().getMotorizzazioniConPrezzo();
         } catch (SQLException e) {
             Utils.crashWithMessage(e.toString());
             return null; // will never run
