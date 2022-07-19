@@ -21,16 +21,23 @@ INSERT INTO SCUDERIA(Nome)
 
 INSERT INTO GRAN_PREMIO(Stato, Nome, NumeroGiri, LunghezzaCircuito)
     VALUES
+        ('Arabia Saudita', 'Jeddah', 50, 6000),
+        ('Australia', 'Melbourne', 58, 5000),
+        ('Florida', 'Miami Autodrome', 57, 5000),
+        ('Gran Bretagna', 'Silverstone', 52, 6000),
+        ('Giappone', 'Suzuka', 53, 6000),
+        ('Belgio', 'Spa-Francorchamps', 40, 7000),
+        ('Singapore', 'Marina Bay', 61, 5000),
+        ('Brasile', 'Interlagos', 71, 4000),
         ('Italia', 'Monza', 70, 3000),
-        ('Italia', 'Mugello', 80, 2500),
-        ('Azerbaijan', 'Baku', 68, 3100),
+        ('Messico', 'Città del Messico', 71, 4000),
         ('Spagna', 'Catalogna', 69, 3000),
         ('Principato di Monaco', 'Monte Carlo', 70, 3000);
 
 INSERT INTO PILOTA(Codice, Nome, Cognome)
 VALUES
     (1, 'Lewis', 'Hamilton'),
-    (2, 'Bottas', 'Valtteri'),
+    (2, 'Valtteri', 'Bottas'),
     (3, 'Max', 'Verstappen'),
     (4, 'Sergio', 'Perez'),
     (5, 'Daniel', 'Ricciardo'),
@@ -94,30 +101,25 @@ CALL iscrizioneClassificaPrivata('Dario', 'Bolognesi');
 INSERT INTO CAMPIONATO(Anno)
     VALUES
         (2022);
-        /* (2021); */
 
 INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
      VALUES
-       /* (2021, '2021-05-22', 'Spagna', 'Catalogna', 0),
-        (2021, '2021-05-29', 'Principato di Monaco', 'Monte Carlo', 0),
-        (2021, '2021-06-1', 'Azerbaijan', 'Baku', 0), */
+        (2022, '2022-03-27', 'Arabia Saudita', 'Jeddah', 0),
+        (2022, '2022-04-10', 'Australia', 'Melbourne', 0),
+        (2022, '2022-05-08', 'Florida', 'Miami Autodrome', 0),
         (2022, '2022-05-22', 'Spagna', 'Catalogna', 0),
         (2022, '2022-05-29', 'Principato di Monaco', 'Monte Carlo', 0),
-        (2022, '2022-06-1', 'Azerbaijan', 'Baku', 0);
+        (2022, '2022-07-03', 'Gran Bretagna', 'Silverstone', 0),
+        (2022, '2022-08-28', 'Belgio', 'Spa-Francorchamps', 0),
+        (2022, '2022-09-11', 'Italia', 'Monza', 0),
+        (2022, '2022-10-02', 'Singapore', 'Marina Bay', 0),
+        (2022, '2022-10-09', 'Giappone', 'Suzuka', 0),
+        (2022, '2022-10-30', 'Messico', 'Città del Messico', 0),
+        (2022, '2022-11-13', 'Brasile', 'Interlagos', 0);
 
 -- START TRANSACTION;
     INSERT INTO SCUDERIA_PARTECIPANTE(AnnoCampionato, NomeScuderia, NomeMotorizzazione)
         VALUES
-           /* (2021, 'Ferrari', 'Ferrari'),
-            (2021, 'Mercedes', 'Mercedes'),
-            (2021, 'Mclaren', 'Mercedes'),
-            (2021, 'Red Bull', 'Honda'),
-            (2021, 'Alpine', 'Renault'),
-            (2021, 'AlphaTauri', 'Honda'),
-            (2021, 'Aston Martin', 'Mercedes'),
-            (2021, 'Williams', 'Mercedes'),
-            (2021, 'Alfa Romeo', 'Ferrari'),
-            (2021, 'Haas', 'Ferrari'),*/
             (2022, 'Ferrari', 'Ferrari'),
             (2022, 'Mercedes', 'Mercedes'),
             (2022, 'Mclaren', 'Mercedes'),
@@ -132,26 +134,6 @@ INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
 
     INSERT INTO INGAGGIO_PILOTA(AnnoCampionato, NomeScuderia, CodicePilota)
         VALUES
-            /*(2021, 'Mercedes', 1),
-            (2021, 'Mercedes', 2),
-            (2021, 'Red Bull', 3),
-            (2021, 'Red Bull', 4),
-            (2021, 'Mclaren', 5),
-            (2021, 'Mclaren', 6),
-            (2021, 'Aston Martin', 7),
-            (2021, 'Aston Martin', 8),
-            (2021, 'Alpine', 9),
-            (2021, 'Alpine', 10),
-            (2021, 'Ferrari', 11),
-            (2021, 'Ferrari', 12),
-            (2021, 'AlphaTauri', 13),
-            (2021, 'AlphaTauri', 14),
-            (2021, 'Alfa Romeo', 15),
-            (2021, 'Alfa Romeo', 16),
-            (2021, 'Haas', 17),
-            (2021, 'Haas', 18),
-            (2021, 'Williams', 19),
-            (2021, 'Williams', 20),*/
             (2022, 'Mercedes', 1),
             (2022, 'Mercedes', 19),
             (2022, 'Red Bull', 3),
@@ -176,57 +158,33 @@ INSERT INTO GRAN_PREMIO_PROGRAMMATO(AnnoCampionato, Data, Stato, Nome, Concluso)
 
 INSERT INTO PILOTA_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, CodicePilota, Prezzo, Posizione)
     VALUES
-        /*(2021, '2021-05-22', 1,     40000000, NULL),
-        (2021, '2021-05-22', 2,     40000000, NULL),
-        (2021, '2021-05-22', 3,     33000000, NULL),
-        (2021, '2021-05-22', 4,     32000000, NULL),
-        (2021, '2021-05-22', 5,     30000000, NULL),
-        (2021, '2021-05-22', 12,   25000000, NULL),
-        (2021, '2021-05-22', 11,   23000000, NULL),
-        (2021, '2021-05-22', 6,     21000000, NULL),
-        (2021, '2021-05-22', 13,     19000000, NULL),
-        (2021, '2021-05-22', 8,   17000000, NULL),
-        (2021, '2021-05-22', 9,     15000000, NULL),
-        (2021, '2021-05-22', 7,     14000000, NULL),
-        (2021, '2021-05-22', 16,   13000000, NULL),
-        (2021, '2021-05-22', 15,   12000000, NULL),
-        (2021, '2021-05-22', 19,   11000000, NULL),
-        (2021, '2021-05-22', 20,   11000000, NULL),
-        (2021, '2021-05-22', 10,   20000000, NULL),
-        (2021, '2021-05-22', 14,   10000000, NULL),
-        (2021, '2021-05-22', 17,   10000000, NULL),
-        (2021, '2021-05-22', 18,   10000000, NULL),*/
-        (2022, '2022-05-22', 3,     40000000, NULL),
-        (2022, '2022-05-22', 1,     36000000, NULL),
-        (2022, '2022-05-22', 2,     33000000, NULL),
-        (2022, '2022-05-22', 4,     32000000, NULL),
-        (2022, '2022-05-22', 12,   30000000, NULL),
-        (2022, '2022-05-22', 6,     27000000, NULL),
-        (2022, '2022-05-22', 11,   25000000, NULL),
-        (2022, '2022-05-22', 5,     23000000, NULL),
-        (2022, '2022-05-22', 13,   21000000, NULL),
-        (2022, '2022-05-22', 10,   19000000, NULL),
-        (2022, '2022-05-22', 9,     17000000, NULL),
-        (2022, '2022-05-22', 7,     15000000, NULL),
-        (2022, '2022-05-22', 8,     13000000, NULL),
-        (2022, '2022-05-22', 14,   11000000, NULL),
-        (2022, '2022-05-22', 19,   9000000, NULL),
-        (2022, '2022-05-22', 20,   7000000, NULL),
-        (2022, '2022-05-22', 17,   6000000, NULL),
-        (2022, '2022-05-22', 21,   10000000, NULL),
-        (2022, '2022-05-22', 22,   10000000, NULL),
-        (2022, '2022-05-22', 23,   10000000, NULL);
+        (2022, '2022-03-27', 3,     40000000, NULL),
+        (2022, '2022-03-27', 1,     36000000, NULL),
+        (2022, '2022-03-27', 2,     33000000, NULL),
+        (2022, '2022-03-27', 4,     32000000, NULL),
+        (2022, '2022-03-27', 12,   30000000, NULL),
+        (2022, '2022-03-27', 6,     27000000, NULL),
+        (2022, '2022-03-27', 11,   25000000, NULL),
+        (2022, '2022-03-27', 5,     23000000, NULL),
+        (2022, '2022-03-27', 13,   21000000, NULL),
+        (2022, '2022-03-27', 10,   19000000, NULL),
+        (2022, '2022-03-27', 9,     17000000, NULL),
+        (2022, '2022-03-27', 7,     15000000, NULL),
+        (2022, '2022-03-27', 8,     13000000, NULL),
+        (2022, '2022-03-27', 14,   11000000, NULL),
+        (2022, '2022-03-27', 19,   9000000, NULL),
+        (2022, '2022-03-27', 20,   7000000, NULL),
+        (2022, '2022-03-27', 17,   6000000, NULL),
+        (2022, '2022-03-27', 21,   10000000, NULL),
+        (2022, '2022-03-27', 22,   10000000, NULL),
+        (2022, '2022-03-27', 23,   10000000, NULL);
 
 INSERT INTO MOTORIZZAZIONE_IN_GRAN_PREMIO(AnnoCampionato, DataGranPremio, NomeMotorizzazione, Prezzo, PunteggioOttenuto)
 VALUES
-    /*(2021, '2021-05-22', 'Mercedes',    15000000, NULL),
-    (2021, '2021-05-22', 'Honda',         10000000, NULL),
-    (2021, '2021-05-22', 'Renault',        9000000, NULL),
-    (2021, '2021-05-22', 'Ferrari',         8000000, NULL),*/
-    (2022, '2022-05-22', 'Mercedes',    15000000, NULL),
-    (2022, '2022-05-22', 'Ferrari',         9000000, NULL),
-    (2022, '2022-05-22', 'Renault',        8000000, NULL),
-    (2022, '2022-05-22', 'Red Bull',        7000000, NULL);
+    (2022, '2022-03-27', 'Mercedes',    15000000, NULL),
+    (2022, '2022-03-27', 'Ferrari',         9000000, NULL),
+    (2022, '2022-03-27', 'Renault',        8000000, NULL),
+    (2022, '2022-03-27', 'Red Bull',        7000000, NULL);
 
 
 
@@ -239,45 +197,130 @@ CALL inizializzazioneSquadra('Mario', 'Mercedes', 22, 21, 3, 11);
 CALL inizializzazioneSquadra('Franky', 'Red Bull', 22, 17, 3, 13);
 CALL inizializzazioneSquadra('Roman', 'Red Bull', 17, 21, 3, 11);
 
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 1, 1);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 3, 2);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 2, 3);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 5, 4);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 6, 5);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 8, 6);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 7, 7);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 11, 8);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 4, 9);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 9, 10);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 10, 11);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 21, 12);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 12, 13);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 22, 14);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 13, 15);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 14, 16);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 19, 17);
-CALL inserimentoRisultatoPilota(2022, '2022-05-22', 17, 18);
+# 2022-03-27, Arabia Saudita, Jeddah
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 1, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 3, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 2, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 5, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 6, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 8, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 7, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 11, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 4, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 9, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 10, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 21, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 12, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 22, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 13, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 14, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 19, 17);
+CALL inserimentoRisultatoPilota(2022, '2022-03-27', 17, 18);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-03-27');
+
+
+# 2022-04-10, Australia, Melbourne,
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 11, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 4, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 19, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 1, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 6, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 5, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 9, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 2, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 13, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 21, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 22, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 8, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 17, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 23, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 14, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 20, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-04-10', 10, 17);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-04-10');
+
+
+# 2022-05-08, Florida, Miami Autodrome
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 3, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 11, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 12, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 4, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 19, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 1, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 2, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 9, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 21, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 8, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 10, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 14, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 5, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 20, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-05-08', 17, 16);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-05-08');
+
+
+# 2022-05-22, Spagna, Catalogna
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 3, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 4, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 19, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 12, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 1, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 2, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 9, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 6, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 10, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 14, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 7, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 5, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 13, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 17, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 8, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 20, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 23, 17);
+CALL inserimentoRisultatoPilota(2022, '2022-05-22', 21, 18);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-22');
 
 
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 1, 1);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 3, 2);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 2, 3);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 5, 4);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 6, 5);
+# 2022-05-29, Principato di Monaco, Monte Carlo
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 3, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 2, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 5, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 4, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 1, 5);
 CALL inserimentoRisultatoPilota(2022, '2022-05-29', 8, 6);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 7, 7);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 11, 8);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 4, 9);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 9, 10);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 10, 11);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 21, 12);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 12, 13);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 22, 14);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 13, 15);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 14, 16);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 19, 17);
-CALL inserimentoRisultatoPilota(2022, '2022-05-29', 17, 18);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 6, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 7, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 17, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 13, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 12, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 15, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 11, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 14, 14);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 16, 15);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 21, 16);
+CALL inserimentoRisultatoPilota(2022, '2022-05-29', 23, 17);
 
 CALL fineInserimentoRisultatiPiloti(2022, '2022-05-29');
+
+
+# 2022-07-03, Gran Bretagna, Silverstone
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 12, 1);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 4, 2);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 1, 3);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 11, 4);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 10, 5);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 6, 6);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 3, 7);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 17, 8);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 7, 9);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 23, 10);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 8, 11);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 20, 12);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 5, 13);
+CALL inserimentoRisultatoPilota(2022, '2022-07-03', 14, 14);
+
+CALL fineInserimentoRisultatiPiloti(2022, '2022-07-03');
