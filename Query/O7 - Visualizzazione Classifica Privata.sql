@@ -6,6 +6,7 @@ BEGIN
     SELECT U.Username, U.PunteggioCorrente
     FROM REGISTRAZIONE R JOIN UTENTE U
         ON R.UsernameUtente = U.Username
-    WHERE R.NomeClassificaPrivata = nome;
+    WHERE R.NomeClassificaPrivata = nome
+    ORDER BY U.PunteggioCorrente DESC;
 
 END;
