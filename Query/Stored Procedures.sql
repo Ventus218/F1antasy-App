@@ -558,9 +558,11 @@ BEGIN
         UNION
         SELECT mgp.Prezzo
         FROM motorizzazione_in_gran_premio mgp JOIN squadra s join gran_premio_programmato gpp
-                    ON( s.NomeMotorizzazione=mgp.NomeMotorizzazione
-                    AND mgp.DataGranPremio=s.DataGranPremio
-                    AND mgp.AnnoCampionato=S.AnnoCampionato)
+                    ON( s.AnnoCampionato = gpp.AnnoCampionato
+                        AND s.DataGranPremio = gpp.Data
+                        AND s.NomeMotorizzazione = mgp.NomeMotorizzazione
+                        AND mgp.AnnoCampionato = gpp.AnnoCampionato
+                        AND mgp.DataGranPremio = gpp.Data)
         WHERE s.UsernameUtente=user
         AND gpp.AnnoCampionato=annoC
         AND gpp.Data=dataGP
