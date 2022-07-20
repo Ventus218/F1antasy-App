@@ -15,7 +15,7 @@ Eseguire in ordine i seguenti script SQL:
 
 1. [F1ANTASY.ddl](Query/F1ANTASY.ddl)
 1. [Stored Procedures.sql](Query/Stored%20Procedures.sql)
-1. [Inserimenti Vari.sql](Query/Inserimenti%20vari.sql)
+1. [Create sample DB.sql](Query/Create%20sample%20DB.sql)
 
 ### Applicazione
 Eseguire il jar comprensivo di tutte le librerie necessarie.
