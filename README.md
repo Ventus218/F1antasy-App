@@ -1,6 +1,6 @@
 # F1antasy
 
-**F1antasy** è un fanta-gioco siviluppato attorno al mondo della Formula 1.
+**F1antasy** è un fanta-gioco siviluppato attorno al mondo della Formula 1. E' stato realizzato come progetto per l'esame di Basi di Dati.
 
 - Forma la tua squadra
 - Effettua scambi tra un Gran Premio e l'altro per aumentare il valore della tua squadra
@@ -28,3 +28,11 @@ Appena avviata l'applicazione verranno richieste le credenziali di accesso all'i
 |Dario        |Password  |
 |Ventu        |Password  |
 |CiccioCarluz |Password  |
+
+# Creators
+
+[Alessandro Venturini](https://github.com/Ventus218)
+
+[Francesco Carlucci](https://github.com/Fracarlucci)
+
+[Dario Berti](https://github.com/DarioBerti)

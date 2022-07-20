@@ -31,3 +31,13 @@ Appena avviata l'applicazione verranno richieste le credenziali di accesso all'i
 |Dario        |Password  |
 |Ventu        |Password  |
 |CiccioCarluz |Password  |
+
+
+
+---- Creators ----
+
+Alessandro Venturini    (https://github.com/Ventus218)
+
+Francesco Carlucci      (https://github.com/Fracarlucci)
+
+Dario Berti             (https://github.com/DarioBerti)
